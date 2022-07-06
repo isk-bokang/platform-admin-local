@@ -7,6 +7,11 @@ import javax.persistence.*
 data class Contract (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    var id: Long? = null
+    @Column(name = "contract_id", nullable = false)
+    var id: Long? = null,
+    var name : String = "",
+
+    var contractType : String = "",
+    val bytecode : String = "0x",
+    val abi : String = "{}"
 )
