@@ -32,6 +32,9 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation(kotlin("script-runtime"))
+
+    implementation("com.klaytn.caver:core:1.6.4")
 }
 
 tasks.withType<KotlinCompile> {
