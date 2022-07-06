@@ -1,0 +1,39 @@
+package world.iskra.platformadmin.service
+
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import world.iskra.platformadmin.entity.Contract
+
+@SpringBootTest
+class ContractServiceTest(
+    @Autowired
+    private val contractService: IContractService
+) {
+    @Test
+    fun registerContractTest_001(){
+        val contract = Contract(name = "registerContractTest001", abi = "{abi:abi}", bytecode = "0x001", contractType = "ERC20")
+        val ret = contractService.registerContract(contract)
+        Assertions.assertNotNull(ret.id)
+    }
+
+    @Test
+    fun getContractsTest_001(){
+        val contracts = contractService.getContracts()
+        contracts.map { Assertions.assertNotNull(it); Assertions.assertNotEquals(it, Contract()); }
+    }
+    @Test
+    fun getContractTest_001(){
+        val contract = contractService.getContract(1)
+        Assertions.assertNotNull(contract)
+        Assertions.assertNotEquals(contract , Contract())
+    }
+    @Test
+    fun getContractTest_002(){
+        val contract = contractService.getContract(100)
+        Assertions.assertNotNull(contract)
+        Assertions.assertEquals(contract , Contract())
+    }
+
+}
