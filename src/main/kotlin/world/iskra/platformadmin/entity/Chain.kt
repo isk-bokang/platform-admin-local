@@ -12,5 +12,6 @@ data class Chain (
 
     val chainId: String = "",
     val chainName : String = "",
-    val networkId : String = ""
+    val networkId : String = "",
+    val rpcUrl : String = ""
 )

@@ -11,6 +11,10 @@ data class Node(
     @Column(name = "id", nullable = false)
     var id: Long? = null,
 
+    @ManyToOne
+    @JoinColumn(name = "chain_id", nullable = false )
+    var chain : Chain? = null,
+
     var nodeType : String = "",
-    var ipAddress : String = ""
+    var ipAddress : String = "",
 )
