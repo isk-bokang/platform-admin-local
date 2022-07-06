@@ -12,25 +12,25 @@ class ContractServiceTest(
     private val contractService: IContractService
 ) {
     @Test
-    fun registerContractTest_001(){
+    fun registerContract001(){
         val contract = Contract(name = "registerContractTest001", abi = "{abi:abi}", bytecode = "0x001", contractType = "ERC20")
         val ret = contractService.registerContract(contract)
         Assertions.assertNotNull(ret.id)
     }
 
     @Test
-    fun getContractsTest_001(){
+    fun getContracts001(){
         val contracts = contractService.getContracts()
         contracts.map { Assertions.assertNotNull(it); Assertions.assertNotEquals(it, Contract()); }
     }
     @Test
-    fun getContractTest_001(){
+    fun getContract001(){
         val contract = contractService.getContract(1)
         Assertions.assertNotNull(contract)
         Assertions.assertNotEquals(contract , Contract())
     }
     @Test
-    fun getContractTest_002(){
+    fun getContract002(){
         val contract = contractService.getContract(100)
         Assertions.assertNotNull(contract)
         Assertions.assertEquals(contract , Contract())
