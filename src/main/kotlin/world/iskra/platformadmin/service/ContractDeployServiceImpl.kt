@@ -17,21 +17,8 @@ class ContractDeployServiceImpl(
     private val contractService: IContractService,
 
 ) {
-    private var contract : Contract? = null
-    private fun createContract(caver: Caver, abi : String){
-        contract = Contract.create(caver, abi);
-    }
 
-    private fun deployContract(from : String, bytecode : String, deployParams: List<Any>): String {
-        val sendOpt : SendOptions = SendOptions(from)
-        val contractParam : ContractDeployParams = ContractDeployParams(bytecode, deployParams)
-
-        return contract?.deploy(contractParam,sendOpt)?.contractAddress ?: ""
-    }
-
-
-
-    fun registerDeployContract(serviceId : Long, contractId : Long){
+    fun registerDeployContract(serviceId : Long, contractId : Long, chainSeq : Long){
 
     }
 
