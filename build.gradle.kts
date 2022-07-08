@@ -20,6 +20,11 @@ configurations {
 
 repositories {
     mavenCentral()
+    maven { url = uri("https://jitpack.io") }
+    maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots") }
+    maven { url = uri("https://repo.spring.io/milestone") }
+    maven { url = uri("https://plugins.gradle.org/m2/") }
+
 }
 
 dependencies {
@@ -34,7 +39,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation(kotlin("script-runtime"))
 
-    implementation("com.klaytn.caver:core:1.6.4")
+    implementation("com.klaytn.caver:core:1.8.0")
 }
 
 tasks.withType<KotlinCompile> {
