@@ -1,3 +1,4 @@
+import org.gradle.api.internal.file.pattern.PatternMatcherFactory.compile
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -40,6 +41,7 @@ dependencies {
     implementation(kotlin("script-runtime"))
 
     implementation("com.klaytn.caver:core:1.8.0")
+    implementation("com.vladmihalcea:hibernate-types-52:2.16.2")
 }
 
 tasks.withType<KotlinCompile> {

@@ -25,7 +25,4 @@ data class ContractDeploy (
     @Column(nullable = false)
     var address : String = "",
 
-    var txHash : String = "0x",
-
-
 )
