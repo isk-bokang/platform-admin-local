@@ -16,6 +16,7 @@ class ContractDeployer(
 
     fun deploy( fromAddress : String, byteCode : String, deployParams : List<Any> ): Contract {
         val sendOpt : SendOptions = SendOptions(fromAddress)
+        sendOpt.gas = "1000000";
         val contractParam : ContractDeployParams = ContractDeployParams(byteCode, deployParams)
         deployedContract  = contract.deploy(contractParam, sendOpt)
         return deployedContract!!

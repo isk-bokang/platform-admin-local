@@ -34,8 +34,9 @@ class ContractDeployServiceImpl(
 
         caver.wallet.add(deployer)
 
+        println(deployer.address)
         val contractDeployer : ContractDeployer = ContractDeployer(caver, contract.abi.toString())
-        contractDeployer.deploy(contractDeployRequestDto.minterAddress, contract.bytecode, contractDeployRequestDto.deployParams)
+        contractDeployer.deploy(deployer.address, contract.bytecode, contractDeployRequestDto.deployParams)
 
         val contractAddress = contractDeployer.getDeployedAddress() ?: "0x"
         val contractDeploy = ContractDeploy(address = contractAddress, contract = contract, service = service, chain = chain)

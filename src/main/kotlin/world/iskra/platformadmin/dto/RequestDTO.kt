@@ -9,6 +9,5 @@ data class ContractDeployRequestDto(
     val serviceId: Long,
     val contractId: Long,
     val chainSeq: Long,
-    val minterAddress: String,
     val deployParams : List<Any> = emptyList()
 ) : Serializable
