@@ -17,9 +17,9 @@ class ContractDeployServiceImpl(
 
     private val walletService: WalletService,
     private val serviceService: ServiceService,
-) {
+) : IContractDeployService {
 
-    fun registerDeployContract(contractDeployRequestDto : ContractDeployRequestDto): ContractDeploy {
+    override fun registerDeployContract(contractDeployRequestDto : ContractDeployRequestDto): ContractDeploy {
         // Fixed Wallet
         val wallet = walletService.getWallet(1)
 
@@ -34,7 +34,6 @@ class ContractDeployServiceImpl(
 
         caver.wallet.add(deployer)
 
-        println(deployer.address)
         val contractDeployer : ContractDeployer = ContractDeployer(caver, contract.abi.toString())
         contractDeployer.deploy(deployer.address, contract.bytecode, contractDeployRequestDto.deployParams)
 
@@ -45,11 +44,22 @@ class ContractDeployServiceImpl(
 
     }
 
-    fun getDeployContracts(){
-
+    override fun getDeployContracts(): ArrayList<ContractDeploy> {
+        return contractDeployRepository.findAll() as ArrayList<ContractDeploy>
     }
 
-    fun getDeployContract(){
-
+    override fun getDeployContractsByService(serviceId : Long): ArrayList<ContractDeploy> {
+        return contractDeployRepository.findByService_Id(serviceId) as ArrayList<ContractDeploy>
     }
+
+    override fun getDeployContractsByChin(chainSeq : Long): ArrayList<ContractDeploy> {
+        return contractDeployRepository.findByChain_ChainSeq(chainSeq) as ArrayList<ContractDeploy>
+    }
+
+    override fun getDeployContract(contractDeployId : Long): ContractDeploy {
+        return contractDeployRepository.findById(contractDeployId).orElse(ContractDeploy())
+    }
+
+
+
 }

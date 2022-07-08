@@ -10,7 +10,7 @@ import world.iskra.platformadmin.dto.ContractDeployRequestDto
 @SpringBootTest
 class ContractDeployServiceImplTest(
     @Autowired
-    private val contractDeployService : ContractDeployServiceImpl
+    private val contractDeployService : IContractDeployService
 ) {
 
     @Test
