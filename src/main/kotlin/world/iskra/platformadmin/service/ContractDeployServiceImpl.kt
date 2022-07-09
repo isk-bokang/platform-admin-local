@@ -29,12 +29,12 @@ class ContractDeployServiceImpl(
 
         if(service.id == null || contract.id == null || chain.chainSeq == null) throw Exception()
 
-        val caver : Caver = Caver(chain.rpcUrl)
+        val caver = Caver(chain.rpcUrl)
         val deployer : SingleKeyring = caver.wallet.keyring.createFromPrivateKey( wallet.privateKey )
 
         caver.wallet.add(deployer)
 
-        val contractDeployer : ContractDeployer = ContractDeployer(caver, contract.abi.toString())
+        val contractDeployer = ContractDeployer(caver, contract.abi.toString())
         contractDeployer.deploy(deployer.address, contract.bytecode, contractDeployRequestDto.deployParams)
 
         val contractAddress = contractDeployer.getDeployedAddress() ?: "0x"
@@ -60,6 +60,9 @@ class ContractDeployServiceImpl(
         return contractDeployRepository.findById(contractDeployId).orElse(ContractDeploy())
     }
 
+    override fun getDeployContracts(serviceId : Long?, chainId : Long?): ArrayList<ContractDeploy> {
+        return contractDeployRepository.findByService_IdAndContract_Id(serviceId, chainId) as ArrayList<ContractDeploy>
+    }
 
 
 }

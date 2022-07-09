@@ -9,4 +9,5 @@ interface IContractDeployService {
     fun getDeployContractsByService(serviceId: Long): ArrayList<ContractDeploy>
     fun getDeployContractsByChin(chainSeq: Long): ArrayList<ContractDeploy>
     fun getDeployContract(contractDeployId: Long): ContractDeploy
+    fun getDeployContracts(serviceId: Long?, chainId: Long?): ArrayList<ContractDeploy>
 }
