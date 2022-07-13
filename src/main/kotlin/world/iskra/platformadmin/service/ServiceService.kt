@@ -14,4 +14,7 @@ class ServiceService(
         return serviceRepository.findById(serviceId).orElse( EntityService() );
     }
 
+    fun getServices() : ArrayList<EntityService>{
+        return serviceRepository.findAll() as ArrayList<EntityService>
+    }
 }
