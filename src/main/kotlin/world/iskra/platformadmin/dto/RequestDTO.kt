@@ -11,3 +11,9 @@ data class ContractDeployRequestDto(
     val chainSeq: Long,
     val deployParams : List<Any> = emptyList()
 ) : Serializable
+
+data class NodeRequestDto(
+    val chainSeq: Long,
+    val nodeType: String,
+    val ipAddress: String,
+) : Serializable

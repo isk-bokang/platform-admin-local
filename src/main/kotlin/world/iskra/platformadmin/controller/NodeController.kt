@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import world.iskra.platformadmin.dto.NodeRequestDto
 import world.iskra.platformadmin.entity.Node
 import world.iskra.platformadmin.service.INodeService
 
@@ -30,7 +31,8 @@ class NodeController(
     }
 
     @PostMapping("nodes")
-    fun registerNode(@RequestBody node : Node): Node {
+    fun registerNode(@RequestBody node : NodeRequestDto): Node {
+        println(node)
         return nodeService.registerNode(node)
     }
 

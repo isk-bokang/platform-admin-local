@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import world.iskra.platformadmin.dto.NodeRequestDto
 import world.iskra.platformadmin.entity.Node
 
 @SpringBootTest
@@ -30,8 +31,7 @@ class NodeServiceTest(
 
     @Test
     fun registerNode() {
-        val chain = chainService.getChain(1)
-        val node = Node(ipAddress = "test", nodeType = "test", chain = chain)
+        val node =  NodeRequestDto(ipAddress = "test", nodeType = "test", chainSeq = 1)
         nodeService.registerNode(node)
     }
 

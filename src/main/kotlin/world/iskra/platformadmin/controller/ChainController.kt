@@ -13,9 +13,9 @@ class ChainController(
         return chainService.getChains()
     }
 
-    @GetMapping("/chains/{chainId}")
-    fun getChain(@PathVariable chainId: String): Chain {
-        return chainService.getChain(chainId.toLong())
+    @GetMapping("/chains/{chainSeq}")
+    fun getChain(@PathVariable chainSeq: String): Chain {
+        return chainService.getChain(chainSeq.toLong())
     }
 
     @PostMapping("/chains")
