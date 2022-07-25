@@ -11,7 +11,7 @@ data class Chain(
     var seq: Long? = null,
 
     @Column( nullable = false, unique = true)
-    var chainId: String? = null,
+    var chainId: Long? = null,
 
     var name : String = "",
 

@@ -19,4 +19,14 @@ class ChainServiceImpl(
     override fun registerChain(chain : Chain): Chain {
         return chainRepository.save(chain)
     }
+
+    override fun searchChain(
+        chainSeq: Long?,
+        chainId: Long?,
+        chainName: String?,
+        chainType: Chain.ChainType?,
+        rpcUrl: String?
+    ): List<Chain> {
+        return chainRepository.findBySeqOrChainIdOrNameOrChainTypeOrRpcUrl(chainSeq,chainId,chainName,chainType,rpcUrl)
+    }
 }
