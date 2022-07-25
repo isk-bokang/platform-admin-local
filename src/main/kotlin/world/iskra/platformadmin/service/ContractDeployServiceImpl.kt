@@ -16,14 +16,14 @@ class ContractDeployServiceImpl(
     private val chainService : IChainService,
 
     private val walletService: WalletService,
-    private val serviceService: ServiceService,
+    private val gameAppService: GameAppService,
 ) : IContractDeployService {
 
     override fun registerDeployContract(contractDeployRequestDto : ContractDeployRequestDto): ContractDeploy {
         // Fixed Wallet
         val wallet = walletService.getWallet(1)
 
-        val service = serviceService.getService(contractDeployRequestDto.serviceId)
+        val service = gameAppService.getApp(contractDeployRequestDto.serviceId)
         val contract = contractService.getContract(contractDeployRequestDto.contractId)
         val chain = chainService.getChain(contractDeployRequestDto.chainSeq)
 

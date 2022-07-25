@@ -40,8 +40,13 @@ class ContractController(
         if (contract.id == null) {
             return emptyList();
         }
-
         return contractService.getMethodParams(contract, methodName)
     }
+
+    @GetMapping("/contracts/types")
+    fun getContractTypes(): List<String> {
+        return contractService.getContractTypes()
+    }
+
 
 }

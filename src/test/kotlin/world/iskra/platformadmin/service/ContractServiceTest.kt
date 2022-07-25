@@ -13,7 +13,7 @@ class ContractServiceTest(
 ) {
     @Test
     fun registerContract001(){
-        val contract = Contract(name = "registerContractTest001", abi = "{abi:abi}", bytecode = "0x001", contractType = Contract.ContractType.ERC20)
+        val contract = Contract(name = "registerContractTest001", abi = listOf(mapOf(Pair("abi", "abi"))), bytecode = "0x001", contractType = Contract.ContractType.ERC20)
         val ret = contractService.registerContract(contract)
         Assertions.assertNotNull(ret.id)
     }
@@ -36,4 +36,9 @@ class ContractServiceTest(
         Assertions.assertEquals(contract , Contract())
     }
 
+    @Test
+    fun getContractType(){
+        val contractTypeList = contractService.getContractTypes()
+        println(contractTypeList)
+    }
 }

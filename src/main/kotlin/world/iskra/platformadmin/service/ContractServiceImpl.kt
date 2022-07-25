@@ -10,7 +10,7 @@ import kotlin.collections.ArrayList
 
 @Service
 @RequiredArgsConstructor
-class ContractService(
+class ContractServiceImpl(
     private val contractRepository: ContractRepository
 ) : IContractService {
 
@@ -53,5 +53,12 @@ class ContractService(
             )
         }
         return ret;
+    }
+
+    override fun getContractTypes(): List<String> {
+        val ret : MutableList<String> = mutableListOf()
+
+        ret.add(enumValues<Contract.ContractType>().joinToString { it.name })
+        return ret
     }
 }

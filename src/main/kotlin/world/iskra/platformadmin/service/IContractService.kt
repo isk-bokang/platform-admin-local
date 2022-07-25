@@ -9,4 +9,6 @@ interface IContractService {
     fun registerContract(contract: Contract): Contract
 
     fun getMethodParams(contract : Contract, methodName : String? ): List<ContractMethodParamResponseDto>
+
+    fun getContractTypes() : List<String>;
 }
