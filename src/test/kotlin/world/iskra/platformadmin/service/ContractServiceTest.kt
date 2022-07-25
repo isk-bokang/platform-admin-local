@@ -13,7 +13,7 @@ class ContractServiceTest(
 ) {
     @Test
     fun registerContract001(){
-        val contract = Contract(name = "registerContractTest001", abi = "{abi:abi}", bytecode = "0x001", contractType = "ERC20")
+        val contract = Contract(name = "registerContractTest001", abi = "{abi:abi}", bytecode = "0x001", contractType = Contract.ContractType.ERC20)
         val ret = contractService.registerContract(contract)
         Assertions.assertNotNull(ret.id)
     }

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 import world.iskra.platformadmin.service.ServiceService
-import world.iskra.platformadmin.entity.Service as EntityService
+import world.iskra.platformadmin.entity.GameApp as EntityService
 
 
 @RestController

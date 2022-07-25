@@ -1,7 +1,7 @@
-package world.iskra.platformadmin.repository;
+package world.iskra.platformadmin.repository
 
 import org.springframework.data.repository.CrudRepository
-import world.iskra.platformadmin.entity.Service
+import world.iskra.platformadmin.entity.GameApp
 
-interface ServiceRepository : CrudRepository<Service, Long> {
+interface ServiceRepository : CrudRepository<GameApp, Long> {
 }

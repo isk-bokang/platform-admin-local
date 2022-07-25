@@ -12,7 +12,7 @@ data class Node(
     var id: Long? = null,
 
     @ManyToOne
-    @JoinColumn(name = "chain_id", nullable = false )
+    @JoinColumn(name = "chain_seq", nullable = false )
     var chain : Chain? = null,
 
     var nodeType : String = "",

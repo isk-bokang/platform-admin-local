@@ -35,9 +35,9 @@ class ChainServiceImplTest(
 
     @Test
     fun registerChain001() {
-        val chain = Chain(chainId = "0x00", chainName = "Test Chain", rpcUrl = "https://rpc", networkId = "network")
+        val chain = Chain(chainId = "0x00", name = "Test Chain", rpcUrl = "https://rpc")
         val ret = chainService.registerChain(chain)
-        assertNotNull(ret.chainSeq)
+        assertNotNull(ret.seq)
     }
 
 }

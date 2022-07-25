@@ -27,7 +27,7 @@ class ContractDeployServiceImpl(
         val contract = contractService.getContract(contractDeployRequestDto.contractId)
         val chain = chainService.getChain(contractDeployRequestDto.chainSeq)
 
-        if(service.id == null || contract.id == null || chain.chainSeq == null) throw Exception()
+        if(service.id == null || contract.id == null || chain.seq == null) throw Exception()
 
         val caver = Caver(chain.rpcUrl)
         val deployer : SingleKeyring = caver.wallet.keyring.createFromPrivateKey( wallet.privateKey )
@@ -38,7 +38,7 @@ class ContractDeployServiceImpl(
         contractDeployer.deploy(deployer.address, contract.bytecode, contractDeployRequestDto.deployParams)
 
         val contractAddress = contractDeployer.getDeployedAddress() ?: "0x"
-        val contractDeploy = ContractDeploy(address = contractAddress, contract = contract, service = service, chain = chain)
+        val contractDeploy = ContractDeploy(address = contractAddress, contract = contract, gameApp = service, chain = chain)
 
         return contractDeployRepository.save(contractDeploy)
 

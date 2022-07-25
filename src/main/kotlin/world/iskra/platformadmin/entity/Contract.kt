@@ -12,7 +12,9 @@ data class Contract (
     var id: Long? = null,
     var name : String = "",
 
-    var contractType : String = "",
+    @Enumerated(EnumType.STRING)
+    @Column(name = "contract_type_")
+    var contractType: ContractType? = null,
 
     @Type(type = "text")
     @Column(nullable = false)
@@ -21,5 +23,9 @@ data class Contract (
     @Type(type = "text")
     @Column(nullable = false)
     val abi : String? = null
-
-)
+){
+    enum class ContractType{
+        ERC20,
+        ERC1155
+    }
+}

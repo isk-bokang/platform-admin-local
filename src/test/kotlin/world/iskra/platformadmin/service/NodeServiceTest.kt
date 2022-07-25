@@ -38,14 +38,20 @@ class NodeServiceTest(
     @Test
     fun testGetNodes() {
         val chain = chainService.getChain(1)
-        val ret = nodeService.getNodes(chain.chainId)
-        ret.map { assertNotNull(it); assertNotEquals(it, Node()) }
+        if(chain.seq == null){
+            assert(false)
+        }
+        else {
+            val ret = nodeService.getNodes(chain.seq!!)
+            ret.map { assertNotNull(it); assertNotEquals(it, Node()) }
+
+        }
     }
 
     @Test
     fun testGetNodes1() {
         val chain = chainService.getChain(1)
-        val ret = chain.chainSeq?.let { nodeService.getNodes(it) }
+        val ret = chain.seq?.let { nodeService.getNodes(it) }
         assertNotNull(ret)
         ret?.map { assertNotNull(it); assertNotEquals(it, Node()) }
     }

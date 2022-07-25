@@ -14,7 +14,7 @@ class ChainServiceImpl(
         return chainRepository.findAll() as ArrayList<Chain>
     }
     override fun getChain(chainSeq : Long): Chain {
-        return chainRepository.findById(chainSeq).orElse( Chain() )
+        return chainRepository.findById(chainSeq).orElse( Chain())
     }
     override fun registerChain(chain : Chain): Chain {
         return chainRepository.save(chain)
