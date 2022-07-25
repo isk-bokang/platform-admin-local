@@ -22,4 +22,14 @@ class ChainController(
     fun registerChain(@RequestBody chain : Chain): Chain {
         return chainService.registerChain(chain)
     }
+
+    @GetMapping("/chains/search")
+    fun searchChain(@RequestParam chainSeq: Long?,
+                    @RequestParam chainId: Long?,
+                    @RequestParam chainName: String?,
+                    @RequestParam chainType: Chain.ChainType?,
+                    @RequestParam rpcUrl: String?){
+
+    }
+
 }
