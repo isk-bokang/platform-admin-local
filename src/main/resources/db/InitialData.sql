@@ -1,5 +1,5 @@
-INSERT INTO chain(chain_id, name, chain_type, rpc_url) VALUES ('31337', 'HARDHAT', 'NETWORK 1', 'http://localhost:5432');
-INSERT INTO chain(chain_id, name, chain_type, rpc_url) VALUES ('1001', 'BAOBAB', 'NETWORK 2', 'https://api.baobab.klaytn.net:8651');
+INSERT INTO chain(chain_id, name, chain_type, rpc_url) VALUES ('31337', 'HARDHAT', 'TEST_CHAIN', 'http://localhost:5432');
+INSERT INTO chain(chain_id, name, chain_type, rpc_url) VALUES ('1001', 'BAOBAB', 'MAIN_CHAIN', 'https://api.baobab.klaytn.net:8651');
 
 INSERT INTO contract(abi, bytecode, contract_type, name) VALUES (
 '[

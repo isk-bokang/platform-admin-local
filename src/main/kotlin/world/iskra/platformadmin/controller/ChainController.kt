@@ -28,8 +28,8 @@ class ChainController(
                     @RequestParam chainId: Long?,
                     @RequestParam chainName: String?,
                     @RequestParam chainType: Chain.ChainType?,
-                    @RequestParam rpcUrl: String?){
-
+                    @RequestParam rpcUrl: String?): List<Chain> {
+        return chainService.searchChain(chainSeq,chainId,chainName,chainType,rpcUrl)
     }
 
 }
