@@ -27,28 +27,21 @@ class ContractController(
     }
 
     @PostMapping("/contracts")
-    fun registerContract(@RequestBody contract : Contract): Contract {
+    fun registerContract(@RequestBody contract: Contract): Contract {
         return contractService.registerContract(contract)
     }
 
     @GetMapping("/contracts/{contractId}/methods")
-    fun getContractMethodParams(@PathVariable contractId: String, @RequestParam(name = "methodName") methodName : String?): List<ContractMethodParamResponseDto> {
+    fun getContractMethodParams(
+        @PathVariable contractId: String,
+        @RequestParam(name = "methodName") methodName: String?
+    ): List<ContractMethodParamResponseDto> {
         val contract = getContract(contractId)
-        if(contract.id == null){
-            return emptyList() ;
+        if (contract.id == null) {
+            return emptyList();
         }
 
-        val paramList : List<ContractMethodParamResponseDto> = contractService.getMethodParams(contract, methodName)
-        for(i in paramList){
-            println(i)
-            println(i.inputs)
-        }
-
-        println( paramList )
-
-
-
-        return paramList
+        return contractService.getMethodParams(contract, methodName)
     }
 
 }

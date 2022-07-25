@@ -6,7 +6,6 @@ import world.iskra.platformadmin.dto.ContractMethodParamResponseDto
 import world.iskra.platformadmin.dto.ParamDto
 import world.iskra.platformadmin.entity.Contract
 import world.iskra.platformadmin.repository.ContractRepository
-import java.util.*
 import kotlin.collections.ArrayList
 
 @Service
@@ -31,16 +30,15 @@ class ContractService(
         val ret: MutableList<ContractMethodParamResponseDto> =
             emptyList<ContractMethodParamResponseDto>().toMutableList()
 
-        if(contract.abi == null) return emptyList()
+        if (contract.abi == null) return emptyList()
         var newAbi = contract.abi ?: emptyList()
 
-        @Suppress("UNCHECKED_CAST")
         if (methodName != null) {
             newAbi = contract.abi!!.filter { it["name"] == methodName }
         }
 
         for (i in newAbi) {
-            if( !i.containsKey("name") || ! i.containsKey("type") || ! i.containsKey("inputs")) continue
+            if (!i.containsKey("name") || !i.containsKey("type") || !i.containsKey("inputs")) continue
             ret.add(
                 @Suppress("UNCHECKED_CAST")
                 ContractMethodParamResponseDto(i["name"] as String,
@@ -54,8 +52,6 @@ class ContractService(
                     })
             )
         }
-
-
         return ret;
     }
 }
