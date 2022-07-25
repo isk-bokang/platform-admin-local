@@ -47,6 +47,4 @@ class ContractController(
     fun getContractTypes(): List<String> {
         return contractService.getContractTypes()
     }
-
-
 }
