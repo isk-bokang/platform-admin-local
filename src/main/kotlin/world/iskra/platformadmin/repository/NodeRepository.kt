@@ -8,6 +8,6 @@ interface NodeRepository : CrudRepository<Node, Long> {
     fun findByChain_ChainId(chainId: String): List<Node>
 
 
-    fun findByChain_ChainSeq(chainSeq: Long): List<Node>
+    fun findByChain_Seq(chainSeq: Long): List<Node>
 
 }

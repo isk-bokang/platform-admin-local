@@ -35,6 +35,6 @@ class NodeServiceImpl(
     }
 
     override fun getNodes(chainSeq : Long): ArrayList<Node> {
-        return nodeRepository.findByChain_ChainSeq(chainSeq) as ArrayList<Node>
+        return nodeRepository.findByChain_Seq(chainSeq) as ArrayList<Node>
     }
 }

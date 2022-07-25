@@ -15,13 +15,13 @@ class ContractDeployController(
     }
 
     @GetMapping("deployed/contracts")
-    fun getDeployedContractByService(@RequestParam(name = "serviceId") serviceId : String?, @RequestParam(name = "chainId") chainId : String? ): ArrayList<ContractDeploy> {
-        return if(serviceId != null && chainId != null)
-            contractDeployService.getDeployContracts(serviceId.toLong(), chainId.toLong() )
+    fun getDeployedContractByService(@RequestParam(name = "serviceId") serviceId : String?, @RequestParam(name = "chainSeq") chainSeq : String? ): ArrayList<ContractDeploy> {
+        return if(serviceId != null && chainSeq != null)
+            contractDeployService.getDeployContracts(serviceId.toLong(), chainSeq.toLong() )
         else if(serviceId != null)
             contractDeployService.getDeployContractsByService(serviceId.toLong())
-        else if(chainId != null)
-            contractDeployService.getDeployContractsByChin(chainId.toLong())
+        else if(chainSeq != null)
+            contractDeployService.getDeployContractsByChin(chainSeq.toLong())
         else
             contractDeployService.getDeployContracts()
     }
@@ -30,6 +30,4 @@ class ContractDeployController(
     fun registerDeployContract(@RequestBody contractDeployRequestDto: ContractDeployRequestDto): ContractDeploy {
         return contractDeployService.registerDeployContract(contractDeployRequestDto)
     }
-
-
 }
