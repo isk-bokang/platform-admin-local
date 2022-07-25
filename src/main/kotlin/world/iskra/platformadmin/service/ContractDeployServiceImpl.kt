@@ -35,7 +35,7 @@ class ContractDeployServiceImpl(
         caver.wallet.add(deployer)
 
         val contractDeployer = ContractDeployer(caver, contract.abi.toString())
-        contractDeployer.deploy(deployer.address, contract.bytecode, contractDeployRequestDto.deployParams)
+        contractDeployer.deploy(deployer.address, contract.bytecode!!, contractDeployRequestDto.deployParams)
 
         val contractAddress = contractDeployer.getDeployedAddress() ?: "0x"
         val contractDeploy = ContractDeploy(address = contractAddress, contract = contract, gameApp = service, chain = chain)
@@ -49,19 +49,19 @@ class ContractDeployServiceImpl(
     }
 
     override fun getDeployContractsByService(serviceId : Long): ArrayList<ContractDeploy> {
-        return contractDeployRepository.findByService_Id(serviceId) as ArrayList<ContractDeploy>
+        return contractDeployRepository.findByGameApp_Id(serviceId) as ArrayList<ContractDeploy>
     }
 
     override fun getDeployContractsByChin(chainSeq : Long): ArrayList<ContractDeploy> {
-        return contractDeployRepository.findByChain_ChainSeq(chainSeq) as ArrayList<ContractDeploy>
+        return contractDeployRepository.findByChain_Seq(chainSeq) as ArrayList<ContractDeploy>
     }
 
     override fun getDeployContract(contractDeployId : Long): ContractDeploy {
         return contractDeployRepository.findById(contractDeployId).orElse(ContractDeploy())
     }
 
-    override fun getDeployContracts(serviceId : Long?, chainId : Long?): ArrayList<ContractDeploy> {
-        return contractDeployRepository.findByService_IdAndContract_Id(serviceId, chainId) as ArrayList<ContractDeploy>
+    override fun getDeployContracts(serviceId : Long, chainSeq : Long): ArrayList<ContractDeploy> {
+        return contractDeployRepository.findByGameApp_IdAndChain_Seq(serviceId, chainSeq) as ArrayList<ContractDeploy>
     }
 
 

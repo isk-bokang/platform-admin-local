@@ -1,5 +1,5 @@
-INSERT INTO chain(chain_id, chain_name, network_id, rpc_url) VALUES ('31337', 'HARDHAT', 'NETWORK 1', 'http://localhost:5432');
-INSERT INTO chain(chain_id, chain_name, network_id, rpc_url) VALUES ('1001', 'BAOBAB', 'NETWORK 2', 'https://api.baobab.klaytn.net:8651');
+INSERT INTO chain(chain_id, name, chain_type, rpc_url) VALUES ('31337', 'HARDHAT', 'NETWORK 1', 'http://localhost:5432');
+INSERT INTO chain(chain_id, name, chain_type, rpc_url) VALUES ('1001', 'BAOBAB', 'NETWORK 2', 'https://api.baobab.klaytn.net:8651');
 
 INSERT INTO contract(abi, bytecode, contract_type, name) VALUES (
 '[
@@ -336,25 +336,25 @@ INSERT INTO contract(abi, bytecode, contract_type, name) VALUES (
                                                                  'ERC-1155',
                                                                  'TOKEN1155');
 
-INSERT INTO contract(abi, bytecode, contract_type, name) VALUES ('{abi : abi}', '0xbytecode', 'contractType2', 'contractName2');
-INSERT INTO contract(abi, bytecode, contract_type, name) VALUES ('{abi : abi}', '0xbytecode', 'contractType3', 'contractName3');
+INSERT INTO contract(abi, bytecode, contract_type, name) VALUES ('[{"abi" : "abi"}]', '0xbytecode', 'contractType2', 'contractName2');
+INSERT INTO contract(abi, bytecode, contract_type, name) VALUES ('[{"abi" : "abi"}]', '0xbytecode', 'contractType3', 'contractName3');
 
-INSERT INTO service(category, name) VALUES ('WEB GAME', 'GAME1');
-INSERT INTO service(category, name) VALUES ('WEB GAME', 'GAME2');
-INSERT INTO service(category, name) VALUES ('WEB GAME', 'GAME3');
-INSERT INTO service(category, name) VALUES ('WEB GAME', 'GAME4');
-INSERT INTO service(category, name) VALUES ('WEB GAME', 'GAME5');
+INSERT INTO app(category, name) VALUES ('WEB GAME', 'GAME1');
+INSERT INTO app(category, name) VALUES ('WEB GAME', 'GAME2');
+INSERT INTO app(category, name) VALUES ('WEB GAME', 'GAME3');
+INSERT INTO app(category, name) VALUES ('WEB GAME', 'GAME4');
+INSERT INTO app(category, name) VALUES ('WEB GAME', 'GAME5');
 
-INSERT INTO node( ip_address, node_type, chain_id) VALUES ('ipaddr1', 'type1', 1);
-INSERT INTO node( ip_address, node_type, chain_id) VALUES ('ipaddr2', 'type1', 2);
-INSERT INTO node( ip_address, node_type, chain_id) VALUES ('ipaddr3', 'type1', 1);
-INSERT INTO node( ip_address, node_type, chain_id) VALUES ('ipaddr4', 'type1', 2);
-INSERT INTO node( ip_address, node_type, chain_id) VALUES ('ipaddr5', 'type1', 1);
+INSERT INTO node( ip_address, node_type, chain_seq) VALUES ('ipaddr1', 'type1', 1);
+INSERT INTO node( ip_address, node_type, chain_seq) VALUES ('ipaddr2', 'type1', 2);
+INSERT INTO node( ip_address, node_type, chain_seq) VALUES ('ipaddr3', 'type1', 1);
+INSERT INTO node( ip_address, node_type, chain_seq) VALUES ('ipaddr4', 'type1', 2);
+INSERT INTO node( ip_address, node_type, chain_seq) VALUES ('ipaddr5', 'type1', 1);
 
-INSERT INTO contract_deploy(address,  chain_id, contract_id, service_id) VALUES ('dummy1',  1, 1, 1);
-INSERT INTO contract_deploy(address,  chain_id, contract_id, service_id) VALUES ('dummy2',  2, 2, 2);
-INSERT INTO contract_deploy(address,  chain_id, contract_id, service_id) VALUES ('dummy4',  2, 3, 2);
-INSERT INTO contract_deploy(address,  chain_id, contract_id, service_id) VALUES ('dummy3',  1, 3, 3);
+-- INSERT INTO contract_deploy(address,  chain_seq, contract_id, app_id, wallet_id) VALUES ('dummy1',  1, 1, 1);
+-- INSERT INTO contract_deploy(address,  chain_seq, contract_id, app_id, wallet_id) VALUES ('dummy2',  2, 2, 2);
+-- INSERT INTO contract_deploy(address,  chain_seq, contract_id, app_id, wallet_id) VALUES ('dummy4',  2, 3, 2);
+-- INSERT INTO contract_deploy(address,  chain_seq, contract_id, app_id, wallet_id) VALUES ('dummy3',  1, 3, 3);
 
 
 -- INSERT INTO wallet( account_address, private_key) VALUES (?, ?);

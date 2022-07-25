@@ -24,6 +24,11 @@ data class ContractDeploy (
 
     @Column(nullable = false)
     var address : String = "",
+
+    @ManyToOne
+    @JoinColumn(name = "wallet_id", nullable = false)
+    var wallet : Wallet? = null
+
 ){
 
 }
