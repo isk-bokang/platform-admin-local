@@ -2,15 +2,14 @@ package world.iskra.platformadmin.service
 
 import org.junit.jupiter.api.Test
 
-import org.junit.jupiter.api.Assertions.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import world.iskra.platformadmin.dto.ContractDeployRequestDto
 
 @SpringBootTest
-class ContractDeployServiceImplTest(
+class DeployedContractServiceImplTest(
     @Autowired
-    private val contractDeployService : IContractDeployService
+    private val contractDeployService : IDeployedContractService
 ) {
 
     @Test

@@ -3,8 +3,8 @@ package world.iskra.platformadmin.entity
 import javax.persistence.*
 
 @Entity
-@Table(name = "contract_deploy")
-data class ContractDeploy (
+@Table(name = "deployed_contract")
+data class DeployedContract (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

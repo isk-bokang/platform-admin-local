@@ -351,10 +351,12 @@ INSERT INTO node( ip_address, node_type, chain_seq) VALUES ('ipaddr3', 'type1', 
 INSERT INTO node( ip_address, node_type, chain_seq) VALUES ('ipaddr4', 'type1', 2);
 INSERT INTO node( ip_address, node_type, chain_seq) VALUES ('ipaddr5', 'type1', 1);
 
--- INSERT INTO contract_deploy(address,  chain_seq, contract_id, app_id, wallet_id) VALUES ('dummy1',  1, 1, 1);
--- INSERT INTO contract_deploy(address,  chain_seq, contract_id, app_id, wallet_id) VALUES ('dummy2',  2, 2, 2);
--- INSERT INTO contract_deploy(address,  chain_seq, contract_id, app_id, wallet_id) VALUES ('dummy4',  2, 3, 2);
--- INSERT INTO contract_deploy(address,  chain_seq, contract_id, app_id, wallet_id) VALUES ('dummy3',  1, 3, 3);
+INSERT INTO wallet( account_address, private_key) VALUES ('TEST', 'TEST');
+INSERT INTO wallet( account_address, private_key) VALUES ('TEST2', 'TEST2');
+
+INSERT INTO deployed_contract(address,  chain_seq, contract_id, app_id, wallet_id) VALUES ('dummy1',  2, 2, 2, 1);
+INSERT INTO deployed_contract(address,  chain_seq, contract_id, app_id, wallet_id) VALUES ('dummy2',  2, 3, 2, 2);
+INSERT INTO deployed_contract(address,  chain_seq, contract_id, app_id, wallet_id) VALUES ('dummy3',  1, 3, 3, 2);
+INSERT INTO deployed_contract(address,  chain_seq, contract_id, app_id, wallet_id) VALUES ('dummy4',  1, 1, 1, 1);
 
 
--- INSERT INTO wallet( account_address, private_key) VALUES (?, ?);

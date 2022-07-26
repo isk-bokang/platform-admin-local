@@ -1,0 +1,35 @@
+package world.iskra.platformadmin.entity
+
+interface DeployedContractInfo {
+    val id: Long?
+    val address: String?
+    val gameApp: GameAppInfo?
+    val contract: ContractInfo?
+    val chain: ChainInfo?
+    val wallet: WalletInfo?
+
+    interface GameAppInfo {
+        val id: Long?
+        val name: String?
+        val category: String?
+    }
+
+    interface ContractInfo {
+        val id: Long?
+        val name: String?
+        val contractType: Contract.ContractType?
+    }
+
+    interface ChainInfo {
+        val seq: Long?
+        val chainId: Long?
+        val name: String?
+        val rpcUrl: String?
+        val chainType: Chain.ChainType?
+    }
+
+    interface WalletInfo {
+        val id: Long?
+        val accountAddress: String?
+    }
+}
