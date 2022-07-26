@@ -47,14 +47,7 @@ class ContractController(
     @GetMapping("/contracts")
     fun getContracts(@RequestParam(name = "contractType") contractType : String?,
                      @RequestParam(name = "contractName") contractName : String?, ): List<ContractInfo> {
-        var curContractType : Contract.ContractType? = null
-        if(contractType != null){
-            curContractType = try{
-                enumValueOf<Contract.ContractType>(contractType)
-            }catch(e:Exception){
-                null
-            }
-        }
+        val curContractType: Contract.ContractType? = Contract.ContractType.toEnum(contractType)
 
         return contractService.getContracts(curContractType, contractName)
     }

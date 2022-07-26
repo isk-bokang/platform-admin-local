@@ -29,14 +29,7 @@ class ChainController(
                     @RequestParam chainName: String?,
                     @RequestParam chainType: String?,
                     @RequestParam rpcUrl: String?): List<Chain> {
-        var curChainType : Chain.ChainType? = null
-        if(chainType != null) {
-            curChainType = try {
-                enumValueOf<Chain.ChainType>(chainType)
-            }catch(e : Exception) {
-                null
-            }
-        }
+        val curChainType: Chain.ChainType? = Chain.ChainType.toEnum(chainType)
 
         return chainService.searchChain(chainSeq,chainId,chainName,curChainType,rpcUrl)
     }

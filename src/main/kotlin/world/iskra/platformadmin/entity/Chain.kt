@@ -25,7 +25,20 @@ data class Chain(
     enum class ChainType{
         MAIN_CHAIN,
         GAME_CHAIN,
-        TEST_CHAIN
+        TEST_CHAIN;
+        companion object {
+            fun toEnum(target: String?) : ChainType? {
+                var ret : ChainType? = null
+                if (target != null) {
+                    ret = try {
+                        enumValueOf<ChainType>(target)
+                    } catch (e: Exception) {
+                        null
+                    }
+                }
+                return ret
+            }
+        }
     }
 
     fun modify(targ: Chain): Chain {

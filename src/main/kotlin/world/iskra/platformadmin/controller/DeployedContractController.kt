@@ -26,22 +26,8 @@ class DeployedContractController(
         @RequestParam(name = "contractType") contractType: String?,
         @RequestParam(name = "contractName") contractName: String?,
     ): List<DeployedContractInfo> {
-        var curChainType: Chain.ChainType? = null
-        var curContractType: Contract.ContractType? = null
-        if (chainType != null) {
-            curChainType = try {
-                enumValueOf<Chain.ChainType>(chainType)
-            } catch (e: Exception) {
-                null
-            }
-        }
-        if (contractType != null) {
-            curContractType = try {
-                enumValueOf<Contract.ContractType>(contractType)
-            } catch (e: Exception) {
-                null
-            }
-        }
+        val curChainType: Chain.ChainType? = Chain.ChainType.toEnum(chainType)
+        val curContractType: Contract.ContractType? = Contract.ContractType.toEnum(contractType)
 
         return contractDeployService.getDeployedContracts(
             appId?.toLong(),

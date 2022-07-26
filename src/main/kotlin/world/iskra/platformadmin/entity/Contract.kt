@@ -30,6 +30,20 @@ data class Contract (
 ){
     enum class ContractType{
         ERC20,
-        ERC1155
+        ERC1155;
+
+        companion object {
+            fun toEnum(target: String?) : ContractType? {
+                var ret : Contract.ContractType? = null
+                if (target != null) {
+                    ret = try {
+                        enumValueOf<Contract.ContractType>(target)
+                    } catch (e: Exception) {
+                        null
+                    }
+                }
+                return ret
+            }
+        }
     }
 }
