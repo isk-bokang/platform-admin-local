@@ -5,6 +5,8 @@ import com.klaytn.caver.wallet.keyring.SingleKeyring
 import lombok.RequiredArgsConstructor
 import org.springframework.stereotype.Service
 import world.iskra.platformadmin.dto.ContractDeployRequestDto
+import world.iskra.platformadmin.entity.Chain
+import world.iskra.platformadmin.entity.Contract
 import world.iskra.platformadmin.entity.DeployedContract
 import world.iskra.platformadmin.entity.projections.DeployedContractInfo
 import world.iskra.platformadmin.repository.DeployedContractRepository
@@ -14,13 +16,13 @@ import world.iskra.platformadmin.repository.DeployedContractRepository
 class DeployedContractServiceImpl(
     private val deployedContractRepository: DeployedContractRepository,
     private val contractService: IContractService,
-    private val chainService : IChainService,
+    private val chainService: IChainService,
 
     private val walletService: WalletService,
     private val gameAppService: GameAppService,
 ) : IDeployedContractService {
 
-    override fun registerDeployContract(contractDeployRequestDto : ContractDeployRequestDto): DeployedContract {
+    override fun registerDeployContract(contractDeployRequestDto: ContractDeployRequestDto): DeployedContract {
         // Fixed Wallet
         val wallet = walletService.getWallet(1)
 
@@ -28,10 +30,10 @@ class DeployedContractServiceImpl(
         val contract = contractService.getContract(contractDeployRequestDto.contractId)
         val chain = chainService.getChain(contractDeployRequestDto.chainSeq)
 
-        if(service.id == null || contract.id == null || chain.seq == null) throw Exception()
+        if (service.id == null || contract.id == null || chain.seq == null) throw Exception()
 
         val caver = Caver(chain.rpcUrl)
-        val deployer : SingleKeyring = caver.wallet.keyring.createFromPrivateKey( wallet.privateKey )
+        val deployer: SingleKeyring = caver.wallet.keyring.createFromPrivateKey(wallet.privateKey)
 
         caver.wallet.add(deployer)
 
@@ -39,7 +41,8 @@ class DeployedContractServiceImpl(
         contractDeployer.deploy(deployer.address, contract.bytecode!!, contractDeployRequestDto.deployParams)
 
         val contractAddress = contractDeployer.getDeployedAddress() ?: "0x"
-        val deployedContract = DeployedContract(address = contractAddress, contract = contract, gameApp = service, chain = chain)
+        val deployedContract =
+            DeployedContract(address = contractAddress, contract = contract, gameApp = service, chain = chain)
 
         return deployedContractRepository.save(deployedContract)
 
@@ -49,30 +52,40 @@ class DeployedContractServiceImpl(
         return deployedContractRepository.findAll() as ArrayList<DeployedContract>
     }
 
-    override fun getDeployedContractsByService(serviceId : Long): ArrayList<DeployedContract> {
+    override fun getDeployedContractsByService(serviceId: Long): ArrayList<DeployedContract> {
         return deployedContractRepository.findByGameApp_Id(serviceId) as ArrayList<DeployedContract>
     }
 
-    override fun getDeployedContractsByChain(chainSeq : Long): ArrayList<DeployedContract> {
+    override fun getDeployedContractsByChain(chainSeq: Long): ArrayList<DeployedContract> {
         return deployedContractRepository.findByChain_Seq(chainSeq) as ArrayList<DeployedContract>
     }
 
-    override fun getDeployedContract(contractDeployId : Long): DeployedContractInfo? {
+    override fun getDeployedContract(contractDeployId: Long): DeployedContractInfo? {
         return deployedContractRepository.findByIdWrappedProjection(contractDeployId).orElse(null)
     }
 
-    override fun getDeployedContracts(appId : Long?, chainSeq : Long?, contractId : Long?): List<DeployedContractInfo> {
-        return deployedContractRepository.findAllWrappedProjection().filter{
-            if(contractId == null) true
+    override fun getDeployedContracts(
+        appId: Long?,
+        chainSeq: Long?,
+        contractId: Long?,
+        contractType: Contract.ContractType?,
+        chainType: Chain.ChainType?
+    ): List<DeployedContractInfo> {
+        return deployedContractRepository.findAllWrappedProjection().filter {
+            if (contractId == null) true
             else contractId == it.contract?.id
-        }.filter{
-            if(chainSeq == null) true
+        }.filter {
+            if (chainSeq == null) true
             else chainSeq == it.chain?.seq
-        }.filter{
-            if(appId == null) true
+        }.filter {
+            if (appId == null) true
             else appId == it.gameApp?.id
+        }.filter {
+            if (contractType == null) true
+            else contractType == it.contract?.contractType
+        }.filter {
+            if (chainType == null) true
+            else chainType == it.chain?.chainType
         }
     }
-
-
 }
