@@ -9,4 +9,6 @@ interface IChainService {
     fun searchChain(chainSeq : Long?, chainId : Long?, chainName : String?, chainType: Chain.ChainType?, rpcUrl : String?): List<Chain>
     fun getChainTypes(): List<String>
 
+    fun modifyChain(chainSeq : Long, chain : Chain) : Chain
+
 }

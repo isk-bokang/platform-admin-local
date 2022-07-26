@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service
 import world.iskra.platformadmin.entity.Chain
 import world.iskra.platformadmin.entity.Contract
 import world.iskra.platformadmin.repository.ChainRepository
+import javax.transaction.Transactional
 
 @Service
 @RequiredArgsConstructor
@@ -36,5 +37,12 @@ class ChainServiceImpl(
 
         ret.add(enumValues<Chain.ChainType>().joinToString { it.name })
         return ret
+    }
+
+    @Transactional
+    override fun modifyChain(chainSeq: Long, chain : Chain): Chain {
+        val oriChain = getChain(chainSeq)
+        if(oriChain.seq == null) return Chain()
+        return oriChain.modify(chain)
     }
 }

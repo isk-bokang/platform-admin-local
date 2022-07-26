@@ -13,7 +13,7 @@ data class Chain(
     @Column( nullable = false, unique = true)
     var chainId: Long? = null,
 
-    var name : String = "",
+    var name : String? = null,
 
     @Column( nullable = false)
     var rpcUrl : String? = null,
@@ -27,4 +27,18 @@ data class Chain(
         GAME_CHAIN,
         TEST_CHAIN
     }
+
+    fun modify(targ: Chain): Chain {
+        if(targ.chainId != null)
+            this.chainId = targ.chainId
+        if(targ.name != null)
+            this.name = targ.name
+        if(targ.rpcUrl != null)
+            this.rpcUrl = targ.rpcUrl
+        if(targ.chainType != null)
+            this.chainType = targ.chainType
+        return this
+    }
+
+
 }

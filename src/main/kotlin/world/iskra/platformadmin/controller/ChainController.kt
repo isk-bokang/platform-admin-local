@@ -47,4 +47,8 @@ class ChainController(
         return chainService.getChainTypes();
     }
 
+    @PatchMapping("/chains/{chainSeq}")
+    fun modifyChain(@PathVariable chainSeq: String, @RequestBody chain : Chain): Chain {
+        return chainService.modifyChain(chainSeq.toLong(), chain)
+    }
 }
