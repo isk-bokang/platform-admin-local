@@ -3,6 +3,7 @@ package world.iskra.platformadmin.service
 import lombok.RequiredArgsConstructor
 import org.springframework.stereotype.Service
 import world.iskra.platformadmin.entity.Chain
+import world.iskra.platformadmin.entity.Contract
 import world.iskra.platformadmin.repository.ChainRepository
 
 @Service
@@ -27,6 +28,13 @@ class ChainServiceImpl(
         chainType: Chain.ChainType?,
         rpcUrl: String?
     ): List<Chain> {
-        return chainRepository.findBySeqOrChainIdOrNameOrChainTypeOrRpcUrl(chainSeq,chainId,chainName,chainType,rpcUrl)
+        return chainRepository.searchChains(chainSeq,chainId,chainName,chainType,rpcUrl)
+    }
+
+    override fun getChainTypes(): MutableList<String> {
+        val ret : MutableList<String> = mutableListOf()
+
+        ret.add(enumValues<Chain.ChainType>().joinToString { it.name })
+        return ret
     }
 }
