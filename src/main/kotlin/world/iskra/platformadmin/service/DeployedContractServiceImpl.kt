@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor
 import org.springframework.stereotype.Service
 import world.iskra.platformadmin.dto.ContractDeployRequestDto
 import world.iskra.platformadmin.entity.DeployedContract
-import world.iskra.platformadmin.entity.DeployedContractInfo
+import world.iskra.platformadmin.entity.projections.DeployedContractInfo
 import world.iskra.platformadmin.repository.DeployedContractRepository
 
 @Service

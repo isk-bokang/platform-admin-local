@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import world.iskra.platformadmin.dto.ContractMethodParamResponseDto
 import world.iskra.platformadmin.entity.Contract
+import world.iskra.platformadmin.entity.projections.ContractInfo
 import world.iskra.platformadmin.service.IContractService
 
 @RestController
@@ -16,11 +17,6 @@ import world.iskra.platformadmin.service.IContractService
 class ContractController(
     private val contractService: IContractService
 ) {
-    @GetMapping("/contracts")
-    fun getContracts(): ArrayList<Contract> {
-        return contractService.getContracts()
-    }
-
     @GetMapping("/contracts/{contractId}")
     fun getContract(@PathVariable contractId: String): Contract {
         return contractService.getContract(contractId.toLong())
@@ -38,7 +34,7 @@ class ContractController(
     ): List<ContractMethodParamResponseDto> {
         val contract = getContract(contractId)
         if (contract.id == null) {
-            return emptyList();
+            return emptyList()
         }
         return contractService.getMethodParams(contract, methodName)
     }
@@ -46,5 +42,20 @@ class ContractController(
     @GetMapping("/contracts/types")
     fun getContractTypes(): List<String> {
         return contractService.getContractTypes()
+    }
+
+    @GetMapping("/contracts")
+    fun getContracts(@RequestParam(name = "contractType") contractType : String?,
+                     @RequestParam(name = "contractName") contractName : String?, ): List<ContractInfo> {
+        var curContractType : Contract.ContractType? = null
+        if(contractType != null){
+            curContractType = try{
+                enumValueOf<Contract.ContractType>(contractType)
+            }catch(e:Exception){
+                null
+            }
+        }
+
+        return contractService.getContracts(curContractType, contractName)
     }
 }

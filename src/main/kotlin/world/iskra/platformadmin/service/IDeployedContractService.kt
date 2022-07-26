@@ -2,7 +2,7 @@ package world.iskra.platformadmin.service
 
 import world.iskra.platformadmin.dto.ContractDeployRequestDto
 import world.iskra.platformadmin.entity.DeployedContract
-import world.iskra.platformadmin.entity.DeployedContractInfo
+import world.iskra.platformadmin.entity.projections.DeployedContractInfo
 
 interface IDeployedContractService {
     fun registerDeployContract(contractDeployRequestDto: ContractDeployRequestDto): DeployedContract

@@ -37,14 +37,13 @@ class ChainController(
                 null
             }
         }
-        println(curChainType)
 
         return chainService.searchChain(chainSeq,chainId,chainName,curChainType,rpcUrl)
     }
 
     @GetMapping("/chains/types")
     fun getChainTypes(): List<String> {
-        return chainService.getChainTypes();
+        return chainService.getChainTypes()
     }
 
     @PatchMapping("/chains/{chainSeq}")
