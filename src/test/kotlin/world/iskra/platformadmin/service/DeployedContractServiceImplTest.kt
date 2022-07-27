@@ -12,7 +12,7 @@ class DeployedContractServiceImplTest(
 ) {
 
     @Test
-    fun registerDeployContract() {
+    fun deployContract() {
         val contractId = 1L
         val appId = 1L
         val chainSeq = 2L
@@ -21,4 +21,5 @@ class DeployedContractServiceImplTest(
 
         contractDeployService.deployContract(contractId, appId, chainSeq, walletId, deployParams)
     }
+
 }

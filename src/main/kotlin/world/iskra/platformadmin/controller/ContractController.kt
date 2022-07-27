@@ -33,6 +33,8 @@ class ContractController(
         @RequestParam(name = "methodName") methodName: String?
     ): List<ContractMethodParamResponseDto> {
         val contract = getContract(contractId)
+        contract.abi?.map{
+        }
         if (contract.id == null) {
             return emptyList()
         }

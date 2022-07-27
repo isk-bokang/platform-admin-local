@@ -19,10 +19,10 @@ class NodeController(
         @RequestParam(name = "chainSeq") chainSeq : Long?
     ): ArrayList<Node> {
         return if(chainSeq != null){
-            nodeService.getNodes(chainSeq);
+            nodeService.getNodes(chainSeq)
         }
         else{
-            nodeService.getNodes();
+            nodeService.getNodes()
         }
     }
     @GetMapping("nodes/{nodeId}")
@@ -32,7 +32,6 @@ class NodeController(
 
     @PostMapping("nodes")
     fun registerNode(@RequestBody node : NodeRequestDto): Node {
-        println(node)
         return nodeService.registerNode(node)
     }
 

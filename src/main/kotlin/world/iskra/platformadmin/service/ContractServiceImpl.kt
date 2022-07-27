@@ -22,21 +22,23 @@ class ContractServiceImpl(
 
     override fun getContracts(contractType: Contract.ContractType?, contractName: String?): List<ContractInfo> {
         return getContracts().filter {
-            if(contractType == null) true
-            else{
+            if (contractType == null) true
+            else {
                 contractType == it.contractType
             }
         }.filter {
-            if(contractName == null) true
-            else if(it.name == null) false
-            else{
+            if (contractName == null) true
+            else if (it.name == null) false
+            else {
                 it.name!!.uppercase(Locale.getDefault()).contains(contractName.uppercase(Locale.getDefault()))
             }
         }
     }
 
     override fun getContract(contractId: Long): Contract {
-        return contractRepository.findById(contractId).orElse(Contract())
+        val ret = contractRepository.findById(contractId).orElse(Contract())
+
+        return ret
     }
 
     override fun registerContract(contract: Contract): Contract {
@@ -51,34 +53,35 @@ class ContractServiceImpl(
         var newAbi = contract.abi ?: return emptyList()
 
         if (methodName != null) {
-            newAbi = if(methodName.uppercase(Locale.getDefault()) == "CONSTRUCTOR"){
+            newAbi = if (methodName.uppercase(Locale.getDefault()) == "CONSTRUCTOR") {
                 contract.abi!!.filter {
-                   ((it["type"] as String).uppercase(Locale.getDefault()) == "CONSTRUCTOR")
+                    (((it["type"].toString()).uppercase(Locale.getDefault()).contains("CONSTRUCTOR")))
                 }
             } else
-                contract.abi!!.filter { it["name"] == methodName }
+                contract.abi!!.filter { it["name"].toString() == methodName }
         }
 
         for (i in newAbi) {
-            if ( !i.containsKey("type") || !i.containsKey("inputs") ) continue
+            if (i["type"].toString().isEmpty() || ((i["inputs"] as List<*>).isEmpty())) continue
             ret.add(
                 @Suppress("UNCHECKED_CAST")
-                ContractMethodParamResponseDto( i["name"] as String?,
-                    i["type"] as String,
-                    (i["inputs"] as List<Map<String, String>>).map {
+                ContractMethodParamResponseDto(i["name"].toString(),
+                    i["type"].toString(),
+                    (i["inputs"] as List<Map<String, *>>).map {
                         ParamDto(
-                            it["internalType"],
-                            it["type"],
-                            it["name"]
+                            it["internalType"].toString(),
+                            it["type"].toString(),
+                            it["name"].toString()
                         )
                     })
             )
         }
+
         return ret
     }
 
     override fun getContractTypes(): List<String> {
-        val ret : MutableList<String> = mutableListOf()
+        val ret: MutableList<String> = mutableListOf()
 
         ret.add(enumValues<Contract.ContractType>().joinToString { it.name })
         return ret

@@ -1,5 +1,6 @@
 package world.iskra.platformadmin.service
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.klaytn.caver.Caver
 import com.klaytn.caver.wallet.keyring.SingleKeyring
 import lombok.RequiredArgsConstructor
@@ -12,6 +13,7 @@ import world.iskra.platformadmin.entity.Wallet
 import world.iskra.platformadmin.entity.projections.DeployedContractInfo
 import world.iskra.platformadmin.repository.DeployedContractRepository
 
+
 @Service
 @RequiredArgsConstructor
 class DeployedContractServiceImpl(
@@ -23,6 +25,9 @@ class DeployedContractServiceImpl(
     private val gameAppService: GameAppService,
 ) : IDeployedContractService {
 
+    private val mapper : ObjectMapper by lazy {
+        ObjectMapper()
+    }
     override fun registerDeployedContract(
         contractId: Long?,
         appId: Long?,
@@ -54,7 +59,7 @@ class DeployedContractServiceImpl(
         ) throw Exception()
 
         val deployedContract =
-            DeployedContract(address = contractAddress, contract = contract, gameApp = app, chain = chain)
+            DeployedContract(address = contractAddress, contract = contract, gameApp = app, chain = chain, wallet = wallet)
 
         return deployedContractRepository.save(deployedContract)
     }
@@ -90,7 +95,8 @@ class DeployedContractServiceImpl(
 
         caver.wallet.add(deployer)
 
-        val contractDeployer = ContractDeployer(caver, contract.abi.toString())
+
+        val contractDeployer = ContractDeployer(caver, mapper.writeValueAsString(contract.abi) )
         contractDeployer.deploy(deployer.address, contract.bytecode!!, deployParams)
 
         val contractAddress = contractDeployer.getDeployedAddress() ?: "0x"

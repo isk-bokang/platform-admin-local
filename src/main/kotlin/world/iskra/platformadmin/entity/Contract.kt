@@ -26,6 +26,7 @@ data class Contract(
 
     @Type(type = "jsonb")
     @Column(nullable = false, columnDefinition = "jsonb")
+    //@Convert(converter = AbiConverter::class)
     val abi: List<Map<String, Any>>? = null,
 
 

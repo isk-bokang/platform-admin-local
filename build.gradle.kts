@@ -1,12 +1,12 @@
-import org.gradle.api.internal.file.pattern.PatternMatcherFactory.compile
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("org.springframework.boot") version "2.7.1"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.6.21"
-    kotlin("plugin.spring") version "1.6.21"
-    kotlin("plugin.jpa") version "1.6.21"
+    kotlin("jvm") version "1.7.10"
+    kotlin("plugin.spring") version "1.7.10"
+    kotlin("plugin.jpa") version "1.7.10"
+    kotlin("plugin.serialization") version "1.7.10"
 }
 
 group = "world.iskra"
@@ -42,6 +42,7 @@ dependencies {
 
     implementation("com.klaytn.caver:core:1.8.0")
     implementation("com.vladmihalcea:hibernate-types-52:2.16.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
 }
 
 tasks.withType<KotlinCompile> {
