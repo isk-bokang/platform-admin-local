@@ -2,11 +2,10 @@ package world.iskra.platformadmin.dto
 
 import world.iskra.platformadmin.entity.Chain
 import world.iskra.platformadmin.entity.Contract
+import world.iskra.platformadmin.entity.DeployedContract
 import world.iskra.platformadmin.entity.GameApp
 import java.io.Serializable
 
-class ResponseDTO {
-}
 
 
 data class ParamDto(
@@ -22,22 +21,30 @@ data class ContractMethodParamResponseDto(
 ) :  Serializable
 
 data class DeployedContractDto(
-    val id: Long? = null,
-    val gameApp: GameApp? = null,
-    val contract: ContractDto? = null,
-    val chain: Chain? = null,
-    val address: String = "",
-    val wallet: WalletDto? = null
+    var id: Long? = null,
+    var gameApp: GameApp? = null,
+    var contract: ContractDto? = null,
+    var chain: Chain? = null,
+    var address: String = "",
+    var wallet: WalletDto? = null
 ) : Serializable {
-
+    fun from(deployedContract: DeployedContract): DeployedContractDto {
+        this.id = deployedContract.id
+        this.gameApp = deployedContract.gameApp
+        this.contract = deployedContract.contract?.toDto()
+        this.chain = deployedContract.chain
+        this.address = deployedContract.address
+        this.wallet = deployedContract.wallet?.toDto()
+        return this
+    }
 }
 data class ContractDto(
-    val id: Long? = null,
-    val name: String = "",
-    val contractType: Contract.ContractType? = null
+    var id: Long? = null,
+    var name: String = "",
+    var contractType: Contract.ContractType? = null
 ) :
     Serializable
 
 data class WalletDto(
-    val id: Long? = null,
-    val accountAddress: String? = null) : Serializable
+    var id: Long? = null,
+    var accountAddress: String? = null) : Serializable

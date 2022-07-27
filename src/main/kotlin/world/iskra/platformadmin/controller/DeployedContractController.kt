@@ -2,9 +2,9 @@ package world.iskra.platformadmin.controller
 
 import org.springframework.web.bind.annotation.*
 import world.iskra.platformadmin.dto.ContractDeployRequestDto
+import world.iskra.platformadmin.dto.DeployedContractDto
 import world.iskra.platformadmin.entity.Chain
 import world.iskra.platformadmin.entity.Contract
-import world.iskra.platformadmin.entity.DeployedContract
 import world.iskra.platformadmin.entity.projections.DeployedContractInfo
 import world.iskra.platformadmin.service.IDeployedContractService
 
@@ -39,7 +39,26 @@ class DeployedContractController(
     }
 
     @PostMapping("deployed/contracts")
-    fun registerDeployContract(@RequestBody contractDeployRequestDto: ContractDeployRequestDto): DeployedContract {
-        return contractDeployService.registerDeployContract(contractDeployRequestDto)
+    fun registerDeployContract(@RequestBody contractDeployRequestDto: ContractDeployRequestDto): DeployedContractDto {
+        return DeployedContractDto().from(contractDeployService.registerDeployedContract(
+            contractDeployRequestDto.contractId,
+            contractDeployRequestDto.appId,
+            contractDeployRequestDto.chainSeq,
+            contractDeployRequestDto.walletId,
+            contractDeployRequestDto.contractAddress
+        ))
     }
+
+    @PostMapping("deploy")
+    fun deployContract(@RequestBody contractDeployRequestDto: ContractDeployRequestDto): DeployedContractDto {
+        return DeployedContractDto().from(contractDeployService.deployContract(
+            contractDeployRequestDto.contractId,
+            contractDeployRequestDto.appId,
+            contractDeployRequestDto.chainSeq,
+            contractDeployRequestDto.walletId,
+            contractDeployRequestDto.deployParams
+        ))
+    }
+
+
 }

@@ -2,13 +2,13 @@ package world.iskra.platformadmin.dto
 
 import java.io.Serializable
 
-class RequestDTO {
-}
 
 data class ContractDeployRequestDto(
-    val serviceId: Long,
+    val appId: Long,
     val contractId: Long,
     val chainSeq: Long,
+    val walletId: Long,
+    var contractAddress : String? = null,
     val deployParams : List<Any> = emptyList()
 ) : Serializable
 

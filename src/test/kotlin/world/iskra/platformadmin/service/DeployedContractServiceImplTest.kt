@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import world.iskra.platformadmin.dto.ContractDeployRequestDto
 
 @SpringBootTest
 class DeployedContractServiceImplTest(
@@ -14,13 +13,12 @@ class DeployedContractServiceImplTest(
 
     @Test
     fun registerDeployContract() {
-        val contractDeployRequestDto : ContractDeployRequestDto = ContractDeployRequestDto(
-            contractId = 1,
-            serviceId = 1,
-            chainSeq = 2,
-        deployParams = listOf("0x17F802d426291cBBFedFD20Af44C0e794027976C", 10)
-        )
+        val contractId = 1L
+        val appId = 1L
+        val chainSeq = 2L
+        val walletId = 1L
+        val deployParams = listOf("0x17F802d426291cBBFedFD20Af44C0e794027976C", 10)
 
-        contractDeployService.registerDeployContract(contractDeployRequestDto)
+        contractDeployService.deployContract(contractId, appId, chainSeq, walletId, deployParams)
     }
 }

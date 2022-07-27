@@ -4,10 +4,11 @@ import com.klaytn.caver.Caver
 import com.klaytn.caver.wallet.keyring.SingleKeyring
 import lombok.RequiredArgsConstructor
 import org.springframework.stereotype.Service
-import world.iskra.platformadmin.dto.ContractDeployRequestDto
 import world.iskra.platformadmin.entity.Chain
 import world.iskra.platformadmin.entity.Contract
 import world.iskra.platformadmin.entity.DeployedContract
+import world.iskra.platformadmin.entity.GameApp
+import world.iskra.platformadmin.entity.Wallet
 import world.iskra.platformadmin.entity.projections.DeployedContractInfo
 import world.iskra.platformadmin.repository.DeployedContractRepository
 
@@ -22,15 +23,67 @@ class DeployedContractServiceImpl(
     private val gameAppService: GameAppService,
 ) : IDeployedContractService {
 
-    override fun registerDeployContract(contractDeployRequestDto: ContractDeployRequestDto): DeployedContract {
-        // Fixed Wallet
-        val wallet = walletService.getWallet(1)
+    override fun registerDeployedContract(
+        contractId: Long?,
+        appId: Long?,
+        chainSeq: Long?,
+        walletId: Long?,
+        contractAddress: String?
+    ): DeployedContract {
+        val wallet = walletId?.let { walletService.getWallet(it) }
+        val app = appId?.let { gameAppService.getApp(it) }
+        val contract = contractId?.let { contractService.getContract(it) }
+        val chain = chainSeq?.let { chainService.getChain(it) }
 
-        val service = gameAppService.getApp(contractDeployRequestDto.serviceId)
-        val contract = contractService.getContract(contractDeployRequestDto.contractId)
-        val chain = chainService.getChain(contractDeployRequestDto.chainSeq)
+        return registerDeployedContract(contract, app, chain, wallet, contractAddress)
+    }
 
-        if (service.id == null || contract.id == null || chain.seq == null) throw Exception()
+    override fun registerDeployedContract(
+        contract: Contract?,
+        app: GameApp?,
+        chain: Chain?,
+        wallet: Wallet?,
+        contractAddress: String?
+    ): DeployedContract {
+
+        if (app?.id == null
+            || contract?.id == null
+            || chain?.seq == null
+            || wallet?.id == null
+            || contractAddress == null
+        ) throw Exception()
+
+        val deployedContract =
+            DeployedContract(address = contractAddress, contract = contract, gameApp = app, chain = chain)
+
+        return deployedContractRepository.save(deployedContract)
+    }
+
+    override fun getDeployedContracts(): List<DeployedContractInfo> {
+        return deployedContractRepository.findAllWrappedProjection()
+    }
+
+    override fun getDeployedContract(contractDeployId: Long): DeployedContractInfo? {
+        return deployedContractRepository.findByIdWrappedProjection(contractDeployId).orElse(null)
+    }
+
+    override fun deployContract(
+        contractId: Long?,
+        appId: Long?,
+        chainSeq: Long?,
+        walletId: Long?,
+        deployParams: List<Any>
+    ): DeployedContract {
+        val wallet = walletId?.let { walletService.getWallet(it) }
+        val app = appId?.let { gameAppService.getApp(it) }
+        val contract = contractId?.let { contractService.getContract(it) }
+        val chain = chainSeq?.let { chainService.getChain(it) }
+
+        if (app?.id == null
+            || contract?.id == null
+            || chain?.seq == null
+            || wallet?.id == null
+        ) throw Exception()
 
         val caver = Caver(chain.rpcUrl)
         val deployer: SingleKeyring = caver.wallet.keyring.createFromPrivateKey(wallet.privateKey)
@@ -38,30 +91,11 @@ class DeployedContractServiceImpl(
         caver.wallet.add(deployer)
 
         val contractDeployer = ContractDeployer(caver, contract.abi.toString())
-        contractDeployer.deploy(deployer.address, contract.bytecode!!, contractDeployRequestDto.deployParams)
+        contractDeployer.deploy(deployer.address, contract.bytecode!!, deployParams)
 
         val contractAddress = contractDeployer.getDeployedAddress() ?: "0x"
-        val deployedContract =
-            DeployedContract(address = contractAddress, contract = contract, gameApp = service, chain = chain)
 
-        return deployedContractRepository.save(deployedContract)
-
-    }
-
-    override fun getDeployedContracts(): ArrayList<DeployedContract> {
-        return deployedContractRepository.findAll() as ArrayList<DeployedContract>
-    }
-
-    override fun getDeployedContractsByService(serviceId: Long): ArrayList<DeployedContract> {
-        return deployedContractRepository.findByGameApp_Id(serviceId) as ArrayList<DeployedContract>
-    }
-
-    override fun getDeployedContractsByChain(chainSeq: Long): ArrayList<DeployedContract> {
-        return deployedContractRepository.findByChain_Seq(chainSeq) as ArrayList<DeployedContract>
-    }
-
-    override fun getDeployedContract(contractDeployId: Long): DeployedContractInfo? {
-        return deployedContractRepository.findByIdWrappedProjection(contractDeployId).orElse(null)
+        return registerDeployedContract(contract, app, chain, wallet, contractAddress)
     }
 
     override fun getDeployedContracts(
@@ -71,7 +105,7 @@ class DeployedContractServiceImpl(
         contractType: Contract.ContractType?,
         chainType: Chain.ChainType?
     ): List<DeployedContractInfo> {
-        return deployedContractRepository.findAllWrappedProjection().filter {
+        return getDeployedContracts().asSequence().filter {
             if (contractId == null) true
             else contractId == it.contract?.id
         }.filter {
@@ -86,6 +120,6 @@ class DeployedContractServiceImpl(
         }.filter {
             if (chainType == null) true
             else chainType == it.chain?.chainType
-        }
+        }.toList()
     }
 }

@@ -1,5 +1,6 @@
 package world.iskra.platformadmin.entity
 
+import world.iskra.platformadmin.dto.WalletDto
 import javax.persistence.*
 
 @Entity
@@ -12,4 +13,8 @@ data class Wallet (
 
     val privateKey : String? = null,
     val accountAddress: String? = null
-)
+){
+    fun toDto(): WalletDto {
+        return WalletDto(this.id, this.accountAddress)
+    }
+}
