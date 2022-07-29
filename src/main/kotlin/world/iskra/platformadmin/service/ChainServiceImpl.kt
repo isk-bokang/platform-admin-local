@@ -36,7 +36,7 @@ class ChainServiceImpl(
     override fun getChainTypes(): MutableList<String> {
         val ret: MutableList<String> = mutableListOf()
 
-        ret.add(enumValues<Chain.ChainType>().joinToString { it.name })
+        enumValues<Chain.ChainType>().joinToString { ret.add(it.name); it.name }
         return ret
     }
 
