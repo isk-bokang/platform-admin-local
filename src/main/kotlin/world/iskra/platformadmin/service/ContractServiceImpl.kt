@@ -83,7 +83,7 @@ class ContractServiceImpl(
     override fun getContractTypes(): List<String> {
         val ret: MutableList<String> = mutableListOf()
 
-        ret.add(enumValues<Contract.ContractType>().joinToString { it.name })
+        enumValues<Contract.ContractType>().joinToString { ret.add(it.name); it.name }
         return ret
     }
 }
