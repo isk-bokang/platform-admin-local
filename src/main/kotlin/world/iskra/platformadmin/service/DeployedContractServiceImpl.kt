@@ -32,34 +32,40 @@ class DeployedContractServiceImpl(
         contractId: Long?,
         appId: Long?,
         chainSeq: Long?,
-        walletId: Long?,
+        contractName : String?,
+        deployerAddress: String?,
         contractAddress: String?
     ): DeployedContract {
-        val wallet = walletId?.let { walletService.getWallet(it) }
         val app = appId?.let { gameAppService.getApp(it) }
         val contract = contractId?.let { contractService.getContract(it) }
         val chain = chainSeq?.let { chainService.getChain(it) }
 
-        return registerDeployedContract(contract, app, chain, wallet, contractAddress)
+        return registerDeployedContract(contract, app, chain, contractName, deployerAddress, contractAddress)
     }
 
     override fun registerDeployedContract(
         contract: Contract?,
         app: GameApp?,
         chain: Chain?,
-        wallet: Wallet?,
+        contractName : String?,
+        deployerAddress: String?,
         contractAddress: String?
     ): DeployedContract {
 
         if (app?.id == null
             || contract?.id == null
             || chain?.seq == null
-            || wallet?.id == null
+            || deployerAddress == null
             || contractAddress == null
         ) throw Exception()
 
         val deployedContract =
-            DeployedContract(address = contractAddress, contract = contract, gameApp = app, chain = chain, wallet = wallet)
+            DeployedContract(address = contractAddress,
+                contract = contract,
+                gameApp = app,
+                chain = chain,
+                deployerAddress = deployerAddress,
+                name = contractName)
 
         return deployedContractRepository.save(deployedContract)
     }
@@ -76,6 +82,7 @@ class DeployedContractServiceImpl(
         contractId: Long?,
         appId: Long?,
         chainSeq: Long?,
+        contractName : String?,
         walletId: Long?,
         deployParams: List<Any>
     ): DeployedContract {
@@ -95,13 +102,12 @@ class DeployedContractServiceImpl(
 
         caver.wallet.add(deployer)
 
-
         val contractDeployer = ContractDeployer(caver, mapper.writeValueAsString(contract.abi) )
         contractDeployer.deploy(deployer.address, contract.bytecode!!, deployParams)
 
         val contractAddress = contractDeployer.getDeployedAddress() ?: "0x"
 
-        return registerDeployedContract(contract, app, chain, wallet, contractAddress)
+        return registerDeployedContract(contract, app, chain, contractName, wallet.accountAddress, contractAddress)
     }
 
     override fun getDeployedContracts(

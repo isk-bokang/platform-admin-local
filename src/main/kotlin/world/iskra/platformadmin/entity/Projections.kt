@@ -9,7 +9,7 @@ interface DeployedContractInfo {
     val gameApp: GameAppInfo?
     val contract: ContractInfo?
     val chain: ChainInfo?
-    val wallet: WalletInfo?
+
 }
 
 interface GameAppInfo {

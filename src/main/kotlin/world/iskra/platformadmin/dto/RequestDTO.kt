@@ -7,8 +7,10 @@ data class ContractDeployRequestDto(
     val appId: Long,
     val contractId: Long,
     val chainSeq: Long,
-    val walletId: Long,
+    val contractName: String,
     var contractAddress : String? = null,
+    var deployerAddress : String? = null,
+    var walletId : Long? = null,
     val deployParams : List<Any> = emptyList()
 ) : Serializable
 

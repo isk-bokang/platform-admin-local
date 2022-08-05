@@ -22,11 +22,12 @@ data class ContractMethodParamResponseDto(
 
 data class DeployedContractDto(
     var id: Long? = null,
+
     var gameApp: GameApp? = null,
     var contract: ContractDto? = null,
     var chain: Chain? = null,
     var address: String = "",
-    var wallet: WalletDto? = null
+    var deployerAddress: String = ""
 ) : Serializable {
     fun from(deployedContract: DeployedContract): DeployedContractDto {
         this.id = deployedContract.id
@@ -34,7 +35,7 @@ data class DeployedContractDto(
         this.contract = deployedContract.contract?.toDto()
         this.chain = deployedContract.chain
         this.address = deployedContract.address
-        this.wallet = deployedContract.wallet?.toDto()
+        this.deployerAddress = deployedContract.deployerAddress
         return this
     }
 }

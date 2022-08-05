@@ -22,7 +22,8 @@ interface IDeployedContractService {
         contractId: Long?,
         appId: Long?,
         chainSeq: Long?,
-        walletId: Long?,
+        contractName : String?,
+        deployerAddress: String?,
         contractAddress: String?
     ): DeployedContract
 
@@ -30,6 +31,7 @@ interface IDeployedContractService {
         contractId: Long?,
         appId: Long?,
         chainSeq: Long?,
+        contractName : String?,
         walletId: Long?,
         deployParams: List<Any> = emptyList()
     ): DeployedContract
@@ -38,7 +40,8 @@ interface IDeployedContractService {
         contract: Contract?,
         app: GameApp?,
         chain: Chain?,
-        wallet: Wallet?,
+        contractName : String?,
+        deployerAddress: String?,
         contractAddress: String?
         ): DeployedContract
 

@@ -40,24 +40,30 @@ class DeployedContractController(
 
     @PostMapping("deployed/contracts")
     fun registerDeployContract(@RequestBody contractDeployRequestDto: ContractDeployRequestDto): DeployedContractDto {
-        return DeployedContractDto().from(contractDeployService.registerDeployedContract(
-            contractDeployRequestDto.contractId,
-            contractDeployRequestDto.appId,
-            contractDeployRequestDto.chainSeq,
-            contractDeployRequestDto.walletId,
-            contractDeployRequestDto.contractAddress
-        ))
+        return DeployedContractDto().from(
+            contractDeployService.registerDeployedContract(
+                contractDeployRequestDto.contractId,
+                contractDeployRequestDto.appId,
+                contractDeployRequestDto.chainSeq,
+                contractDeployRequestDto.contractName,
+                contractDeployRequestDto.deployerAddress,
+                contractDeployRequestDto.contractAddress
+            )
+        )
     }
 
     @PostMapping("deploy")
     fun deployContract(@RequestBody contractDeployRequestDto: ContractDeployRequestDto): DeployedContractDto {
-        return DeployedContractDto().from(contractDeployService.deployContract(
-            contractDeployRequestDto.contractId,
-            contractDeployRequestDto.appId,
-            contractDeployRequestDto.chainSeq,
-            contractDeployRequestDto.walletId,
-            contractDeployRequestDto.deployParams
-        ))
+        return DeployedContractDto().from(
+            contractDeployService.deployContract(
+                contractDeployRequestDto.contractId,
+                contractDeployRequestDto.appId,
+                contractDeployRequestDto.chainSeq,
+                contractDeployRequestDto.contractName,
+                contractDeployRequestDto.walletId,
+                contractDeployRequestDto.deployParams
+            )
+        )
     }
 
 

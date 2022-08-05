@@ -14,6 +14,8 @@ data class DeployedContract (
     @JoinColumn(name = "app_id", nullable = false)
     var gameApp: GameApp? = null,
 
+    var name : String? = null,
+
     @ManyToOne
     @JoinColumn(name = "contract_id", nullable = false)
     var contract: Contract? = null,
@@ -25,9 +27,8 @@ data class DeployedContract (
     @Column(nullable = false)
     var address : String = "",
 
-    @ManyToOne
-    @JoinColumn(name = "wallet_id", nullable = false)
-    var wallet : Wallet? = null
+    @Column(nullable = false)
+    var deployerAddress : String = ""
 
 ){
 
