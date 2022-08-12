@@ -11,7 +11,7 @@ data class DeployedContract (
     var id: Long? = null,
 
     @ManyToOne
-    @JoinColumn(name = "app_id", nullable = false)
+    @JoinColumn(name = "app_id")
     var gameApp: GameApp? = null,
 
     var name : String? = null,

@@ -17,8 +17,8 @@ data class Contract(
     var name: String = "",
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "contract_type")
-    var contractType: ContractType? = null,
+    @Column(name = "token_type")
+    var tokenType: TokenType? = null,
 
     @Type(type = "text")
     @Column(nullable = false)
@@ -32,19 +32,19 @@ data class Contract(
 
     ) {
     fun toDto(): ContractDto {
-        return ContractDto(id = this.id, name = this.name, contractType = this.contractType)
+        return ContractDto(id = this.id, name = this.name, tokenType = this.tokenType)
     }
 
-    enum class ContractType {
+    enum class TokenType {
         ERC20,
         ERC1155;
 
         companion object {
-            fun toEnum(target: String?): ContractType? {
-                var ret: ContractType? = null
+            fun toEnum(target: String?): TokenType? {
+                var ret: TokenType? = null
                 if (target != null) {
                     ret = try {
-                        enumValueOf<ContractType>(target)
+                        enumValueOf<TokenType>(target)
                     } catch (e: Exception) {
                         null
                     }

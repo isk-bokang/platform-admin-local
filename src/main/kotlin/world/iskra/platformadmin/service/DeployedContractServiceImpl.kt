@@ -9,7 +9,6 @@ import world.iskra.platformadmin.entity.Chain
 import world.iskra.platformadmin.entity.Contract
 import world.iskra.platformadmin.entity.DeployedContract
 import world.iskra.platformadmin.entity.GameApp
-import world.iskra.platformadmin.entity.Wallet
 import world.iskra.platformadmin.entity.projections.DeployedContractInfo
 import world.iskra.platformadmin.repository.DeployedContractRepository
 
@@ -114,7 +113,7 @@ class DeployedContractServiceImpl(
         appId: Long?,
         chainSeq: Long?,
         contractId: Long?,
-        contractType: Contract.ContractType?,
+        tokenType: Contract.TokenType?,
         chainType: Chain.ChainType?
     ): List<DeployedContractInfo> {
         return getDeployedContracts().asSequence().filter {
@@ -127,8 +126,8 @@ class DeployedContractServiceImpl(
             if (appId == null) true
             else appId == it.gameApp?.id
         }.filter {
-            if (contractType == null) true
-            else contractType == it.contract?.contractType
+            if (tokenType == null) true
+            else tokenType == it.contract?.tokenType
         }.filter {
             if (chainType == null) true
             else chainType == it.chain?.chainType

@@ -4,7 +4,6 @@ import world.iskra.platformadmin.entity.Chain
 import world.iskra.platformadmin.entity.Contract
 import world.iskra.platformadmin.entity.DeployedContract
 import world.iskra.platformadmin.entity.GameApp
-import world.iskra.platformadmin.entity.Wallet
 import world.iskra.platformadmin.entity.projections.DeployedContractInfo
 
 interface IDeployedContractService {
@@ -14,7 +13,7 @@ interface IDeployedContractService {
         appId: Long?,
         chainSeq: Long?,
         contractId: Long?,
-        contractType: Contract.ContractType?,
+        tokenType: Contract.TokenType?,
         chainType: Chain.ChainType?
     ): List<DeployedContractInfo>
 

@@ -49,8 +49,8 @@ class ContractController(
     @GetMapping("/contracts")
     fun getContracts(@RequestParam(name = "contractType") contractType : String?,
                      @RequestParam(name = "contractName") contractName : String?, ): List<ContractInfo> {
-        val curContractType: Contract.ContractType? = Contract.ContractType.toEnum(contractType)
+        val curTokenType: Contract.TokenType? = Contract.TokenType.toEnum(contractType)
 
-        return contractService.getContracts(curContractType, contractName)
+        return contractService.getContracts(curTokenType, contractName)
     }
 }

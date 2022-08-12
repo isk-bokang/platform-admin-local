@@ -1,7 +1,7 @@
 INSERT INTO chain(chain_id, name, chain_type, rpc_url) VALUES ('31337', 'HARDHAT', 'TEST_CHAIN', 'http://localhost:5432');
 INSERT INTO chain(chain_id, name, chain_type, rpc_url) VALUES ('1001', 'BAOBAB', 'MAIN_CHAIN', 'https://api.baobab.klaytn.net:8651');
 
-INSERT INTO contract(abi, bytecode, contract_type, name) VALUES (
+INSERT INTO contract(abi, bytecode, token_type, name) VALUES (
 '[
     {
       "inputs": [
@@ -336,8 +336,8 @@ INSERT INTO contract(abi, bytecode, contract_type, name) VALUES (
                                                                  'ERC1155',
                                                                  'TOKEN1155');
 
-INSERT INTO contract(abi, bytecode, contract_type, name) VALUES ('[{"abi" : "abi"}]', '0xbytecode', 'ERC20', 'contractName2');
-INSERT INTO contract(abi, bytecode, contract_type, name) VALUES ('[{"abi" : "abi"}]', '0xbytecode', 'ERC20', 'contractName3');
+INSERT INTO contract(abi, bytecode, token_type, name) VALUES ('[{"abi" : "abi"}]', '0xbytecode', 'ERC20', 'contractName2');
+INSERT INTO contract(abi, bytecode, token_type, name) VALUES ('[{"abi" : "abi"}]', '0xbytecode', 'ERC20', 'contractName3');
 
 INSERT INTO app(category, name) VALUES ('WEB GAME', 'GAME1');
 INSERT INTO app(category, name) VALUES ('WEB GAME', 'GAME2');
