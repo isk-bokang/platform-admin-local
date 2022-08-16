@@ -21,6 +21,7 @@ class DeployedContractController(
     fun getDeployedContracts(
         @RequestParam(name = "appId") appId: String?,
         @RequestParam(name = "chainSeq") chainSeq: String?,
+        @RequestParam(name = "chainSeq") chainId: String?,
         @RequestParam(name = "chainType") chainType: String?,
         @RequestParam(name = "contractId") contractId: String?,
         @RequestParam(name = "contractType") contractType: String?,
@@ -32,6 +33,7 @@ class DeployedContractController(
         return contractDeployService.getDeployedContracts(
             appId?.toLong(),
             chainSeq?.toLong(),
+            chainId?.toLong(),
             contractId?.toLong(),
             curContractType,
             curChainType

@@ -12,6 +12,7 @@ interface IDeployedContractService {
     fun getDeployedContracts(
         appId: Long?,
         chainSeq: Long?,
+        chainId: Long?,
         contractId: Long?,
         contractType: Contract.ContractType?,
         chainType: Chain.ChainType?

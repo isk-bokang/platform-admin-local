@@ -112,6 +112,7 @@ class DeployedContractServiceImpl(
     override fun getDeployedContracts(
         appId: Long?,
         chainSeq: Long?,
+        chainId : Long?,
         contractId: Long?,
         contractType: Contract.ContractType?,
         chainType: Chain.ChainType?
@@ -122,6 +123,9 @@ class DeployedContractServiceImpl(
         }.filter {
             if (chainSeq == null) true
             else chainSeq == it.chain?.seq
+        }.filter {
+            if (chainId == null) true
+            else chainId == it.chain?.chainId
         }.filter {
             if (appId == null) true
             else appId == it.gameApp?.id
