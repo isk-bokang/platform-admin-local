@@ -21,7 +21,7 @@ class DeployedContractController(
     fun getDeployedContracts(
         @RequestParam(name = "appId") appId: String?,
         @RequestParam(name = "chainSeq") chainSeq: String?,
-        @RequestParam(name = "chainSeq") chainId: String?,
+        @RequestParam(name = "chainId") chainId: String?,
         @RequestParam(name = "chainType") chainType: String?,
         @RequestParam(name = "contractId") contractId: String?,
         @RequestParam(name = "contractType") contractType: String?,
