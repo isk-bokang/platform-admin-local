@@ -21,7 +21,7 @@ interface GameAppInfo {
 interface ContractInfo {
     val id: Long?
     val name: String?
-    val tokenType: Contract.TokenType?
+    val contractType: Contract.ContractType?
 }
 
 interface ChainInfo {

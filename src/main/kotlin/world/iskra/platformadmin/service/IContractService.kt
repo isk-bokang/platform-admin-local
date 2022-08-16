@@ -6,7 +6,7 @@ import world.iskra.platformadmin.entity.projections.ContractInfo
 
 interface IContractService {
     fun getContracts(): ArrayList<ContractInfo>
-    fun getContracts(tokenType: Contract.TokenType?, contractName : String?): List<ContractInfo>
+    fun getContracts(contractType: Contract.ContractType?, contractName : String?): List<ContractInfo>
     fun getContract(contractId: Long): Contract
     fun registerContract(contract: Contract): Contract
 

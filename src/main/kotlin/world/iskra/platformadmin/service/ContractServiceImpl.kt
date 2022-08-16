@@ -20,11 +20,11 @@ class ContractServiceImpl(
         return contractRepository.findAllWrappedProjection() as ArrayList<ContractInfo>
     }
 
-    override fun getContracts(tokenType: Contract.TokenType?, contractName: String?): List<ContractInfo> {
+    override fun getContracts(contractType: Contract.ContractType?, contractName: String?): List<ContractInfo> {
         return getContracts().filter {
-            if (tokenType == null) true
+            if (contractType == null) true
             else {
-                tokenType == it.tokenType
+                contractType == it.contractType
             }
         }.filter {
             if (contractName == null) true
@@ -83,7 +83,7 @@ class ContractServiceImpl(
     override fun getContractTypes(): List<String> {
         val ret: MutableList<String> = mutableListOf()
 
-        enumValues<Contract.TokenType>().joinToString { ret.add(it.name); it.name }
+        enumValues<Contract.ContractType>().joinToString { ret.add(it.name); it.name }
         return ret
     }
 }

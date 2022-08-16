@@ -27,13 +27,13 @@ class DeployedContractController(
         @RequestParam(name = "contractName") contractName: String?,
     ): List<DeployedContractInfo> {
         val curChainType: Chain.ChainType? = Chain.ChainType.toEnum(chainType)
-        val curTokenType: Contract.TokenType? = Contract.TokenType.toEnum(contractType)
+        val curContractType: Contract.ContractType? = Contract.ContractType.toEnum(contractType)
 
         return contractDeployService.getDeployedContracts(
             appId?.toLong(),
             chainSeq?.toLong(),
             contractId?.toLong(),
-            curTokenType,
+            curContractType,
             curChainType
         )
     }

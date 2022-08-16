@@ -13,7 +13,7 @@ interface IDeployedContractService {
         appId: Long?,
         chainSeq: Long?,
         contractId: Long?,
-        tokenType: Contract.TokenType?,
+        contractType: Contract.ContractType?,
         chainType: Chain.ChainType?
     ): List<DeployedContractInfo>
 

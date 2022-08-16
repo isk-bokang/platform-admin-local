@@ -113,7 +113,7 @@ class DeployedContractServiceImpl(
         appId: Long?,
         chainSeq: Long?,
         contractId: Long?,
-        tokenType: Contract.TokenType?,
+        contractType: Contract.ContractType?,
         chainType: Chain.ChainType?
     ): List<DeployedContractInfo> {
         return getDeployedContracts().asSequence().filter {
@@ -126,8 +126,8 @@ class DeployedContractServiceImpl(
             if (appId == null) true
             else appId == it.gameApp?.id
         }.filter {
-            if (tokenType == null) true
-            else tokenType == it.contract?.tokenType
+            if (contractType == null) true
+            else contractType == it.contract?.contractType
         }.filter {
             if (chainType == null) true
             else chainType == it.chain?.chainType
