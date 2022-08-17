@@ -639,948 +639,828 @@ INSERT INTO contract(abi, bytecode, contract_type, name) VALUES (
                                                               'GAME_TOKEN', 'ERC20Token');
 
 INSERT INTO contract(abi, bytecode, contract_type, name) VALUES ('
-[
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_iskraToken",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "_iskraIncomeWallet",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_cardID",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256[]",
-          "name": "_tokenIDs",
-          "type": "uint256[]"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256[]",
-          "name": "_tokenAmounts",
-          "type": "uint256[]"
-        }
-      ],
-      "name": "AmountIncreased",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256[]",
-          "name": "_cardIDs",
-          "type": "uint256[]"
-        }
-      ],
-      "name": "BatchCardCreated",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256[]",
-          "name": "_cardIDs",
-          "type": "uint256[]"
-        }
-      ],
-      "name": "BatchCardRemoved",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_cardID",
-          "type": "uint256"
-        }
-      ],
-      "name": "CardCreated",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_cardID",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256[]",
-          "name": "_tokenIDs",
-          "type": "uint256[]"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256[]",
-          "name": "_tokenAmounts",
-          "type": "uint256[]"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "_purchaser",
-          "type": "address"
-        }
-      ],
-      "name": "CardPurchased",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_cardID",
-          "type": "uint256"
-        }
-      ],
-      "name": "CardRemoved",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "_gameContract",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "_gameOwner",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_gameRsRatePermille",
-          "type": "uint256"
-        }
-      ],
-      "name": "GameContractCreated",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "_gameContract",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "_newGameOwner",
-          "type": "address"
-        }
-      ],
-      "name": "GameOwnerChanged",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "_gameContract",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_newGameRsRate",
-          "type": "uint256"
-        }
-      ],
-      "name": "GameRsRateChanged",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "_previousIskraIncomeWallet",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "_newIskraIncomeWallet",
-          "type": "address"
-        }
-      ],
-      "name": "IskraIncomeWalletChanged",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "_previousIskraToken",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "_newIskraToken",
-          "type": "address"
-        }
-      ],
-      "name": "IskraTokenChanged",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "_previousOwner",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "_newOwner",
-          "type": "address"
-        }
-      ],
-      "name": "OwnershipTransferred",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_previousPurchaserFeePermille",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_newPurchaserFeePermille",
-          "type": "uint256"
-        }
-      ],
-      "name": "PurchaserFeePermilleChanged",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_sellerRevenue",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_iskraRevenue",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "_gameContractOwner",
-          "type": "address"
-        }
-      ],
-      "name": "RevenueClaimed",
-      "type": "event"
-    },
-    {
-      "inputs": [],
-      "name": "PERMILLE_FACTOR",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "PURCHASER_FEE_DEFAULT_PERMILLE",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "acceptOwnership",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_gameContract",
-          "type": "address"
-        },
-        {
-          "internalType": "enum ISKRAMarket.ERCType",
-          "name": "_ercType",
-          "type": "uint8"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "_cardIDs",
-          "type": "uint256[]"
-        },
-        {
-          "internalType": "enum ISKRAMarket.CardType[]",
-          "name": "_cardTypes",
-          "type": "uint8[]"
-        },
-        {
-          "internalType": "uint256[][]",
-          "name": "_tokenIDs",
-          "type": "uint256[][]"
-        },
-        {
-          "internalType": "uint256[][]",
-          "name": "_tokenAmounts",
-          "type": "uint256[][]"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "_prices",
-          "type": "uint256[]"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "_startSaleDates",
-          "type": "uint256[]"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "_endSaleDates",
-          "type": "uint256[]"
-        },
-        {
-          "internalType": "enum ISKRAMarket.PaymentType[]",
-          "name": "_paymentTypes",
-          "type": "uint8[]"
-        }
-      ],
-      "name": "batchCreateCard",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_gameContract",
-          "type": "address"
-        },
-        {
-          "internalType": "enum ISKRAMarket.ERCType",
-          "name": "_ercType",
-          "type": "uint8"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "_cardIDs",
-          "type": "uint256[]"
-        },
-        {
-          "internalType": "enum ISKRAMarket.CardType[]",
-          "name": "_cardTypes",
-          "type": "uint8[]"
-        },
-        {
-          "internalType": "uint256[][]",
-          "name": "_tokenIDs",
-          "type": "uint256[][]"
-        },
-        {
-          "internalType": "uint256[][]",
-          "name": "_tokenAmounts",
-          "type": "uint256[][]"
-        }
-      ],
-      "name": "batchRemoveCard",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_gameContract",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "_newGameOwner",
-          "type": "address"
-        }
-      ],
-      "name": "changeGameOwner",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_gameContract",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_newGameRsRate",
-          "type": "uint256"
-        }
-      ],
-      "name": "changeGameRsRate",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_newIskraIncomeWallet",
-          "type": "address"
-        }
-      ],
-      "name": "changeIskraIncomeWallet",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_newIskraToken",
-          "type": "address"
-        }
-      ],
-      "name": "changeIskraToken",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "_newPurchaserFeePermille",
-          "type": "uint256"
-        }
-      ],
-      "name": "changePurchaserFeePermille",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_gameContract",
-          "type": "address"
-        }
-      ],
-      "name": "claimRevenue",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_gameContract",
-          "type": "address"
-        },
-        {
-          "internalType": "enum ISKRAMarket.ERCType",
-          "name": "_ercType",
-          "type": "uint8"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_cardID",
-          "type": "uint256"
-        },
-        {
-          "internalType": "enum ISKRAMarket.CardType",
-          "name": "_cardType",
-          "type": "uint8"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "_tokenIDs",
-          "type": "uint256[]"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "_tokenAmounts",
-          "type": "uint256[]"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_price",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_startSaleDate",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_endSaleDate",
-          "type": "uint256"
-        },
-        {
-          "internalType": "enum ISKRAMarket.PaymentType",
-          "name": "_paymentType",
-          "type": "uint8"
-        }
-      ],
-      "name": "createCard",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_gameContract",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "_gameOwner",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_gameRsRatePermille",
-          "type": "uint256"
-        }
-      ],
-      "name": "createGameContract",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "gameContracts",
-      "outputs": [
-        {
-          "internalType": "address payable",
-          "name": "owner",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "rsRate",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "revenue",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bool",
-          "name": "registered",
-          "type": "bool"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "_cardID",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "_tokenIDs",
-          "type": "uint256[]"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "_tokenAmounts",
-          "type": "uint256[]"
-        }
-      ],
-      "name": "increaseAmount",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "iskraIncomeWallet",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "iskraToken",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "marketCards",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "gameContract",
-          "type": "address"
-        },
-        {
-          "internalType": "enum ISKRAMarket.ERCType",
-          "name": "ercType",
-          "type": "uint8"
-        },
-        {
-          "internalType": "enum ISKRAMarket.CardType",
-          "name": "cardType",
-          "type": "uint8"
-        },
-        {
-          "internalType": "uint256",
-          "name": "price",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "startSaleDate",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "endSaleDate",
-          "type": "uint256"
-        },
-        {
-          "internalType": "enum ISKRAMarket.PaymentType",
-          "name": "paymentType",
-          "type": "uint8"
-        },
-        {
-          "internalType": "bool",
-          "name": "registered",
-          "type": "bool"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "newOwner",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "",
-          "type": "uint256[]"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "",
-          "type": "uint256[]"
-        },
-        {
-          "internalType": "bytes",
-          "name": "",
-          "type": "bytes"
-        }
-      ],
-      "name": "onERC1155BatchReceived",
-      "outputs": [
-        {
-          "internalType": "bytes4",
-          "name": "",
-          "type": "bytes4"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bytes",
-          "name": "",
-          "type": "bytes"
-        }
-      ],
-      "name": "onERC1155Received",
-      "outputs": [
-        {
-          "internalType": "bytes4",
-          "name": "",
-          "type": "bytes4"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bytes",
-          "name": "",
-          "type": "bytes"
-        }
-      ],
-      "name": "onERC721Received",
-      "outputs": [
-        {
-          "internalType": "bytes4",
-          "name": "",
-          "type": "bytes4"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "owner",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "_cardID",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "_tokenIDs",
-          "type": "uint256[]"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "_tokenAmounts",
-          "type": "uint256[]"
-        }
-      ],
-      "name": "purchaseCard",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "_cardID",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "_tokenIDs",
-          "type": "uint256[]"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "_tokenAmounts",
-          "type": "uint256[]"
-        }
-      ],
-      "name": "removeCard",
-      "outputs": [],
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "bytes4",
-          "name": "interfaceId",
-          "type": "bytes4"
-        }
-      ],
-      "name": "supportsInterface",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_newOwner",
-          "type": "address"
-        }
-      ],
-      "name": "transferOwnership",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    }
-]',
-'0x60806040523480156200001157600080fd5b50604051620046ef380380620046ef83398101604081905262000034916200016e565b6001600081905580546001600160a01b031990811633179091556002805490911690556001600160a01b038216620000b35760405162461bcd60e51b815260206004820152601e60248201527f412069736b726120746f6b656e2061646472657373206973207a65726f2e000060448201526064015b60405180910390fd5b6001600160a01b0381166200011a5760405162461bcd60e51b815260206004820152602660248201527f412069736b726120696e636f6d652077616c6c65742061646472657373206973604482015265103d32b9379760d11b6064820152608401620000aa565b600380546001600160a01b039384166001600160a01b031991821617909155600480549290931691161790556019600755620001a6565b80516001600160a01b03811681146200016957600080fd5b919050565b600080604083850312156200018257600080fd5b6200018d8362000151565b91506200019d6020840162000151565b90509250929050565b61453980620001b66000396000f3fe60806040526004361061019c5760003560e01c806372157356116100ec578063bd9ecf7b1161008a578063dd20105911610064578063dd20105914610536578063f23a6e6114610556578063f2fde38b14610582578063fa152045146105a257600080fd5b8063bd9ecf7b146104f0578063d4ee1d9014610503578063db4f52441461052357600080fd5b806393b60b75116100c657806393b60b751461048b578063b69569421461049e578063b8876a51146104b1578063bc197c81146104c457600080fd5b8063721573561461043657806379ba5097146104565780638da5cb5b1461046b57600080fd5b806342e01001116101595780635ce02b8d116101335780635ce02b8d146103005780635ff37bd2146103135780636a6dda4d1461039b5780636ddd474d146103bb57600080fd5b806342e01001146102ad578063464f192d146102cd57806352bd268f146102ed57600080fd5b806301ffc9a7146101a1578063096ca630146101d6578063150b7a021461020e5780631548fd9e146102525780631cc014f014610276578063322593511461028b575b600080fd5b3480156101ad57600080fd5b506101c16101bc3660046135c3565b6105c2565b60405190151581526020015b60405180910390f35b3480156101e257600080fd5b506004546101f6906001600160a01b031681565b6040516001600160a01b0390911681526020016101cd565b34801561021a57600080fd5b506102396102293660046136c0565b630a85bd0160e11b949350505050565b6040516001600160e01b031990911681526020016101cd565b34801561025e57600080fd5b506102686103e881565b6040519081526020016101cd565b34801561028257600080fd5b50610268601981565b34801561029757600080fd5b506102ab6102a6366004613728565b6105f9565b005b3480156102b957600080fd5b506102ab6102c8366004613764565b610824565b3480156102d957600080fd5b506102ab6102e836600461378e565b610945565b6102ab6102fb366004613877565b610a62565b6102ab61030e366004613a28565b61111c565b34801561031f57600080fd5b5061038761032e366004613af5565b6006602081905260009182526040909120805460038201546004830154600584015493909401546001600160a01b0383169460ff600160a01b8504811695600160a81b9095048116949192808216916101009091041688565b6040516101cd989796959493929190613b34565b3480156103a757600080fd5b506102ab6103b6366004613ba0565b61172e565b3480156103c757600080fd5b5061040a6103d6366004613ba0565b60056020526000908152604090208054600182015460028301546003909301546001600160a01b0390921692909160ff1684565b604080516001600160a01b039095168552602085019390935291830152151560608201526080016101cd565b34801561044257600080fd5b506003546101f6906001600160a01b031681565b34801561046257600080fd5b506102ab611804565b34801561047757600080fd5b506001546101f6906001600160a01b031681565b6102ab610499366004613c1f565b61188d565b6102ab6104ac366004613ba0565b61215a565b6102ab6104bf366004613d82565b612444565b3480156104d057600080fd5b506102396104df366004613def565b63bc197c8160e01b95945050505050565b6102ab6104fe366004613d82565b6127a4565b34801561050f57600080fd5b506002546101f6906001600160a01b031681565b6102ab610531366004613d82565b612bf4565b34801561054257600080fd5b506102ab610551366004613af5565b61331e565b34801561056257600080fd5b50610239610571366004613e99565b63f23a6e6160e01b95945050505050565b34801561058e57600080fd5b506102ab61059d366004613ba0565b6133e4565b3480156105ae57600080fd5b506102ab6105bd366004613ba0565b613430565b60006001600160e01b03198216630271189760e51b14806105f357506301ffc9a760e01b6001600160e01b03198316145b92915050565b6001546001600160a01b0316331461061057600080fd5b6001600160a01b0383166106765760405162461bcd60e51b815260206004820152602260248201527f5468652067616d6520636f6e74726163742061646472657373206973207a6572604482015261379760f11b60648201526084015b60405180910390fd5b6001600160a01b0382166106cc5760405162461bcd60e51b815260206004820152601f60248201527f5468652067616d65206f776e65722061646472657373206973207a65726f2e00604482015260640161066d565b80158015906106dd57506103e88111155b6106f95760405162461bcd60e51b815260040161066d90613efe565b6001600160a01b03831660009081526005602052604090206003015460ff161561076f5760405162461bcd60e51b815260206004820152602160248201527f5468652067616d6520636f6e747261637420616c7265616479206578697374736044820152601760f91b606482015260840161066d565b604080516080810182526001600160a01b038481168252602080830185815260008486018181526001606087018181528b87168452600590955291879020955186546001600160a01b031916951694909417855590519084015590516002830155516003909101805460ff1916911515919091179055517f567a4c8c74a3005b40eefe41c1187288437407b6cac91d3db0e8a203e18229df9061081790859085908590613f46565b60405180910390a1505050565b6001546001600160a01b0316331461083b57600080fd5b6001600160a01b03821660009081526005602052604090206003015460ff1615156001146108c75760405162461bcd60e51b815260206004820152603360248201527f5468652067616d6520636f6e747261637420646f6573206e6f7420657869742060448201527234b7103a34329036b0b935b2ba383630b1b29760691b606482015260840161066d565b6103e88111156108e95760405162461bcd60e51b815260040161066d90613efe565b6001600160a01b038216600081815260056020908152604091829020600101849055815192835282018390527f92888d8b52de71d7d3e301fe6909d34c61a219c83d34dc9321390c0c937b498c91015b60405180910390a15050565b6001546001600160a01b0316331461095c57600080fd5b6001600160a01b03821660009081526005602052604090206003015460ff16151560011461099c5760405162461bcd60e51b815260040161066d90613f6a565b6001600160a01b0381166109fe5760405162461bcd60e51b815260206004820152602360248201527f546865206e65772067616d65206f776e65722061646472657373206973207a6560448201526239379760e91b606482015260840161066d565b6001600160a01b0382811660008181526005602090815260409182902080546001600160a01b031916948616948517905581519283528201929092527f253f61e57aebb888daec979db2f90b4a6c43b2b54803d78d68af49ccfc76fed49101610939565b60026000541415610a855760405162461bcd60e51b815260040161066d90613fbe565b600260009081556001600160a01b038b168152600560205260409020600301548a9060ff161515600114610acb5760405162461bcd60e51b815260040161066d90613f6a565b6001600160a01b03818116600090815260056020526040902054163314610b045760405162461bcd60e51b815260040161066d90613ff5565b60008981526006602081905260409091200154610100900460ff1615610b3c5760405162461bcd60e51b815260040161066d9061403b565b60008a6001811115610b5057610b50613b0e565b1480610b6d575060018a6001811115610b6b57610b6b613b0e565b145b610b895760405162461bcd60e51b815260040161066d90614089565b6000886002811115610b9d57610b9d613b0e565b1480610bba57506001886002811115610bb857610bb8613b0e565b145b80610bd657506002886002811115610bd457610bd4613b0e565b145b610c3e5760405162461bcd60e51b815260206004820152603360248201527f436172642054797065206d757374206265206f6e6520616d6f6e67204e46542c6044820152721029a2a6a4afa7232a16102820a1a5a0a3a29760691b606482015260840161066d565b60008511610c835760405162461bcd60e51b8152602060048201526012602482015271383934b1b29034b9903932b8bab4b932b21760711b604482015260640161066d565b821580610c8f57508284105b610cab5760405162461bcd60e51b815260040161066d906140d6565b6000826001811115610cbf57610cbf613b0e565b1480610cdc57506001826001811115610cda57610cda613b0e565b145b610d4e5760405162461bcd60e51b815260206004820152603760248201527f5061796d656e742054797065206d757374206265206f6e6520616d6f6e67204960448201527f534b52415f544f4b454e2c2047414d455f544f4b454e2e000000000000000000606482015260840161066d565b6040518061014001604052808c6001600160a01b031681526020018b6001811115610d7b57610d7b613b0e565b8152602001896002811115610d9257610d92613b0e565b8152602001888152602001878152602001868152602001858152602001848152602001836001811115610dc757610dc7613b0e565b81526001602091820181905260008c81526006835260409020835181546001600160a01b031981166001600160a01b039092169182178355938501519193919284926001600160a81b03191690911790600160a01b908490811115610e2e57610e2e613b0e565b021790555060408201518154829060ff60a81b1916600160a81b836002811115610e5a57610e5a613b0e565b021790555060608201518051610e7a916001840191602090910190613542565b5060808201518051610e96916002840191602090910190613542565b5060a0820151600382015560c0820151600482015560e0820151600582015561010082015160068201805460ff191660018381811115610ed857610ed8613b0e565b02179055506101209190910151600690910180549115156101000261ff001990921691909117905560008a6001811115610f1457610f14613b0e565b1415610fba5760005b8751811015610fb4578b6001600160a01b03166342842e0e33308b8581518110610f4957610f49614120565b60200260200101516040518463ffffffff1660e01b8152600401610f6f93929190613f46565b600060405180830381600087803b158015610f8957600080fd5b505af1158015610f9d573d6000803e3d6000fd5b505050508080610fac9061414c565b915050610f1d565b506110d6565b6002886002811115610fce57610fce613b0e565b141561103d57604051631759616b60e11b81526001600160a01b038c1690632eb2c2d69061100690339030908c908c906004016141a2565b600060405180830381600087803b15801561102057600080fd5b505af1158015611034573d6000803e3d6000fd5b505050506110d6565b8a6001600160a01b031663f242432a33308a60008151811061106157611061614120565b60200260200101518a60008151811061107c5761107c614120565b60200260200101516040518563ffffffff1660e01b81526004016110a394939291906141fd565b600060405180830381600087803b1580156110bd57600080fd5b505af11580156110d1573d6000803e3d6000fd5b505050505b6040518981527f39789d91fcbc800fc359c6476eb2ce4977615b30168172087e7581c85b5ff5f2906020015b60405180910390a150506001600055505050505050505050565b6002600054141561113f5760405162461bcd60e51b815260040161066d90613fbe565b6002600090815584905b8151811015611239576006600083838151811061116857611168614120565b6020026020010151815260200190815260200160002060060160019054906101000a900460ff16151560011515146111b25760405162461bcd60e51b815260040161066d90614235565b60056000600660008585815181106111cc576111cc614120565b60209081029190910181015182528181019290925260409081016000908120546001600160a01b0390811685529284019490945291909101909120541633146112275760405162461bcd60e51b815260040161066d90614285565b806112318161414c565b915050611149565b50600086600181111561124e5761124e613b0e565b148061126b5750600186600181111561126957611269613b0e565b145b6112875760405162461bcd60e51b815260040161066d90614089565b60005b85518110156113595760008582815181106112a7576112a7614120565b602002602001015160028111156112c0576112c0613b0e565b14806112f6575060018582815181106112db576112db614120565b602002602001015160028111156112f4576112f4613b0e565b145b8061132b5750600285828151811061131057611310614120565b6020026020010151600281111561132957611329613b0e565b145b6113475760405162461bcd60e51b815260040161066d906142cb565b806113518161414c565b91505061128a565b50600086600181111561136e5761136e613b0e565b14156114ca5760005b83518110156114c4576006600087838151811061139657611396614120565b6020026020010151815260200190815260200160002060000160009054906101000a90046001600160a01b03166001600160a01b03166342842e0e3060056000600660008c88815181106113ec576113ec614120565b60209081029190910181015182528181019290925260409081016000908120546001600160a01b039081168552928401949094529190910190912054885191169088908690811061143f5761143f614120565b602002602001015160008151811061145957611459614120565b60200260200101516040518463ffffffff1660e01b815260040161147f93929190613f46565b600060405180830381600087803b15801561149957600080fd5b505af11580156114ad573d6000803e3d6000fd5b5050505080806114bc9061414c565b915050611377565b5061164c565b6060806000805b88518110156115d15760005b8782815181106114ef576114ef614120565b6020026020010151518110156115be5787828151811061151157611511614120565b6020026020010151818151811061152a5761152a614120565b602002602001015185848151811061154457611544614120565b60200260200101818152505086828151811061156257611562614120565b6020026020010151818151811061157b5761157b614120565b602002602001015184848061158f9061414c565b9550815181106115a1576115a1614120565b6020908102919091010152806115b68161414c565b9150506114dd565b50806115c98161414c565b9150506114d1565b506001600160a01b03808b1660008181526005602052604090819020549051631759616b60e11b81529192632eb2c2d6926116169230921690889088906004016141a2565b600060405180830381600087803b15801561163057600080fd5b505af1158015611644573d6000803e3d6000fd5b505050505050505b60005b85518110156116e8576006600087838151811061166e5761166e614120565b6020908102919091018101518252810191909152604001600090812080546001600160b01b0319168155906116a6600183018261358d565b6116b460028301600061358d565b50600060038201819055600482018190556005820155600601805461ffff19169055806116e08161414c565b91505061164f565b507fd16aa69934739dc16663bc995c3560bb6bd12a68b106a528c97f694e43202e9a85604051611718919061431d565b60405180910390a1505060016000555050505050565b6001546001600160a01b0316331461174557600080fd5b6001600160a01b03811661179b5760405162461bcd60e51b815260206004820181905260248201527f4e65772069736b726120746f6b656e2061646472657373206973207a65726f2e604482015260640161066d565b600354604080516001600160a01b03928316815291831660208301527ffcb16566dbf42f5e5c000e220dd4cacd946398624182c690390e1ecc949a083a910160405180910390a1600380546001600160a01b0319166001600160a01b0392909216919091179055565b6002546001600160a01b0316331461181b57600080fd5b600154600254604080516001600160a01b0393841681529290911660208301527f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0910160405180910390a160028054600180546001600160a01b03199081166001600160a01b03841617909155169055565b600260005414156118b05760405162461bcd60e51b815260040161066d90613fbe565b600260009081556001600160a01b038b168152600560205260409020600301548a9060ff1615156001146118f65760405162461bcd60e51b815260040161066d90613f6a565b6001600160a01b0381811660009081526005602052604090205416331461192f5760405162461bcd60e51b815260040161066d90613ff5565b60008a600181111561194357611943613b0e565b1480611960575060018a600181111561195e5761195e613b0e565b145b61197c5760405162461bcd60e51b815260040161066d90614089565b60005b8951811015611c4857600660008b838151811061199e5761199e614120565b602090810291909101810151825281019190915260400160002060060154610100900460ff16156119e15760405162461bcd60e51b815260040161066d9061403b565b60008982815181106119f5576119f5614120565b60200260200101516002811115611a0e57611a0e613b0e565b1480611a4457506001898281518110611a2957611a29614120565b60200260200101516002811115611a4257611a42613b0e565b145b80611a7957506002898281518110611a5e57611a5e614120565b60200260200101516002811115611a7757611a77613b0e565b145b611a955760405162461bcd60e51b815260040161066d906142cb565b6000868281518110611aa957611aa9614120565b602002602001015111611af35760405162461bcd60e51b8152602060048201526012602482015271383934b1b29034b9903932b8bab4b932b21760711b604482015260640161066d565b838181518110611b0557611b05614120565b602002602001015160001480611b4c5750838181518110611b2857611b28614120565b6020026020010151858281518110611b4257611b42614120565b6020026020010151105b611b685760405162461bcd60e51b815260040161066d906140d6565b6000838281518110611b7c57611b7c614120565b60200260200101516001811115611b9557611b95613b0e565b1480611bcb57506001838281518110611bb057611bb0614120565b60200260200101516001811115611bc957611bc9613b0e565b145b611c365760405162461bcd60e51b815260206004820152603660248201527f5061796d656e742054797065206d757374206265206f6e6520616d6f6e67204960448201527529a5a920afaa27a5a2a7161023a0a6a2afaa27a5a2a760511b606482015260840161066d565b80611c408161414c565b91505061197f565b5060005b8951811015611ee6576040518061014001604052808d6001600160a01b031681526020018c6001811115611c8257611c82613b0e565b81526020018a8381518110611c9957611c99614120565b60200260200101516002811115611cb257611cb2613b0e565b8152602001898381518110611cc957611cc9614120565b60200260200101518152602001888381518110611ce857611ce8614120565b60200260200101518152602001878381518110611d0757611d07614120565b60200260200101518152602001868381518110611d2657611d26614120565b60200260200101518152602001858381518110611d4557611d45614120565b60200260200101518152602001848381518110611d6457611d64614120565b60200260200101516001811115611d7d57611d7d613b0e565b815260200160011515815250600660008c8481518110611d9f57611d9f614120565b602090810291909101810151825281810192909252604001600020825181546001600160a01b039091166001600160a01b031982168117835592840151919283916001600160a81b03191617600160a01b836001811115611e0257611e02613b0e565b021790555060408201518154829060ff60a81b1916600160a81b836002811115611e2e57611e2e613b0e565b021790555060608201518051611e4e916001840191602090910190613542565b5060808201518051611e6a916002840191602090910190613542565b5060a0820151600382015560c0820151600482015560e0820151600582015561010082015160068201805460ff191660018381811115611eac57611eac613b0e565b02179055506101209190910151600690910180549115156101000261ff001990921691909117905580611ede8161414c565b915050611c4c565b5060008a6001811115611efb57611efb613b0e565b1415611fbb5760005b8751811015611fb5578b6001600160a01b03166342842e0e33308b8581518110611f3057611f30614120565b6020026020010151600081518110611f4a57611f4a614120565b60200260200101516040518463ffffffff1660e01b8152600401611f7093929190613f46565b600060405180830381600087803b158015611f8a57600080fd5b505af1158015611f9e573d6000803e3d6000fd5b505050508080611fad9061414c565b915050611f04565b5061212b565b6060806000805b8c518110156120c25760005b8b8281518110611fe057611fe0614120565b6020026020010151518110156120af578b828151811061200257612002614120565b6020026020010151818151811061201b5761201b614120565b602002602001015185848151811061203557612035614120565b6020026020010181815250508a828151811061205357612053614120565b6020026020010151818151811061206c5761206c614120565b60200260200101518484806120809061414c565b95508151811061209257612092614120565b6020908102919091010152806120a78161414c565b915050611fce565b50806120ba8161414c565b915050611fc2565b50604051631759616b60e11b81526001600160a01b038f1690632eb2c2d6906120f59033903090889088906004016141a2565b600060405180830381600087803b15801561210f57600080fd5b505af1158015612123573d6000803e3d6000fd5b505050505050505b7f1953ac0909b04753e1ddf53d61bb61d701a5da32492d0837cdff98bac5d5e71389604051611102919061431d565b6002600054141561217d5760405162461bcd60e51b815260040161066d90613fbe565b600260009081556001600160a01b038216815260056020526040902060030154819060ff1615156001146121c35760405162461bcd60e51b815260040161066d90613f6a565b6001546001600160a01b03163314806121f557506001600160a01b038181166000908152600560205260409020541633145b6122415760405162461bcd60e51b815260206004820181905260248201527f6d73672e73656e646572206973206e6f742061626c6520746f20636c61696d2e604482015260640161066d565b6001600160a01b038216600090815260056020526040812060028101546001909101549091906122759083906103e8613506565b905060006122838284614330565b6001600160a01b0386166000908152600560205260408120600201805492935085929091906122b3908490614330565b90915550506003546001600160a01b03868116600090815260056020526040908190205490516323b872dd60e01b8152928216926323b872dd926123009230929116908790600401613f46565b602060405180830381600087803b15801561231a57600080fd5b505af115801561232e573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906123529190614347565b50600354600480546040516323b872dd60e01b81526001600160a01b03938416936323b872dd9361238a933093921691879101613f46565b602060405180830381600087803b1580156123a457600080fd5b505af11580156123b8573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906123dc9190614347565b506001600160a01b0385811660009081526005602090815260409182902054825186815291820185905290921682820152517f9f037742bf8c6dfe0726ba8fe20c1e7e83675e573d5e63c8b6152b631d5630849181900360600190a150506001600055505050565b600260005414156124675760405162461bcd60e51b815260040161066d90613fbe565b600260009081558381526006602081905260409091200154839060ff6101009091041615156001146124ab5760405162461bcd60e51b815260040161066d90614235565b6000818152600660209081526040808320546001600160a01b0390811684526005909252909120541633146124f25760405162461bcd60e51b815260040161066d90614285565b60008085815260066020526040902054600160a01b900460ff16600181111561251d5761251d613b0e565b14156125c9576000848152600660209081526040808320546001600160a01b03908116808552600590935290832054865192936342842e0e933093929092169188919061256c5761256c614120565b60200260200101516040518463ffffffff1660e01b815260040161259293929190613f46565b600060405180830381600087803b1580156125ac57600080fd5b505af11580156125c0573d6000803e3d6000fd5b5050505061270b565b6002600085815260066020526040902054600160a81b900460ff1660028111156125f5576125f5613b0e565b141561264d576000848152600660209081526040808320546001600160a01b03908116808552600590935292819020549051631759616b60e11b81529192632eb2c2d6926125929230921690889088906004016141a2565b6000848152600660209081526040808320546001600160a01b039081168085526005909352908320548651929363f242432a933093929092169188919061269657612696614120565b6020026020010151866000815181106126b1576126b1614120565b60200260200101516040518563ffffffff1660e01b81526004016126d894939291906141fd565b600060405180830381600087803b1580156126f257600080fd5b505af1158015612706573d6000803e3d6000fd5b505050505b600084815260066020526040812080546001600160b01b031916815590612735600183018261358d565b61274360028301600061358d565b50600060038201819055600482018190556005820155600601805461ffff191690556040518481527fbf4f829c37dd6ba45e22f6c010e33b73757cdaf2298c467a74269e4b1a6b11cd906020015b60405180910390a1505060016000555050565b600260005414156127c75760405162461bcd60e51b815260040161066d90613fbe565b600260009081558381526006602081905260409091200154839060ff61010090910416151560011461280b5760405162461bcd60e51b815260040161066d90614235565b6000818152600660209081526040808320546001600160a01b0390811684526005909252909120541633146128525760405162461bcd60e51b815260040161066d90614285565b8251600085815260066020526040902060010154146128835760405162461bcd60e51b815260040161066d90614369565b60005b8351811015612982578381815181106128a1576128a1614120565b60200260200101516006600087815260200190815260200160002060010182815481106128d0576128d0614120565b9060005260206000200154146128f85760405162461bcd60e51b815260040161066d906143c6565b82818151811061290a5761290a614120565b6020026020010151600014156129705760405162461bcd60e51b815260206004820152602560248201527f54686520696e6372656173696e6720746f6b656e20416d6f756e7473206973206044820152643d32b9379760d91b606482015260840161066d565b8061297a8161414c565b915050612886565b5060008085815260066020526040902054600160a01b900460ff1660018111156129ae576129ae613b0e565b1415612a6a5760005b8351811015612a645760008581526006602052604090205484516001600160a01b03909116906342842e0e90339030908890869081106129f9576129f9614120565b60200260200101516040518463ffffffff1660e01b8152600401612a1f93929190613f46565b600060405180830381600087803b158015612a3957600080fd5b505af1158015612a4d573d6000803e3d6000fd5b505050508080612a5c9061414c565b9150506129b7565b50612bc1565b6002600085815260066020526040902054600160a81b900460ff166002811115612a9657612a96613b0e565b1415612b165760008481526006602052604090819020549051631759616b60e11b81526001600160a01b0390911690632eb2c2d690612adf9033903090889088906004016141a2565b600060405180830381600087803b158015612af957600080fd5b505af1158015612b0d573d6000803e3d6000fd5b50505050612bc1565b60008481526006602052604081205484516001600160a01b039091169163f242432a9133913091889190612b4c57612b4c614120565b602002602001015186600081518110612b6757612b67614120565b60200260200101516040518563ffffffff1660e01b8152600401612b8e94939291906141fd565b600060405180830381600087803b158015612ba857600080fd5b505af1158015612bbc573d6000803e3d6000fd5b505050505b7fa6dce577540d79e003800ab44df225b94a436624ee7d746da941208bc9e9561f84848460405161279193929190614430565b60026000541415612c175760405162461bcd60e51b815260040161066d90613fbe565b60026000908155838152600660205260409020600301543414612ca25760405162461bcd60e51b815260206004820152603760248201527f506c65617365207375626d6974207468652061736b696e67207072696365207460448201527f6f20636f6d706c65746520746865207075726368617365000000000000000000606482015260840161066d565b6000838152600660205260409020600401541580612cd157506000838152600660205260409020600401544210155b612d275760405162461bcd60e51b815260206004820152602160248201527f4974206973206265666f72652074686520706572696f6420666f722073616c656044820152601760f91b606482015260840161066d565b6000838152600660205260409020600501541580612d5657506000838152600660205260409020600501544211155b612da25760405162461bcd60e51b815260206004820152601f60248201527f54686520706572696f6420666f722073616c6520697320657870697265642e00604482015260640161066d565b815160008481526006602052604090206001015414612dd35760405162461bcd60e51b815260040161066d90614369565b60005b8251811015612f2557828181518110612df157612df1614120565b6020026020010151600660008681526020019081526020016000206001018281548110612e2057612e20614120565b906000526020600020015414612e485760405162461bcd60e51b815260040161066d906143c6565b818181518110612e5a57612e5a614120565b6020026020010151600660008681526020019081526020016000206002018281548110612e8957612e89614120565b90600052602060002001541015612f135760405162461bcd60e51b815260206004820152604260248201527f5468652061736b696e6720746f6b656e20416d6f756e7473206d75737420626560448201527f2073616d652061732074686f736520696e20746865206d61726b6574706c6163606482015261329760f11b608482015260a40161066d565b80612f1d8161414c565b915050612dd6565b5060008084815260066020526040902054600160a01b900460ff166001811115612f5157612f51613b0e565b141561300d5760005b82518110156130075760008481526006602052604090205483516001600160a01b03909116906342842e0e9030903390879086908110612f9c57612f9c614120565b60200260200101516040518463ffffffff1660e01b8152600401612fc293929190613f46565b600060405180830381600087803b158015612fdc57600080fd5b505af1158015612ff0573d6000803e3d6000fd5b505050508080612fff9061414c565b915050612f5a565b50613164565b6002600084815260066020526040902054600160a81b900460ff16600281111561303957613039613b0e565b14156130b95760008381526006602052604090819020549051631759616b60e11b81526001600160a01b0390911690632eb2c2d6906130829030903390879087906004016141a2565b600060405180830381600087803b15801561309c57600080fd5b505af11580156130b0573d6000803e3d6000fd5b50505050613164565b60008381526006602052604081205483516001600160a01b039091169163f242432a91309133918791906130ef576130ef614120565b60200260200101518560008151811061310a5761310a614120565b60200260200101516040518563ffffffff1660e01b815260040161313194939291906141fd565b600060405180830381600087803b15801561314b57600080fd5b505af115801561315f573d6000803e3d6000fd5b505050505b60008381526006602052604081206003015460075461318691906103e8613506565b600354600480546040516323b872dd60e01b81529394506001600160a01b03928316936323b872dd936131c193339390911691879101613f46565b602060405180830381600087803b1580156131db57600080fd5b505af11580156131ef573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906132139190614347565b506003546001600160a01b03166323b872dd33306132318534614330565b6040518463ffffffff1660e01b815260040161324f93929190613f46565b602060405180830381600087803b15801561326957600080fd5b505af115801561327d573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906132a19190614347565b506132ac8134614330565b6000858152600660209081526040808320546001600160a01b031683526005909152812060020180549091906132e3908490614465565b90915550506040517ff710a346188caee6f864a3000def5f43dd2f15ce0a0f3bd052253b109181153d9061279190869086908690339061447d565b6001546001600160a01b0316331461333557600080fd5b801580159061334657506103e88111155b6133a35760405162461bcd60e51b815260206004820152602860248201527f54686520707572636861736520666565206d757374206265206c65737320746860448201526730b710189818181760c11b606482015260840161066d565b60075460408051918252602082018390527f0ebad1d105ef1499ecf5efcc5bb2bf161821b15f3552c31f398c7cf87b996c74910160405180910390a1600755565b6001546001600160a01b031633146133fb57600080fd5b6001600160a01b03811661340e57600080fd5b600280546001600160a01b0319166001600160a01b0392909216919091179055565b6001546001600160a01b0316331461344757600080fd5b6001600160a01b03811661349d5760405162461bcd60e51b815260206004820181905260248201527f4e65772069736b726120746f6b656e2061646472657373206973207a65726f2e604482015260640161066d565b600454604080516001600160a01b03928316815291831660208301527f4301406fa5b2f375fe4bbeeb28b051e024c5098bb5159ac5cf82ba511bafb4bd910160405180910390a1600480546001600160a01b0319166001600160a01b0392909216919091179055565b600061351b6135158585613523565b83613536565b949350505050565b600061352f82846144c2565b9392505050565b600061352f82846144e1565b82805482825590600052602060002090810192821561357d579160200282015b8281111561357d578251825591602001919060010190613562565b506135899291506135ae565b5090565b50805460008255906000526020600020908101906135ab91906135ae565b50565b5b8082111561358957600081556001016135af565b6000602082840312156135d557600080fd5b81356001600160e01b03198116811461352f57600080fd5b80356001600160a01b038116811461360457600080fd5b919050565b634e487b7160e01b600052604160045260246000fd5b604051601f8201601f1916810167ffffffffffffffff8111828210171561364857613648613609565b604052919050565b600082601f83011261366157600080fd5b813567ffffffffffffffff81111561367b5761367b613609565b61368e601f8201601f191660200161361f565b8181528460208386010111156136a357600080fd5b816020850160208301376000918101602001919091529392505050565b600080600080608085870312156136d657600080fd5b6136df856135ed565b93506136ed602086016135ed565b925060408501359150606085013567ffffffffffffffff81111561371057600080fd5b61371c87828801613650565b91505092959194509250565b60008060006060848603121561373d57600080fd5b613746846135ed565b9250613754602085016135ed565b9150604084013590509250925092565b6000806040838503121561377757600080fd5b613780836135ed565b946020939093013593505050565b600080604083850312156137a157600080fd5b6137aa836135ed565b91506137b8602084016135ed565b90509250929050565b600281106135ab57600080fd5b8035613604816137c1565b80356003811061360457600080fd5b600067ffffffffffffffff82111561380257613802613609565b5060051b60200190565b600082601f83011261381d57600080fd5b8135602061383261382d836137e8565b61361f565b82815260059290921b8401810191818101908684111561385157600080fd5b8286015b8481101561386c5780358352918301918301613855565b509695505050505050565b6000806000806000806000806000806101408b8d03121561389757600080fd5b6138a08b6135ed565b99506138ae60208c016137ce565b985060408b013597506138c360608c016137d9565b965060808b013567ffffffffffffffff808211156138e057600080fd5b6138ec8e838f0161380c565b975060a08d013591508082111561390257600080fd5b5061390f8d828e0161380c565b95505060c08b0135935060e08b013592506101008b013591506139356101208c016137ce565b90509295989b9194979a5092959850565b600082601f83011261395757600080fd5b8135602061396761382d836137e8565b82815260059290921b8401810191818101908684111561398657600080fd5b8286015b8481101561386c5761399b816137d9565b835291830191830161398a565b600082601f8301126139b957600080fd5b813560206139c961382d836137e8565b82815260059290921b840181019181810190868411156139e857600080fd5b8286015b8481101561386c57803567ffffffffffffffff811115613a0c5760008081fd5b613a1a8986838b010161380c565b8452509183019183016139ec565b60008060008060008060c08789031215613a4157600080fd5b613a4a876135ed565b9550613a58602088016137ce565b9450604087013567ffffffffffffffff80821115613a7557600080fd5b613a818a838b0161380c565b95506060890135915080821115613a9757600080fd5b613aa38a838b01613946565b94506080890135915080821115613ab957600080fd5b613ac58a838b016139a8565b935060a0890135915080821115613adb57600080fd5b50613ae889828a016139a8565b9150509295509295509295565b600060208284031215613b0757600080fd5b5035919050565b634e487b7160e01b600052602160045260246000fd5b600281106135ab576135ab613b0e565b6001600160a01b03891681526101008101613b4e89613b24565b88602083015260038810613b6457613b64613b0e565b8760408301528660608301528560808301528460a0830152613b8584613b24565b8360c083015282151560e08301529998505050505050505050565b600060208284031215613bb257600080fd5b61352f826135ed565b600082601f830112613bcc57600080fd5b81356020613bdc61382d836137e8565b82815260059290921b84018101918181019086841115613bfb57600080fd5b8286015b8481101561386c578035613c12816137c1565b8352918301918301613bff565b6000806000806000806000806000806101408b8d031215613c3f57600080fd5b613c488b6135ed565b9950613c5660208c016137ce565b985060408b013567ffffffffffffffff80821115613c7357600080fd5b613c7f8e838f0161380c565b995060608d0135915080821115613c9557600080fd5b613ca18e838f01613946565b985060808d0135915080821115613cb757600080fd5b613cc38e838f016139a8565b975060a08d0135915080821115613cd957600080fd5b613ce58e838f016139a8565b965060c08d0135915080821115613cfb57600080fd5b613d078e838f0161380c565b955060e08d0135915080821115613d1d57600080fd5b613d298e838f0161380c565b94506101008d0135915080821115613d4057600080fd5b613d4c8e838f0161380c565b93506101208d0135915080821115613d6357600080fd5b50613d708d828e01613bbb565b9150509295989b9194979a5092959850565b600080600060608486031215613d9757600080fd5b83359250602084013567ffffffffffffffff80821115613db657600080fd5b613dc28783880161380c565b93506040860135915080821115613dd857600080fd5b50613de58682870161380c565b9150509250925092565b600080600080600060a08688031215613e0757600080fd5b613e10866135ed565b9450613e1e602087016135ed565b9350604086013567ffffffffffffffff80821115613e3b57600080fd5b613e4789838a0161380c565b94506060880135915080821115613e5d57600080fd5b613e6989838a0161380c565b93506080880135915080821115613e7f57600080fd5b50613e8c88828901613650565b9150509295509295909350565b600080600080600060a08688031215613eb157600080fd5b613eba866135ed565b9450613ec8602087016135ed565b93506040860135925060608601359150608086013567ffffffffffffffff811115613ef257600080fd5b613e8c88828901613650565b60208082526028908201527f5468652067616d652072732072617465206d757374206265206c65737320746860408201526730b710189818181760c11b606082015260800190565b6001600160a01b039384168152919092166020820152604081019190915260600190565b60208082526034908201527f5468652067616d6520636f6e747261637420646f6573206e6f742065786973746040820152731034b7103a34329036b0b935b2ba383630b1b29760611b606082015260800190565b6020808252601f908201527f5265656e7472616e637947756172643a207265656e7472616e742063616c6c00604082015260600190565b60208082526026908201527f6d73672e73656e646572206973206e6f7420657175616c20746f2067616d652060408201526537bbb732b91760d11b606082015260800190565b6020808252602e908201527f546865204361726420494420616c72656164792065786973747320696e20746860408201526d329036b0b935b2ba383630b1b29760911b606082015260800190565b6020808252602d908201527f4552432054797065206d757374206265206f6e6520616d6f6e6720455243373260408201526c189037b91022a92198989a9a9760991b606082015260800190565b6020808252602a908201527f54686520656e642064617465206973206c61746572207468616e2074686520736040820152693a30b93a103230ba329760b11b606082015260800190565b634e487b7160e01b600052603260045260246000fd5b634e487b7160e01b600052601160045260246000fd5b600060001982141561416057614160614136565b5060010190565b600081518084526020808501945080840160005b838110156141975781518752958201959082019060010161417b565b509495945050505050565b6001600160a01b0385811682528416602082015260a0604082018190526000906141ce90830185614167565b82810360608401526141e08185614167565b838103608090940193909352505060008152602001949350505050565b6001600160a01b0394851681529290931660208301526040820152606081019190915260a06080820181905260009082015260c00190565b60208082526030908201527f546865206361726420494420646f6573206e6f7420657869737420696e20746860408201526f329033b0b6b29031b7b73a3930b1ba1760811b606082015260800190565b60208082526026908201527f6d73672e73656e646572206973206e6f7420657175616c20746f20636172642060408201526537bbb732b91760d11b606082015260800190565b60208082526032908201527f436172642054797065206d757374206265206f6e6520616d6f6e67204e46542c6040820152712053454d495f4e46542c205041434b41474560701b606082015260800190565b60208152600061352f6020830184614167565b60008282101561434257614342614136565b500390565b60006020828403121561435957600080fd5b8151801515811461352f57600080fd5b6020808252603d908201527f5468652061736b696e6720746f6b656e20494473206d7573742062652073616d60408201527f65206173207468617420696e20746865206d61726b6574706c6163652e000000606082015260800190565b60208082526044908201527f5468652061736b696e6720746f6b656e2049447327206f72646572206d75737460408201527f2062652073616d65206173207468617420696e20746865206d61726b6574706c60608201526330b1b29760e11b608082015260a00190565b8381526060602082015260006144496060830185614167565b828103604084015261445b8185614167565b9695505050505050565b6000821982111561447857614478614136565b500190565b8481526080602082015260006144966080830186614167565b82810360408401526144a88186614167565b91505060018060a01b038316606083015295945050505050565b60008160001904831182151516156144dc576144dc614136565b500290565b6000826144fe57634e487b7160e01b600052601260045260246000fd5b50049056fea264697066735822122014aeeafb857eea6de49c7bfa12350beb0debced30c4bc2ef66b2acd5583d1c4664736f6c63430008090033',
+                                                                 [
+                                                                   {
+                                                                     "inputs": [
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "_iskraToken",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "_iskraIncomeWallet",
+                                                                         "type": "address"
+                                                                       }
+                                                                     ],
+                                                                     "stateMutability": "nonpayable",
+                                                                     "type": "constructor"
+                                                                   },
+                                                                   {
+                                                                     "anonymous": false,
+                                                                     "inputs": [
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256",
+                                                                         "name": "_cardID",
+                                                                         "type": "uint256"
+                                                                       },
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256",
+                                                                         "name": "_numPackage",
+                                                                         "type": "uint256"
+                                                                       },
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256[]",
+                                                                         "name": "_tokenIDs",
+                                                                         "type": "uint256[]"
+                                                                       },
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256[]",
+                                                                         "name": "_tokenAmounts",
+                                                                         "type": "uint256[]"
+                                                                       }
+                                                                     ],
+                                                                     "name": "AmountDecreased",
+                                                                     "type": "event"
+                                                                   },
+                                                                   {
+                                                                     "anonymous": false,
+                                                                     "inputs": [
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256",
+                                                                         "name": "_cardID",
+                                                                         "type": "uint256"
+                                                                       },
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256",
+                                                                         "name": "_numPackage",
+                                                                         "type": "uint256"
+                                                                       },
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256[]",
+                                                                         "name": "_tokenIDs",
+                                                                         "type": "uint256[]"
+                                                                       },
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256[]",
+                                                                         "name": "_tokenAmounts",
+                                                                         "type": "uint256[]"
+                                                                       }
+                                                                     ],
+                                                                     "name": "AmountIncreased",
+                                                                     "type": "event"
+                                                                   },
+                                                                   {
+                                                                     "anonymous": false,
+                                                                     "inputs": [
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256[]",
+                                                                         "name": "_cardIDs",
+                                                                         "type": "uint256[]"
+                                                                       }
+                                                                     ],
+                                                                     "name": "BatchCardCreated",
+                                                                     "type": "event"
+                                                                   },
+                                                                   {
+                                                                     "anonymous": false,
+                                                                     "inputs": [
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256[]",
+                                                                         "name": "_cardIDs",
+                                                                         "type": "uint256[]"
+                                                                       }
+                                                                     ],
+                                                                     "name": "BatchCardRemoved",
+                                                                     "type": "event"
+                                                                   },
+                                                                   {
+                                                                     "anonymous": false,
+                                                                     "inputs": [
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256",
+                                                                         "name": "_cardID",
+                                                                         "type": "uint256"
+                                                                       }
+                                                                     ],
+                                                                     "name": "CardCreated",
+                                                                     "type": "event"
+                                                                   },
+                                                                   {
+                                                                     "anonymous": false,
+                                                                     "inputs": [
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256",
+                                                                         "name": "_cardID",
+                                                                         "type": "uint256"
+                                                                       },
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256[]",
+                                                                         "name": "_tokenIDs",
+                                                                         "type": "uint256[]"
+                                                                       },
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256[]",
+                                                                         "name": "_tokenAmounts",
+                                                                         "type": "uint256[]"
+                                                                       },
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "address",
+                                                                         "name": "_purchaser",
+                                                                         "type": "address"
+                                                                       }
+                                                                     ],
+                                                                     "name": "CardPurchased",
+                                                                     "type": "event"
+                                                                   },
+                                                                   {
+                                                                     "anonymous": false,
+                                                                     "inputs": [
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256",
+                                                                         "name": "_cardID",
+                                                                         "type": "uint256"
+                                                                       }
+                                                                     ],
+                                                                     "name": "CardRemoved",
+                                                                     "type": "event"
+                                                                   },
+                                                                   {
+                                                                     "anonymous": false,
+                                                                     "inputs": [
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "address",
+                                                                         "name": "_gameContract",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "address",
+                                                                         "name": "_gameOwner",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256",
+                                                                         "name": "_gameRsRatePermille",
+                                                                         "type": "uint256"
+                                                                       }
+                                                                     ],
+                                                                     "name": "GameContractCreated",
+                                                                     "type": "event"
+                                                                   },
+                                                                   {
+                                                                     "anonymous": false,
+                                                                     "inputs": [
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "address",
+                                                                         "name": "_gameContract",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "address",
+                                                                         "name": "_newGameOwner",
+                                                                         "type": "address"
+                                                                       }
+                                                                     ],
+                                                                     "name": "GameOwnerChanged",
+                                                                     "type": "event"
+                                                                   },
+                                                                   {
+                                                                     "anonymous": false,
+                                                                     "inputs": [
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "address",
+                                                                         "name": "_gameContract",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256",
+                                                                         "name": "_newGameRsRate",
+                                                                         "type": "uint256"
+                                                                       }
+                                                                     ],
+                                                                     "name": "GameRsRateChanged",
+                                                                     "type": "event"
+                                                                   },
+                                                                   {
+                                                                     "anonymous": false,
+                                                                     "inputs": [
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "address",
+                                                                         "name": "_previousIskraIncomeWallet",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "address",
+                                                                         "name": "_newIskraIncomeWallet",
+                                                                         "type": "address"
+                                                                       }
+                                                                     ],
+                                                                     "name": "IskraIncomeWalletChanged",
+                                                                     "type": "event"
+                                                                   },
+                                                                   {
+                                                                     "anonymous": false,
+                                                                     "inputs": [
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "address",
+                                                                         "name": "_previousIskraToken",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "address",
+                                                                         "name": "_newIskraToken",
+                                                                         "type": "address"
+                                                                       }
+                                                                     ],
+                                                                     "name": "IskraTokenChanged",
+                                                                     "type": "event"
+                                                                   },
+                                                                   {
+                                                                     "anonymous": false,
+                                                                     "inputs": [
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "address",
+                                                                         "name": "_previousOwner",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "address",
+                                                                         "name": "_newOwner",
+                                                                         "type": "address"
+                                                                       }
+                                                                     ],
+                                                                     "name": "OwnershipTransferred",
+                                                                     "type": "event"
+                                                                   },
+                                                                   {
+                                                                     "anonymous": false,
+                                                                     "inputs": [
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256",
+                                                                         "name": "_previousPurchaserFeePermille",
+                                                                         "type": "uint256"
+                                                                       },
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256",
+                                                                         "name": "_newPurchaserFeePermille",
+                                                                         "type": "uint256"
+                                                                       }
+                                                                     ],
+                                                                     "name": "PurchaserFeePermilleChanged",
+                                                                     "type": "event"
+                                                                   },
+                                                                   {
+                                                                     "anonymous": false,
+                                                                     "inputs": [
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256",
+                                                                         "name": "_sellerRevenue",
+                                                                         "type": "uint256"
+                                                                       },
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "uint256",
+                                                                         "name": "_iskraRevenue",
+                                                                         "type": "uint256"
+                                                                       },
+                                                                       {
+                                                                         "indexed": false,
+                                                                         "internalType": "address",
+                                                                         "name": "_gameContractOwner",
+                                                                         "type": "address"
+                                                                       }
+                                                                     ],
+                                                                     "name": "RevenueClaimed",
+                                                                     "type": "event"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [],
+                                                                     "name": "PERMILLE_FACTOR",
+                                                                     "outputs": [
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "",
+                                                                         "type": "uint256"
+                                                                       }
+                                                                     ],
+                                                                     "stateMutability": "view",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [],
+                                                                     "name": "PURCHASER_FEE_DEFAULT_PERMILLE",
+                                                                     "outputs": [
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "",
+                                                                         "type": "uint256"
+                                                                       }
+                                                                     ],
+                                                                     "stateMutability": "view",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [],
+                                                                     "name": "acceptOwnership",
+                                                                     "outputs": [],
+                                                                     "stateMutability": "nonpayable",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "_gameContract",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "_newGameOwner",
+                                                                         "type": "address"
+                                                                       }
+                                                                     ],
+                                                                     "name": "changeGameOwner",
+                                                                     "outputs": [],
+                                                                     "stateMutability": "nonpayable",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "_gameContract",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "_newGameRsRate",
+                                                                         "type": "uint256"
+                                                                       }
+                                                                     ],
+                                                                     "name": "changeGameRsRate",
+                                                                     "outputs": [],
+                                                                     "stateMutability": "nonpayable",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "_newIskraIncomeWallet",
+                                                                         "type": "address"
+                                                                       }
+                                                                     ],
+                                                                     "name": "changeIskraIncomeWallet",
+                                                                     "outputs": [],
+                                                                     "stateMutability": "nonpayable",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "_newIskraToken",
+                                                                         "type": "address"
+                                                                       }
+                                                                     ],
+                                                                     "name": "changeIskraToken",
+                                                                     "outputs": [],
+                                                                     "stateMutability": "nonpayable",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "_newPurchaserFeePermille",
+                                                                         "type": "uint256"
+                                                                       }
+                                                                     ],
+                                                                     "name": "changePurchaserFeePermille",
+                                                                     "outputs": [],
+                                                                     "stateMutability": "nonpayable",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "_gameContract",
+                                                                         "type": "address"
+                                                                       }
+                                                                     ],
+                                                                     "name": "claimRevenue",
+                                                                     "outputs": [],
+                                                                     "stateMutability": "payable",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "_gameContract",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "_gameOwner",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "_gameRsRatePermille",
+                                                                         "type": "uint256"
+                                                                       }
+                                                                     ],
+                                                                     "name": "createGameContract",
+                                                                     "outputs": [],
+                                                                     "stateMutability": "nonpayable",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "",
+                                                                         "type": "address"
+                                                                       }
+                                                                     ],
+                                                                     "name": "gameContracts",
+                                                                     "outputs": [
+                                                                       {
+                                                                         "internalType": "address payable",
+                                                                         "name": "owner",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "rsRate",
+                                                                         "type": "uint256"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "revenue",
+                                                                         "type": "uint256"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "bool",
+                                                                         "name": "registered",
+                                                                         "type": "bool"
+                                                                       }
+                                                                     ],
+                                                                     "stateMutability": "view",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [],
+                                                                     "name": "iskraIncomeWallet",
+                                                                     "outputs": [
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "",
+                                                                         "type": "address"
+                                                                       }
+                                                                     ],
+                                                                     "stateMutability": "view",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [],
+                                                                     "name": "iskraToken",
+                                                                     "outputs": [
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "",
+                                                                         "type": "address"
+                                                                       }
+                                                                     ],
+                                                                     "stateMutability": "view",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "",
+                                                                         "type": "uint256"
+                                                                       }
+                                                                     ],
+                                                                     "name": "marketCards",
+                                                                     "outputs": [
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "gameContract",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "enum ISKRAMarket.ERCType",
+                                                                         "name": "ercType",
+                                                                         "type": "uint8"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "enum ISKRAMarket.CardType",
+                                                                         "name": "cardType",
+                                                                         "type": "uint8"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "numAvailablePackage",
+                                                                         "type": "uint256"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "numPurchasedPackage",
+                                                                         "type": "uint256"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "price",
+                                                                         "type": "uint256"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "startSaleDate",
+                                                                         "type": "uint256"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "endSaleDate",
+                                                                         "type": "uint256"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "enum ISKRAMarket.PaymentType",
+                                                                         "name": "paymentType",
+                                                                         "type": "uint8"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "bool",
+                                                                         "name": "registered",
+                                                                         "type": "bool"
+                                                                       }
+                                                                     ],
+                                                                     "stateMutability": "view",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [],
+                                                                     "name": "newOwner",
+                                                                     "outputs": [
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "",
+                                                                         "type": "address"
+                                                                       }
+                                                                     ],
+                                                                     "stateMutability": "view",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "uint256[]",
+                                                                         "name": "",
+                                                                         "type": "uint256[]"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "uint256[]",
+                                                                         "name": "",
+                                                                         "type": "uint256[]"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "bytes",
+                                                                         "name": "",
+                                                                         "type": "bytes"
+                                                                       }
+                                                                     ],
+                                                                     "name": "onERC1155BatchReceived",
+                                                                     "outputs": [
+                                                                       {
+                                                                         "internalType": "bytes4",
+                                                                         "name": "",
+                                                                         "type": "bytes4"
+                                                                       }
+                                                                     ],
+                                                                     "stateMutability": "nonpayable",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "",
+                                                                         "type": "uint256"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "",
+                                                                         "type": "uint256"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "bytes",
+                                                                         "name": "",
+                                                                         "type": "bytes"
+                                                                       }
+                                                                     ],
+                                                                     "name": "onERC1155Received",
+                                                                     "outputs": [
+                                                                       {
+                                                                         "internalType": "bytes4",
+                                                                         "name": "",
+                                                                         "type": "bytes4"
+                                                                       }
+                                                                     ],
+                                                                     "stateMutability": "nonpayable",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "",
+                                                                         "type": "address"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "",
+                                                                         "type": "uint256"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "bytes",
+                                                                         "name": "",
+                                                                         "type": "bytes"
+                                                                       }
+                                                                     ],
+                                                                     "name": "onERC721Received",
+                                                                     "outputs": [
+                                                                       {
+                                                                         "internalType": "bytes4",
+                                                                         "name": "",
+                                                                         "type": "bytes4"
+                                                                       }
+                                                                     ],
+                                                                     "stateMutability": "nonpayable",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [],
+                                                                     "name": "owner",
+                                                                     "outputs": [
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "",
+                                                                         "type": "address"
+                                                                       }
+                                                                     ],
+                                                                     "stateMutability": "view",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [],
+                                                                     "name": "purchaserFeePermille",
+                                                                     "outputs": [
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "",
+                                                                         "type": "uint256"
+                                                                       }
+                                                                     ],
+                                                                     "stateMutability": "view",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [
+                                                                       {
+                                                                         "internalType": "bytes4",
+                                                                         "name": "interfaceId",
+                                                                         "type": "bytes4"
+                                                                       }
+                                                                     ],
+                                                                     "name": "supportsInterface",
+                                                                     "outputs": [
+                                                                       {
+                                                                         "internalType": "bool",
+                                                                         "name": "",
+                                                                         "type": "bool"
+                                                                       }
+                                                                     ],
+                                                                     "stateMutability": "view",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "",
+                                                                         "type": "uint256"
+                                                                       }
+                                                                     ],
+                                                                     "name": "tokenIDsForBalance",
+                                                                     "outputs": [
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "",
+                                                                         "type": "uint256"
+                                                                       }
+                                                                     ],
+                                                                     "stateMutability": "view",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "",
+                                                                         "type": "uint256"
+                                                                       }
+                                                                     ],
+                                                                     "name": "tokenOwnerBalances",
+                                                                     "outputs": [
+                                                                       {
+                                                                         "internalType": "uint256",
+                                                                         "name": "balance",
+                                                                         "type": "uint256"
+                                                                       },
+                                                                       {
+                                                                         "internalType": "bool",
+                                                                         "name": "registered",
+                                                                         "type": "bool"
+                                                                       }
+                                                                     ],
+                                                                     "stateMutability": "view",
+                                                                     "type": "function"
+                                                                   },
+                                                                   {
+                                                                     "inputs": [
+                                                                       {
+                                                                         "internalType": "address",
+                                                                         "name": "_newOwner",
+                                                                         "type": "address"
+                                                                       }
+                                                                     ],
+                                                                     "name": "transferOwnership",
+                                                                     "outputs": [],
+                                                                     "stateMutability": "nonpayable",
+                                                                     "type": "function"
+                                                                   }
+                                                                 ]',
+'0x60806040523480156200001157600080fd5b50604051620018753803806200187583398101604081905262000034916200016e565b6001600081905580546001600160a01b031990811633179091556002805490911690556001600160a01b038216620000b35760405162461bcd60e51b815260206004820152601e60248201527f412069736b726120746f6b656e2061646472657373206973207a65726f2e000060448201526064015b60405180910390fd5b6001600160a01b0381166200011a5760405162461bcd60e51b815260206004820152602660248201527f412069736b726120696e636f6d652077616c6c65742061646472657373206973604482015265103d32b9379760d11b6064820152608401620000aa565b600580546001600160a01b039384166001600160a01b031991821617909155600680549290931691161790556019600955620001a6565b80516001600160a01b03811681146200016957600080fd5b919050565b600080604083850312156200018257600080fd5b6200018d8362000151565b91506200019d6020840162000151565b90509250929050565b6116bf80620001b66000396000f3fe60806040526004361061014b5760003560e01c80636ddd474d116100b6578063d4ee1d901161006f578063d4ee1d9014610496578063dd201059146104b6578063f23a6e61146104d6578063f2fde38b14610502578063f654ce5214610522578063fa1520451461056e57600080fd5b80636ddd474d14610387578063721573561461040257806379ba5097146104225780638da5cb5b14610437578063b695694214610457578063bc197c811461046a57600080fd5b80633225935111610108578063322593511461025a57806342e010011461027c578063464f192d1461029c5780635e54a45c146102bc5780635ff37bd2146102d25780636a6dda4d1461036757600080fd5b806301ffc9a714610150578063096ca6301461018557806309e35755146101bd578063150b7a02146101eb5780631548fd9e1461022f5780631cc014f014610245575b600080fd5b34801561015c57600080fd5b5061017061016b3660046110f7565b61058e565b60405190151581526020015b60405180910390f35b34801561019157600080fd5b506006546101a5906001600160a01b031681565b6040516001600160a01b03909116815260200161017c565b3480156101c957600080fd5b506101dd6101d8366004611121565b6105c5565b60405190815260200161017c565b3480156101f757600080fd5b5061021661020636600461120d565b630a85bd0160e11b949350505050565b6040516001600160e01b0319909116815260200161017c565b34801561023b57600080fd5b506101dd6103e881565b34801561025157600080fd5b506101dd601981565b34801561026657600080fd5b5061027a610275366004611275565b6105e6565b005b34801561028857600080fd5b5061027a6102973660046112b1565b610813565b3480156102a857600080fd5b5061027a6102b73660046112db565b610934565b3480156102c857600080fd5b506101dd60095481565b3480156102de57600080fd5b506103516102ed366004611121565b60086020819052600091825260409091208054600182015460028301546007840154948401546009850154600a909501546001600160a01b0385169660ff600160a01b8704811697600160a81b90970481169691939280821691610100909104168a565b60405161017c9a99989796959493929190611337565b34801561037357600080fd5b5061027a6103823660046113b3565b610a51565b34801561039357600080fd5b506103d66103a23660046113b3565b60076020526000908152604090208054600182015460028301546003909301546001600160a01b0390921692909160ff1684565b604080516001600160a01b0390951685526020850193909352918301521515606082015260800161017c565b34801561040e57600080fd5b506005546101a5906001600160a01b031681565b34801561042e57600080fd5b5061027a610b27565b34801561044357600080fd5b506001546101a5906001600160a01b031681565b61027a6104653660046113b3565b610bb0565b34801561047657600080fd5b5061021661048536600461144e565b63bc197c8160e01b95945050505050565b3480156104a257600080fd5b506002546101a5906001600160a01b031681565b3480156104c257600080fd5b5061027a6104d1366004611121565b610ed3565b3480156104e257600080fd5b506102166104f13660046114f8565b63f23a6e6160e01b95945050505050565b34801561050e57600080fd5b5061027a61051d3660046113b3565b610f99565b34801561052e57600080fd5b5061055961053d366004611121565b6003602052600090815260409020805460019091015460ff1682565b6040805192835290151560208301520161017c565b34801561057a57600080fd5b5061027a6105893660046113b3565b610fe5565b60006001600160e01b03198216630271189760e51b14806105bf57506301ffc9a760e01b6001600160e01b03198316145b92915050565b600481815481106105d557600080fd5b600091825260209091200154905081565b6001546001600160a01b031633146105fd57600080fd5b6001600160a01b0383166106635760405162461bcd60e51b815260206004820152602260248201527f5468652067616d6520636f6e74726163742061646472657373206973207a6572604482015261379760f11b60648201526084015b60405180910390fd5b6001600160a01b0382166106b95760405162461bcd60e51b815260206004820152601f60248201527f5468652067616d65206f776e65722061646472657373206973207a65726f2e00604482015260640161065a565b80158015906106ca57506103e88111155b6106e65760405162461bcd60e51b815260040161065a9061155d565b6001600160a01b03831660009081526007602052604090206003015460ff161561075c5760405162461bcd60e51b815260206004820152602160248201527f5468652067616d6520636f6e747261637420616c7265616479206578697374736044820152601760f91b606482015260840161065a565b604080516080810182526001600160a01b0384811680835260208084018681526000858701818152600160608089018281528d891680865260078852948b902099518a546001600160a01b031916991698909817895593519088015551600287015593516003909501805460ff19169515159590951790945584519283528201529182018390527f567a4c8c74a3005b40eefe41c1187288437407b6cac91d3db0e8a203e18229df910160405180910390a1505050565b6001546001600160a01b0316331461082a57600080fd5b6001600160a01b03821660009081526007602052604090206003015460ff1615156001146108b65760405162461bcd60e51b815260206004820152603360248201527f5468652067616d6520636f6e747261637420646f6573206e6f7420657869742060448201527234b7103a34329036b0b935b2ba383630b1b29760691b606482015260840161065a565b6103e88111156108d85760405162461bcd60e51b815260040161065a9061155d565b6001600160a01b038216600081815260076020908152604091829020600101849055815192835282018390527f92888d8b52de71d7d3e301fe6909d34c61a219c83d34dc9321390c0c937b498c91015b60405180910390a15050565b6001546001600160a01b0316331461094b57600080fd5b6001600160a01b03821660009081526007602052604090206003015460ff16151560011461098b5760405162461bcd60e51b815260040161065a906115a5565b6001600160a01b0381166109ed5760405162461bcd60e51b815260206004820152602360248201527f546865206e65772067616d65206f776e65722061646472657373206973207a6560448201526239379760e91b606482015260840161065a565b6001600160a01b0382811660008181526007602090815260409182902080546001600160a01b031916948616948517905581519283528201929092527f253f61e57aebb888daec979db2f90b4a6c43b2b54803d78d68af49ccfc76fed49101610928565b6001546001600160a01b03163314610a6857600080fd5b6001600160a01b038116610abe5760405162461bcd60e51b815260206004820181905260248201527f4e65772069736b726120746f6b656e2061646472657373206973207a65726f2e604482015260640161065a565b600554604080516001600160a01b03928316815291831660208301527ffcb16566dbf42f5e5c000e220dd4cacd946398624182c690390e1ecc949a083a910160405180910390a1600580546001600160a01b0319166001600160a01b0392909216919091179055565b6002546001600160a01b03163314610b3e57600080fd5b600154600254604080516001600160a01b0393841681529290911660208301527f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0910160405180910390a160028054600180546001600160a01b03199081166001600160a01b03841617909155169055565b60026000541415610c035760405162461bcd60e51b815260206004820152601f60248201527f5265656e7472616e637947756172643a207265656e7472616e742063616c6c00604482015260640161065a565b600260009081556001600160a01b038216815260076020526040902060030154819060ff161515600114610c495760405162461bcd60e51b815260040161065a906115a5565b6001546001600160a01b0316331480610c7b57506001600160a01b038181166000908152600760205260409020541633145b610cc75760405162461bcd60e51b815260206004820181905260248201527f6d73672e73656e646572206973206e6f742061626c6520746f20636c61696d2e604482015260640161065a565b6001600160a01b03821660009081526007602052604081206002810154600190910154909190610cfb9083906103e86110bb565b90506000610d09828461160f565b6001600160a01b038616600090815260076020526040812060020180549293508592909190610d3990849061160f565b90915550506005546001600160a01b03868116600090815260076020526040908190205490516323b872dd60e01b81523060048201529082166024820152604481018590529116906323b872dd90606401602060405180830381600087803b158015610da457600080fd5b505af1158015610db8573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610ddc9190611626565b506005546006546040516323b872dd60e01b81523060048201526001600160a01b039182166024820152604481018490529116906323b872dd90606401602060405180830381600087803b158015610e3357600080fd5b505af1158015610e47573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610e6b9190611626565b506001600160a01b0385811660009081526007602090815260409182902054825186815291820185905290921682820152517f9f037742bf8c6dfe0726ba8fe20c1e7e83675e573d5e63c8b6152b631d5630849181900360600190a150506001600055505050565b6001546001600160a01b03163314610eea57600080fd5b8015801590610efb57506103e88111155b610f585760405162461bcd60e51b815260206004820152602860248201527f54686520707572636861736520666565206d757374206265206c65737320746860448201526730b710189818181760c11b606482015260840161065a565b60095460408051918252602082018390527f0ebad1d105ef1499ecf5efcc5bb2bf161821b15f3552c31f398c7cf87b996c74910160405180910390a1600955565b6001546001600160a01b03163314610fb057600080fd5b6001600160a01b038116610fc357600080fd5b600280546001600160a01b0319166001600160a01b0392909216919091179055565b6001546001600160a01b03163314610ffc57600080fd5b6001600160a01b0381166110525760405162461bcd60e51b815260206004820181905260248201527f4e65772069736b726120746f6b656e2061646472657373206973207a65726f2e604482015260640161065a565b600654604080516001600160a01b03928316815291831660208301527f4301406fa5b2f375fe4bbeeb28b051e024c5098bb5159ac5cf82ba511bafb4bd910160405180910390a1600680546001600160a01b0319166001600160a01b0392909216919091179055565b60006110d06110ca85856110d8565b836110eb565b949350505050565b60006110e48284611648565b9392505050565b60006110e48284611667565b60006020828403121561110957600080fd5b81356001600160e01b0319811681146110e457600080fd5b60006020828403121561113357600080fd5b5035919050565b80356001600160a01b038116811461115157600080fd5b919050565b634e487b7160e01b600052604160045260246000fd5b604051601f8201601f1916810167ffffffffffffffff8111828210171561119557611195611156565b604052919050565b600082601f8301126111ae57600080fd5b813567ffffffffffffffff8111156111c8576111c8611156565b6111db601f8201601f191660200161116c565b8181528460208386010111156111f057600080fd5b816020850160208301376000918101602001919091529392505050565b6000806000806080858703121561122357600080fd5b61122c8561113a565b935061123a6020860161113a565b925060408501359150606085013567ffffffffffffffff81111561125d57600080fd5b6112698782880161119d565b91505092959194509250565b60008060006060848603121561128a57600080fd5b6112938461113a565b92506112a16020850161113a565b9150604084013590509250925092565b600080604083850312156112c457600080fd5b6112cd8361113a565b946020939093013593505050565b600080604083850312156112ee57600080fd5b6112f78361113a565b91506113056020840161113a565b90509250929050565b634e487b7160e01b600052602160045260246000fd5b600281106113345761133461130e565b50565b6001600160a01b038b16815261014081016113518b611324565b8a602083015260038a106113675761136761130e565b8960408301528860608301528760808301528660a08301528560c08301528460e083015261139484611324565b836101008301528215156101208301529b9a5050505050505050505050565b6000602082840312156113c557600080fd5b6110e48261113a565b600082601f8301126113df57600080fd5b8135602067ffffffffffffffff8211156113fb576113fb611156565b8160051b61140a82820161116c565b928352848101820192828101908785111561142457600080fd5b83870192505b848310156114435782358252918301919083019061142a565b979650505050505050565b600080600080600060a0868803121561146657600080fd5b61146f8661113a565b945061147d6020870161113a565b9350604086013567ffffffffffffffff8082111561149a57600080fd5b6114a689838a016113ce565b945060608801359150808211156114bc57600080fd5b6114c889838a016113ce565b935060808801359150808211156114de57600080fd5b506114eb8882890161119d565b9150509295509295909350565b600080600080600060a0868803121561151057600080fd5b6115198661113a565b94506115276020870161113a565b93506040860135925060608601359150608086013567ffffffffffffffff81111561155157600080fd5b6114eb8882890161119d565b60208082526028908201527f5468652067616d652072732072617465206d757374206265206c65737320746860408201526730b710189818181760c11b606082015260800190565b60208082526034908201527f5468652067616d6520636f6e747261637420646f6573206e6f742065786973746040820152731034b7103a34329036b0b935b2ba383630b1b29760611b606082015260800190565b634e487b7160e01b600052601160045260246000fd5b600082821015611621576116216115f9565b500390565b60006020828403121561163857600080fd5b815180151581146110e457600080fd5b6000816000190483118215151615611662576116626115f9565b500290565b60008261168457634e487b7160e01b600052601260045260246000fd5b50049056fea26469706673582212209153bddb3fa5b7b6fb1a39aa33d953a4679ba82edc7d606d80acc0a34acb9be864736f6c63430008090033',
 'ISKRA_MKP',
 'mkp');
 
@@ -1597,5 +1477,5 @@ INSERT INTO node( ip_address, node_type, chain_seq) VALUES ('ipaddr4', 'type1', 
 INSERT INTO node( ip_address, node_type, chain_seq) VALUES ('ipaddr5', 'type1', 1);
 
 INSERT INTO deployed_contract(address, deployer_address, name, chain_seq, contract_id)
-VALUES ('0x4843F3470476ae2A3CCC864eA9F5bEC4C6d4A767',
+VALUES ('0x4e6eC987ed8E549A6308F12F0104E565EabA39d7',
         '0x17F802d426291cBBFedFD20Af44C0e794027976C', 'MKP', 2, 3);
