@@ -19,7 +19,7 @@ class DeployedContractServiceImplTest(
         val walletId = 1L
         val deployParams = listOf("0x17F802d426291cBBFedFD20Af44C0e794027976C", 10)
 
-        contractDeployService.deployContract(contractId, appId, chainSeq, walletId, deployParams)
+        contractDeployService.deployContract(contractId, appId, chainSeq, "Contract",walletId, deployParams)
     }
 
 }

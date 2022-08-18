@@ -19,3 +19,14 @@ data class NodeRequestDto(
     val nodeType: String,
     val ipAddress: String,
 ) : Serializable
+
+data class AdminLogRequestDto(
+    val responsibility: String? = null,
+    val platform: String,
+    val category: String,
+    val originValue: String? = null,
+    val updateValue: String? = null,
+    val txHash : String? = null,
+    val status : String? = null,
+) : Serializable
+
