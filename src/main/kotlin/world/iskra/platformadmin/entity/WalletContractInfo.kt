@@ -1,34 +1,37 @@
 package world.iskra.platformadmin.entity
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import org.hibernate.Hibernate
-import world.iskra.platformadmin.dto.WalletDto
 import javax.persistence.*
 
 @Entity
-data class Wallet(
+data class WalletContractInfo(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     var id: Long? = null,
 
-    @Column(nullable = false)
-    val accountAddress: String? = null,
+    @ManyToOne
+    @JoinColumn(name = "wallet_id")
+    var wallet : Wallet,
 
-    var name : String ?= null,
+    @ManyToOne
+    @JoinColumn(name = "deployed_contract_id")
+    var deployedContract : DeployedContract? = null,
 
-    @OneToMany(mappedBy = "wallet")
-    @JsonIgnore
-    var walletContractInfoList: MutableList<WalletContractInfo> = mutableListOf()
-) {
-    fun toDto(): WalletDto {
-        return WalletDto(this.id, this.accountAddress)
+    @Enumerated(EnumType.STRING)
+    var role : Role ? = null,
+)
+{
+    enum class Role{
+        DEPLOYER,
+        OWNER,
+        FEE_RECEIVER,
     }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
-        other as Wallet
+        other as WalletContractInfo
 
         return id != null && id == other.id
     }
@@ -37,7 +40,7 @@ data class Wallet(
 
     @Override
     override fun toString(): String {
-        return this::class.simpleName + "(id = $id , accountAddress = $accountAddress )"
+        return this::class.simpleName + "(id = $id , wallet = $wallet , deployedContract = $deployedContract , role = $role )"
     }
-
 }
+

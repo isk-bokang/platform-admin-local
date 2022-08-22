@@ -1479,3 +1479,27 @@ INSERT INTO node( ip_address, node_type, chain_seq) VALUES ('ipaddr5', 'type1', 
 INSERT INTO deployed_contract(address, deployer_address, name, chain_seq, contract_id)
 VALUES ('0x4e6eC987ed8E549A6308F12F0104E565EabA39d7',
         '0x17F802d426291cBBFedFD20Af44C0e794027976C', 'MKP', 2, 3);
+
+INSERT INTO wallet(
+    account_address)
+VALUES ('0x17F802d426291cBBFedFD20Af44C0e794027976C');
+
+INSERT INTO wallet(
+    account_address)
+VALUES ('0xe32e7D57b63Ce2E0CB2bFB1A4f1A610094EcfE64');
+
+INSERT INTO wallet(
+    account_address)
+VALUES ('NONE');
+
+INSERT INTO public.wallet_contract_info(
+     role, deployed_contract_id, wallet_id)
+VALUES ( 'DEPLOYER', 1, 1);
+
+INSERT INTO public.wallet_contract_info(
+    role, deployed_contract_id, wallet_id)
+VALUES ( 'OWNER', 1, 1);
+
+INSERT INTO public.wallet_contract_info(
+    role, deployed_contract_id, wallet_id)
+VALUES ( 'FEE_RECEIVER', 1, 2);

@@ -2,6 +2,7 @@ package world.iskra.platformadmin.entity.projections
 
 import world.iskra.platformadmin.entity.Chain
 import world.iskra.platformadmin.entity.Contract
+import world.iskra.platformadmin.entity.WalletContractInfo
 
 interface DeployedContractInfo {
     val id: Long?
@@ -36,3 +37,14 @@ interface WalletInfo {
     val id: Long?
     val accountAddress: String?
 }
+
+interface WalletContractInfoProj{
+    val walletId : Long?
+    val accountAddress: String?
+    val name : String?
+    val walletRole : WalletContractInfo.Role?
+    val contractAddress : String?
+
+}
+
+

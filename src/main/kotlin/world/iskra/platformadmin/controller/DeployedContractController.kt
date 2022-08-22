@@ -42,7 +42,7 @@ class DeployedContractController(
 
     @PostMapping("deployed/contracts")
     fun registerDeployContract(@RequestBody contractDeployRequestDto: ContractDeployRequestDto): DeployedContractDto {
-        return DeployedContractDto().from(
+        return DeployedContractDto.from(
             contractDeployService.registerDeployedContract(
                 contractDeployRequestDto.contractId,
                 contractDeployRequestDto.appId,
@@ -56,7 +56,7 @@ class DeployedContractController(
 
     @PostMapping("deploy")
     fun deployContract(@RequestBody contractDeployRequestDto: ContractDeployRequestDto): DeployedContractDto {
-        return DeployedContractDto().from(
+        return DeployedContractDto.from(
             contractDeployService.deployContract(
                 contractDeployRequestDto.contractId,
                 contractDeployRequestDto.appId,
