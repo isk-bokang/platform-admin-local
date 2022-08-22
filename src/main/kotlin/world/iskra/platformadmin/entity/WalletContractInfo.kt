@@ -10,11 +10,11 @@ data class WalletContractInfo(
     @Column(name = "id", nullable = false)
     var id: Long? = null,
 
-    @ManyToOne
+    @ManyToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "wallet_id")
     var wallet : Wallet,
 
-    @ManyToOne
+    @ManyToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "deployed_contract_id")
     var deployedContract : DeployedContract? = null,
 

@@ -19,7 +19,7 @@ class WalletContractInfoService(
         return registerWalletContractInfo(deployedContract, wallet, role)
     }
 
-    fun registerWalletContractInfo(deployedContract: DeployedContract, wallet : Wallet, role: WalletContractInfo.Role): WalletContractInfo {
+    fun registerWalletContractInfo(deployedContract: DeployedContract?, wallet : Wallet, role: WalletContractInfo.Role): WalletContractInfo {
         return walletContractInfoRepository.save(
             WalletContractInfo(wallet = wallet, deployedContract = deployedContract, role = role)
         )
