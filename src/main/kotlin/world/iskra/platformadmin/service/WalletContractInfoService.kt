@@ -32,10 +32,12 @@ class WalletContractInfoService(
     }
 
     fun grantRole(walletId : Long, deployedContractId: Long, role: WalletContractInfo.Role): WalletContractInfo {
-        val delTarget = walletContractInfoRepository.findIdByDeployedContractIdAndRole(role,deployedContractId)
-        if(delTarget != null){
-            println("DELETE : " + delTarget)
-            walletContractInfoRepository.deleteById(delTarget)
+        if(role != WalletContractInfo.Role.NONE) {
+            val delTarget = walletContractInfoRepository.findIdByDeployedContractIdAndRole(role, deployedContractId)
+            if (delTarget != null) {
+                println("DELETE : " + delTarget)
+                walletContractInfoRepository.deleteById(delTarget)
+            }
         }
         return registerWalletContractInfo(deployedContractId, walletId, role)
     }

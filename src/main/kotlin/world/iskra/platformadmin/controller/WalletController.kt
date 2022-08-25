@@ -2,7 +2,9 @@ package world.iskra.platformadmin.controller
 
 import org.springframework.web.bind.annotation.*
 import world.iskra.platformadmin.dto.*
+import world.iskra.platformadmin.entity.Contract
 import world.iskra.platformadmin.entity.Wallet
+import world.iskra.platformadmin.entity.WalletContractInfo
 import world.iskra.platformadmin.service.WalletContractInfoService
 import world.iskra.platformadmin.service.WalletService
 
@@ -42,7 +44,14 @@ class WalletController(
 
     @PostMapping("/wallets/grant")
     fun grantWalletRole(@RequestBody grantRoleGrantRequestDto: WalletRoleGrantRequestDto){
-
+        val curWalletRole: WalletContractInfo.Role? = WalletContractInfo.Role.toEnum(grantRoleGrantRequestDto.role)
+        if(curWalletRole != null )
+        walletContractInfoService.grantRole(
+            grantRoleGrantRequestDto.walletId,
+            grantRoleGrantRequestDto.deployedContractId,
+            curWalletRole
+        )
+        else throw Exception("Role Did not Exist")
     }
 }
 

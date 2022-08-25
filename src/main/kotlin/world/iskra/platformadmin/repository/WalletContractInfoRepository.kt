@@ -25,7 +25,7 @@ interface WalletContractInfoRepository : CrudRepository<WalletContractInfo, Long
 
     @Query(
         """select w.id from WalletContractInfo w
-where w.role = ?1 and w.deployedContract.id = ?2"""
+            where w.role = ?1 and w.deployedContract.id = ?2"""
     )
     fun findIdByDeployedContractIdAndRole(role: WalletContractInfo.Role, id: Long): Long?
 

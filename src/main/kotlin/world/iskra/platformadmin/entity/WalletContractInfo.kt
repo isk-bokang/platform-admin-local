@@ -39,7 +39,20 @@ data class WalletContractInfo(
         NONE,
         DEPLOYER,
         OWNER,
-        FEE_RECEIVER,
+        FEE_RECEIVER;
+        companion object {
+            fun toEnum(target: String?): Role? {
+                var ret: Role? = null
+                if (target != null) {
+                    ret = try {
+                        enumValueOf<Role>(target)
+                    } catch (e: Exception) {
+                        Role.NONE
+                    }
+                }
+                return ret
+            }
+        }
     }
 
     override fun equals(other: Any?): Boolean {
