@@ -17,7 +17,7 @@ class WalletContractInfoServiceTest(
 ) {
     @Test
     fun registerWalletContractInfoTest_001(){
-        val ret = walletContractInfoService.registerWalletContractInfo(1,1, WalletContractInfo.Role.DEPLOYER)
+        val ret = walletContractInfoService.registerWalletContractInfo(1,1, WalletContractInfo.Role.NONE)
 
         println(ret)
     }
@@ -29,5 +29,11 @@ class WalletContractInfoServiceTest(
         val ret = walletContractInfoService.registerWalletContractInfo( null,
         Wallet(accountAddress = "ADDRESS", name = "TESTADDRESS"), WalletContractInfo.Role.OWNER )
         println(ret)
+    }
+
+    @Test
+    fun findTargTest_001(){
+        println(walletContractInfoService.grantRole(2, 1, WalletContractInfo.Role.OWNER))
+
     }
 }

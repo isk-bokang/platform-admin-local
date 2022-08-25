@@ -28,13 +28,27 @@ class WalletService (
         return walletRepository.findAll() as ArrayList
     }
     @Transactional
-    fun renameWallet(walletId : Long, walletName : String): Wallet? {
+    fun updateWallet(walletId : Long, wallet : Wallet): Wallet? {
         val targ = walletRepository.findById(walletId).orElse(Wallet())
         if(targ.id == null);
         else{
-            targ.name = walletName
+            targ.name = wallet.name
+            targ.accountAddress = wallet.accountAddress
         }
-
         return targ
     }
+
+    fun registerWallet(wallet :Wallet): Wallet {
+        return walletRepository.save(wallet)
+    }
+
+    fun deleteWallet(walletId : Long){
+        if(walletContractInfoRepository.existsByWallet_Id(walletId)){
+            // @TODO Need to check relate attribute
+        }
+        else{
+            walletRepository.deleteById(walletId)
+        }
+    }
+
 }

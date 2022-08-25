@@ -12,8 +12,8 @@ data class Wallet(
     @Column(name = "id", nullable = false)
     var id: Long? = null,
 
-    @Column(nullable = false)
-    val accountAddress: String? = null,
+    @Column(nullable = false, unique = true)
+    var accountAddress: String? = null,
 
     var name : String ?= null,
 

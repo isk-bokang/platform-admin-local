@@ -97,7 +97,7 @@ class DeployedContractServiceImpl(
         ) throw Exception()
 
         val caver = Caver(chain.rpcUrl)
-        val deployer: SingleKeyring = caver.wallet.keyring.createFromPrivateKey(wallet.privateKey)
+        val deployer: SingleKeyring = caver.wallet.keyring.createFromPrivateKey("")
 
         caver.wallet.add(deployer)
 

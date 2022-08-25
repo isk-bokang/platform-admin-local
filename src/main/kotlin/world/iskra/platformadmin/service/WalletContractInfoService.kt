@@ -24,4 +24,23 @@ class WalletContractInfoService(
             WalletContractInfo(wallet = wallet, deployedContract = deployedContract, role = role)
         )
     }
+
+    fun getWalletRoles(): List<String> {
+        val ret: MutableList<String> = mutableListOf()
+        enumValues<WalletContractInfo.Role>().joinToString { ret.add(it.name); it.name }
+        return ret
+    }
+
+    fun grantRole(walletId : Long, deployedContractId: Long, role: WalletContractInfo.Role): WalletContractInfo {
+        val delTarget = walletContractInfoRepository.findIdByDeployedContractIdAndRole(role,deployedContractId)
+        if(delTarget != null){
+            println("DELETE : " + delTarget)
+            walletContractInfoRepository.deleteById(delTarget)
+        }
+        return registerWalletContractInfo(deployedContractId, walletId, role)
+    }
+
+    fun findTarg(contractId : Long, role: WalletContractInfo.Role): Long? {
+        return walletContractInfoRepository.findIdByDeployedContractIdAndRole(role,contractId)
+    }
 }

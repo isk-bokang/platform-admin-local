@@ -4,25 +4,39 @@ import org.hibernate.Hibernate
 import javax.persistence.*
 
 @Entity
+@Table(
+    name = WalletContractInfo.TABLE_NAME,
+    uniqueConstraints = [
+        UniqueConstraint(
+        columnNames = ["deployed_contract_id", "role"])
+    ]
+
+)
 data class WalletContractInfo(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     var id: Long? = null,
 
-    @ManyToOne(cascade = [CascadeType.ALL])
+    @ManyToOne()
     @JoinColumn(name = "wallet_id")
     var wallet : Wallet,
 
-    @ManyToOne(cascade = [CascadeType.ALL])
+    @ManyToOne()
     @JoinColumn(name = "deployed_contract_id")
     var deployedContract : DeployedContract? = null,
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     var role : Role ? = null,
 )
 {
+    companion object{
+        const val TABLE_NAME = "wallet_contract_info"
+    }
+
     enum class Role{
+        NONE,
         DEPLOYER,
         OWNER,
         FEE_RECEIVER,

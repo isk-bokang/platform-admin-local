@@ -30,3 +30,8 @@ data class AdminLogRequestDto(
     val status : String? = null,
 ) : Serializable
 
+data class WalletRoleGrantRequestDto(
+    val walletId : Long,
+    val deployedContractId : Long,
+    val role : String
+)
