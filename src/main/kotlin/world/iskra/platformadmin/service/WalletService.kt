@@ -7,6 +7,7 @@ import world.iskra.platformadmin.entity.WalletContractInfo
 import world.iskra.platformadmin.repository.WalletContractInfoRepository
 import world.iskra.platformadmin.repository.WalletRepository
 import javax.transaction.Transactional
+import kotlin.collections.ArrayList
 
 
 @Service
@@ -17,13 +18,13 @@ class WalletService (
     fun getWallet(walletId : Long): Wallet {
         return walletRepository.findById(walletId).orElse(Wallet())
     }
-    fun getWalletRoles(): List<String>{
-        val ret: MutableList<String> = mutableListOf()
-
-        enumValues<WalletContractInfo.Role>().joinToString { ret.add(it.name); it.name }
-        return ret
+    fun getWalletAddress(role: WalletContractInfo.Role,
+                         deployedContractId: Long?): List<String> {
+        return if(deployedContractId != null)
+            walletRepository.findWalletAddressesByWalletContractInfoList_RoleAndWalletContractInfoList_DeployedContract_Id(role, deployedContractId)
+        else
+            walletRepository.findWalletAddressesByWalletContractInfoList_Role(role)
     }
-
     fun getWallets(): List<Wallet> {
         return walletRepository.findAll() as ArrayList
     }

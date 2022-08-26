@@ -2,6 +2,7 @@ package world.iskra.platformadmin.service
 
 import lombok.RequiredArgsConstructor
 import org.springframework.stereotype.Service
+import world.iskra.platformadmin.entity.Contract
 import world.iskra.platformadmin.entity.DeployedContract
 import world.iskra.platformadmin.entity.Wallet
 import world.iskra.platformadmin.entity.WalletContractInfo
@@ -45,4 +46,13 @@ class WalletContractInfoService(
     fun findTarg(contractId : Long, role: WalletContractInfo.Role): Long? {
         return walletContractInfoRepository.findIdByDeployedContractIdAndRole(role,contractId)
     }
+
+    fun getWalletContractInfos(
+        chainSeq : Long,
+        contractType : Contract.ContractType,
+        role : WalletContractInfo.Role
+    ): List<WalletContractInfo> {
+        return walletContractInfoRepository.findByChainSeqAndContractTypeAndRole(chainSeq,contractType,role)
+    }
+
 }

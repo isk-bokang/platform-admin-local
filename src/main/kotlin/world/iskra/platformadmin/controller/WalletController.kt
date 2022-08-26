@@ -7,6 +7,7 @@ import world.iskra.platformadmin.entity.Wallet
 import world.iskra.platformadmin.entity.WalletContractInfo
 import world.iskra.platformadmin.service.WalletContractInfoService
 import world.iskra.platformadmin.service.WalletService
+import java.util.*
 
 @RestController
 class WalletController(
@@ -14,26 +15,37 @@ class WalletController(
     private val walletContractInfoService: WalletContractInfoService
 ) {
     @GetMapping("/wallets")
-    fun getWalletContractInfos(): List<WalletContractInfoDto> {
+    fun getWallets(): List<WalletContractInfoDto> {
         val ret = walletService.getWallets().map { it ->
-            WalletContractInfoDto( PlatformWalletDto.from(it), it.walletContractInfoList.map { jt->
+            WalletContractInfoDto(PlatformWalletDto.from(it), it.walletContractInfoList.map { jt ->
                 PlatformContractInfoDto.from(jt)
             } as MutableList<PlatformContractInfoDto>)
         }
         return ret
     }
+
+    @GetMapping("/wallets/{role}/address")
+    fun getWalletByRole(
+        @PathVariable role: String,
+        @RequestParam deployedContractId: Long?,
+    ): List<String> {
+        val curRole : WalletContractInfo.Role= WalletContractInfo.Role.toEnum(role.uppercase(Locale.getDefault()))
+
+        return walletService.getWalletAddress(curRole, deployedContractId)
+    }
+
     @PostMapping("/wallets")
-    fun registerWallet( @RequestBody wallet : Wallet){
+    fun registerWallet(@RequestBody wallet: Wallet) {
         return registerWallet(wallet)
     }
 
     @PatchMapping("/wallets/{:walletId}")
-    fun updateWallet(@PathVariable walletId: String, @RequestBody wallet: Wallet){
-        walletService.updateWallet(walletId.toLong(), wallet)
+    fun updateWallet(@PathVariable walletId: Long, @RequestBody wallet: Wallet) {
+        walletService.updateWallet(walletId, wallet)
     }
 
     @DeleteMapping("/wallets/{:walletId}")
-    fun deleteWallet(@PathVariable walletId : String){
+    fun deleteWallet(@PathVariable walletId: String) {
         walletService.deleteWallet(walletId = walletId.toLong())
     }
 
@@ -43,15 +55,13 @@ class WalletController(
     }
 
     @PostMapping("/wallets/grant")
-    fun grantWalletRole(@RequestBody grantRoleGrantRequestDto: WalletRoleGrantRequestDto){
-        val curWalletRole: WalletContractInfo.Role? = WalletContractInfo.Role.toEnum(grantRoleGrantRequestDto.role)
-        if(curWalletRole != null )
-        walletContractInfoService.grantRole(
-            grantRoleGrantRequestDto.walletId,
-            grantRoleGrantRequestDto.deployedContractId,
-            curWalletRole
-        )
-        else throw Exception("Role Did not Exist")
+    fun grantWalletRole(@RequestBody grantRoleGrantRequestDto: WalletRoleGrantRequestDto) {
+        val curWalletRole: WalletContractInfo.Role = WalletContractInfo.Role.toEnum(grantRoleGrantRequestDto.role)
+            walletContractInfoService.grantRole(
+                grantRoleGrantRequestDto.walletId,
+                grantRoleGrantRequestDto.deployedContractId,
+                curWalletRole
+            )
     }
 }
 

@@ -41,13 +41,14 @@ data class WalletContractInfo(
         OWNER,
         FEE_RECEIVER;
         companion object {
-            fun toEnum(target: String?): Role? {
-                var ret: Role? = null
+            fun toEnum(target: String?): Role {
+                var ret: Role = NONE
                 if (target != null) {
+
                     ret = try {
                         enumValueOf<Role>(target)
                     } catch (e: Exception) {
-                        Role.NONE
+                        NONE
                     }
                 }
                 return ret
