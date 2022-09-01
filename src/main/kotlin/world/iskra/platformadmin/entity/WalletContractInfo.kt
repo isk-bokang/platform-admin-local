@@ -35,6 +35,7 @@ data class WalletContractInfo(
         const val TABLE_NAME = "wallet_contract_info"
     }
 
+    //@TODO Separate into Table (per Contract Type)
     enum class Role{
         NONE,
         DEPLOYER,

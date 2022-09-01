@@ -35,6 +35,7 @@ data class Contract(
         return ContractDto(id = this.id, name = this.name, contractType = this.contractType)
     }
 
+    //@TODO Separate into Table (relate to Wallet Role)
     enum class ContractType {
         NONE,
         GAME_TOKEN,
