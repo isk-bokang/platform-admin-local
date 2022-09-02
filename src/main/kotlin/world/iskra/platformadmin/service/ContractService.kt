@@ -20,20 +20,8 @@ class ContractService(
         return contractRepository.findAllWrappedProjection() as ArrayList<ContractInfo>
     }
 
-    fun getContracts(contractType: String?, platformName : String?, contractName: String?): List<ContractInfo> {
-        return getContracts().filter {
-            if (contractType == null) true
-            else {
-                false
-            }
-        }.filter {
-            if (contractName == null) true
-            else if (it.name == null) false
-            else {
-                it.name!!.uppercase(Locale.getDefault()).contains(contractName.uppercase(Locale.getDefault()))
-            }
-        }
-    }
+    fun getContracts(contractTypeName: String?, platformName : String?, contractName: String?)
+    : List<ContractInfo> = contractRepository.getContracts(contractName ?: "", platformName ?: "", contractTypeName ?: "")
 
     fun getContract(contractId: Long): Contract {
         val ret = contractRepository.findById(contractId).orElse(Contract())
