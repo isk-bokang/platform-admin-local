@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor
 import org.springframework.stereotype.Service
 import world.iskra.platformadmin.entity.Chain
 import world.iskra.platformadmin.entity.Contract
+import world.iskra.platformadmin.entity.ContractType
 import world.iskra.platformadmin.entity.DeployedContract
 import world.iskra.platformadmin.entity.GameApp
 import world.iskra.platformadmin.entity.projections.DeployedContractInfo
@@ -17,7 +18,7 @@ import world.iskra.platformadmin.repository.DeployedContractRepository
 @RequiredArgsConstructor
 class DeployedContractServiceImpl(
     private val deployedContractRepository: DeployedContractRepository,
-    private val contractService: IContractService,
+    private val contractService: ContractService,
     private val chainService: IChainService,
 
     private val walletService: WalletService,
@@ -114,7 +115,7 @@ class DeployedContractServiceImpl(
         chainSeq: Long?,
         chainId : Long?,
         contractId: Long?,
-        contractType: Contract.ContractType?,
+        contractType: String?,
         chainType: Chain.ChainType?
     ): List<DeployedContractInfo> {
         return getDeployedContracts().asSequence().filter {
@@ -131,7 +132,7 @@ class DeployedContractServiceImpl(
             else appId == it.gameApp?.id
         }.filter {
             if (contractType == null) true
-            else contractType == it.contract?.contractType
+            else contractType == it.contract?.contractType?.name
         }.filter {
             if (chainType == null) true
             else chainType == it.chain?.chainType

@@ -47,12 +47,6 @@ class WalletContractInfoService(
         return walletContractInfoRepository.findIdByDeployedContractIdAndRole(role,contractId)
     }
 
-    fun getWalletContractInfos(
-        chainSeq : Long,
-        contractType : Contract.ContractType,
-        role : WalletContractInfo.Role
-    ): List<WalletContractInfo> {
-        return walletContractInfoRepository.findByChainSeqAndContractTypeAndRole(chainSeq,contractType,role)
-    }
+
 
 }

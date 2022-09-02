@@ -12,19 +12,19 @@ import kotlin.collections.ArrayList
 
 @Service
 @RequiredArgsConstructor
-class ContractServiceImpl(
+class ContractService(
     private val contractRepository: ContractRepository
-) : IContractService {
+)  {
 
-    override fun getContracts(): ArrayList<ContractInfo> {
+    fun getContracts(): ArrayList<ContractInfo> {
         return contractRepository.findAllWrappedProjection() as ArrayList<ContractInfo>
     }
 
-    override fun getContracts(contractType: Contract.ContractType?, contractName: String?): List<ContractInfo> {
+    fun getContracts(contractType: String?, platformName : String?, contractName: String?): List<ContractInfo> {
         return getContracts().filter {
             if (contractType == null) true
             else {
-                contractType == it.contractType
+                false
             }
         }.filter {
             if (contractName == null) true
@@ -35,17 +35,17 @@ class ContractServiceImpl(
         }
     }
 
-    override fun getContract(contractId: Long): Contract {
+    fun getContract(contractId: Long): Contract {
         val ret = contractRepository.findById(contractId).orElse(Contract())
 
         return ret
     }
 
-    override fun registerContract(contract: Contract): Contract {
+    fun registerContract(contract: Contract): Contract {
         return contractRepository.save(contract)
     }
 
-    override fun getMethodParams(contract: Contract, methodName: String?): List<ContractMethodParamResponseDto> {
+    fun getMethodParams(contract: Contract, methodName: String?): List<ContractMethodParamResponseDto> {
         val ret: MutableList<ContractMethodParamResponseDto> =
             emptyList<ContractMethodParamResponseDto>().toMutableList()
 
@@ -80,10 +80,4 @@ class ContractServiceImpl(
         return ret
     }
 
-    override fun getContractTypes(): List<String> {
-        val ret: MutableList<String> = mutableListOf()
-
-        enumValues<Contract.ContractType>().joinToString { ret.add(it.name); it.name }
-        return ret
-    }
 }

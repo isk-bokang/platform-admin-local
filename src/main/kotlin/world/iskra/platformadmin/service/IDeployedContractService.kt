@@ -14,7 +14,7 @@ interface IDeployedContractService {
         chainSeq: Long?,
         chainId: Long?,
         contractId: Long?,
-        contractType: Contract.ContractType?,
+        contractType: String?,
         chainType: Chain.ChainType?
     ): List<DeployedContractInfo>
 

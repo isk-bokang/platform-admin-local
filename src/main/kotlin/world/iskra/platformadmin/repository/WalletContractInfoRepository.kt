@@ -37,7 +37,7 @@ where w.deployedContract.chain.seq = ?1 and w.deployedContract.contract.contract
     )
     fun findByChainSeqAndContractTypeAndRole(
         seq: Long,
-        contractType: Contract.ContractType,
+        contractType: String,
         role: WalletContractInfo.Role
     ): List<WalletContractInfo>
 

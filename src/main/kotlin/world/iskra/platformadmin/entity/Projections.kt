@@ -2,6 +2,7 @@ package world.iskra.platformadmin.entity.projections
 
 import world.iskra.platformadmin.entity.Chain
 import world.iskra.platformadmin.entity.Contract
+import world.iskra.platformadmin.entity.ContractType
 import world.iskra.platformadmin.entity.WalletContractInfo
 
 interface DeployedContractInfo {
@@ -22,7 +23,7 @@ interface GameAppInfo {
 interface ContractInfo {
     val id: Long?
     val name: String?
-    val contractType: Contract.ContractType?
+    val contractType: ContractType?
 }
 
 interface ChainInfo {

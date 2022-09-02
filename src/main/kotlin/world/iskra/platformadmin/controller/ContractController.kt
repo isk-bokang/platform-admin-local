@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController
 import world.iskra.platformadmin.dto.ContractMethodParamResponseDto
 import world.iskra.platformadmin.entity.Contract
 import world.iskra.platformadmin.entity.projections.ContractInfo
-import world.iskra.platformadmin.service.IContractService
+import world.iskra.platformadmin.service.ContractService
 
 @RestController
 @RequiredArgsConstructor
 class ContractController(
-    private val contractService: IContractService
+    private val contractService: ContractService
 ) {
     @GetMapping("/contracts/{contractId}")
     fun getContract(@PathVariable contractId: String): Contract {
@@ -41,16 +41,13 @@ class ContractController(
         return contractService.getMethodParams(contract, methodName)
     }
 
-    @GetMapping("/contracts/types")
-    fun getContractTypes(): List<String> {
-        return contractService.getContractTypes()
-    }
 
     @GetMapping("/contracts")
     fun getContracts(@RequestParam(name = "contractType") contractType : String?,
+                     @RequestParam(name = "platformName") platformName : String?,
                      @RequestParam(name = "contractName") contractName : String?, ): List<ContractInfo> {
-        val curContractType: Contract.ContractType? = Contract.ContractType.toEnum(contractType)
 
-        return contractService.getContracts(curContractType, contractName)
+
+        return contractService.getContracts(contractType, platformName, contractName)
     }
 }
