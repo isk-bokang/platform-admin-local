@@ -43,7 +43,7 @@ data class DeployedContractDto(
 data class ContractDto(
     var id: Long? = null,
     var name: String = "",
-    var contractType: String? = null
+    var contractType: ContractType? = null
 ) :
     Serializable
 

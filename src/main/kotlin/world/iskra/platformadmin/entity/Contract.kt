@@ -32,7 +32,7 @@ data class Contract(
 
     ) {
     fun toDto(): ContractDto {
-        return ContractDto(id = this.id, name = this.name, contractType = this.contractType?.name)
+        return ContractDto(id = this.id, name = this.name, contractType = this.contractType)
     }
 
     //@TODO Separate into Table (relate to Wallet Role)
