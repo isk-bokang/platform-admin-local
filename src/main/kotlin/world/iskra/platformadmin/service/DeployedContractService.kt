@@ -7,28 +7,30 @@ import lombok.RequiredArgsConstructor
 import org.springframework.stereotype.Service
 import world.iskra.platformadmin.entity.Chain
 import world.iskra.platformadmin.entity.Contract
-import world.iskra.platformadmin.entity.ContractType
 import world.iskra.platformadmin.entity.DeployedContract
 import world.iskra.platformadmin.entity.GameApp
+import world.iskra.platformadmin.entity.projections.ContractRoleInfo
 import world.iskra.platformadmin.entity.projections.DeployedContractInfo
+import world.iskra.platformadmin.repository.ContractRoleRepository
 import world.iskra.platformadmin.repository.DeployedContractRepository
 
 
 @Service
 @RequiredArgsConstructor
-class DeployedContractServiceImpl(
+class DeployedContractService(
     private val deployedContractRepository: DeployedContractRepository,
     private val contractService: ContractService,
     private val chainService: IChainService,
 
     private val walletService: WalletService,
     private val gameAppService: GameAppService,
-) : IDeployedContractService {
+    private val contractRoleRepository: ContractRoleRepository
+)  {
 
     private val mapper : ObjectMapper by lazy {
         ObjectMapper()
     }
-    override fun registerDeployedContract(
+    fun registerDeployedContract(
         contractId: Long?,
         appId: Long?,
         chainSeq: Long?,
@@ -43,7 +45,7 @@ class DeployedContractServiceImpl(
         return registerDeployedContract(contract, app, chain, contractName, deployerAddress, contractAddress)
     }
 
-    override fun registerDeployedContract(
+    fun registerDeployedContract(
         contract: Contract?,
         app: GameApp?,
         chain: Chain?,
@@ -70,15 +72,15 @@ class DeployedContractServiceImpl(
         return deployedContractRepository.save(deployedContract)
     }
 
-    override fun getDeployedContracts(): List<DeployedContractInfo> {
+    fun getDeployedContracts(): List<DeployedContractInfo> {
         return deployedContractRepository.findAllWrappedProjection()
     }
 
-    override fun getDeployedContract(contractDeployId: Long): DeployedContractInfo? {
+    fun getDeployedContract(contractDeployId: Long): DeployedContractInfo? {
         return deployedContractRepository.findByIdWrappedProjection(contractDeployId).orElse(null)
     }
 
-    override fun deployContract(
+    fun deployContract(
         contractId: Long?,
         appId: Long?,
         chainSeq: Long?,
@@ -110,7 +112,7 @@ class DeployedContractServiceImpl(
         return registerDeployedContract(contract, app, chain, contractName, wallet.accountAddress, contractAddress)
     }
 
-    override fun getDeployedContracts(
+    fun getDeployedContracts(
         appId: Long?,
         chainSeq: Long?,
         chainId : Long?,
@@ -138,4 +140,9 @@ class DeployedContractServiceImpl(
             else chainType == it.chain?.chainType
         }.toList()
     }
+
+    fun getContractRoleByDeployedContract(
+        deployedContractId : Long
+    ) : List<ContractRoleInfo> = contractRoleRepository.getContractRoleByDeployedContractId(deployedContractId)
+
 }

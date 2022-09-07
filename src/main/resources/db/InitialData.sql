@@ -1210,16 +1210,15 @@ INSERT INTO wallet(
     account_address)
 VALUES ('NONE');
 
-INSERT INTO public.wallet_contract_info(
-     role, deployed_contract_id, wallet_id)
-VALUES ( 'DEPLOYER', 1, 1);
+INSERT INTO contract_role(
+    name, on_chain_name, contract_id)
+VALUES ('ISKRA_INCOME_WALLET', 'iskraIncomeWallet', 2);
 
-INSERT INTO public.wallet_contract_info(
-    role, deployed_contract_id, wallet_id)
-VALUES ( 'OWNER', 1, 1);
+INSERT INTO contract_role(
+    name, on_chain_name, contract_id)
+VALUES ('OWNER', 'owner', 2);
 
-INSERT INTO public.wallet_contract_info(
-    role, deployed_contract_id, wallet_id)
-VALUES ( 'FEE_RECEIVER', 1, 2);
-
+INSERT INTO contract_role(
+    name, on_chain_name, contract_id)
+VALUES ('NEW_OWNER', 'new_owner', 2);
 

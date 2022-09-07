@@ -1,21 +1,28 @@
 package world.iskra.platformadmin.controller
 
+import lombok.RequiredArgsConstructor
 import org.springframework.web.bind.annotation.*
 import world.iskra.platformadmin.dto.ContractDeployRequestDto
 import world.iskra.platformadmin.dto.DeployedContractDto
 import world.iskra.platformadmin.entity.Chain
-import world.iskra.platformadmin.entity.Contract
+import world.iskra.platformadmin.entity.projections.ContractRoleInfo
 import world.iskra.platformadmin.entity.projections.DeployedContractInfo
-import world.iskra.platformadmin.service.IDeployedContractService
+import world.iskra.platformadmin.service.DeployedContractService
 
 @RestController
+@RequiredArgsConstructor
 class DeployedContractController(
-    private val contractDeployService: IDeployedContractService
+    private val contractDeployService: DeployedContractService
 ) {
     @GetMapping("deployed/contracts/{deployedContractId}")
     fun getDeployedContract(@PathVariable deployedContractId: String): DeployedContractInfo? {
         return contractDeployService.getDeployedContract(deployedContractId.toLong())
     }
+
+    @GetMapping("deployed/contracts/{deployedContractId}/roles")
+    fun getContractRolesDeployedContract(@PathVariable deployedContractId: Long)
+    : List<ContractRoleInfo> = contractDeployService.getContractRoleByDeployedContract(deployedContractId)
+
 
     @GetMapping("deployed/contracts")
     fun getDeployedContracts(

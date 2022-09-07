@@ -33,7 +33,7 @@ data class AdminLogRequestDto(
 data class WalletRoleGrantRequestDto(
     val walletId : Long,
     val deployedContractId : Long,
-    val role : String
+    val roleId : Long
 )
 
 data class ContractRoleRegisterRequestDto(

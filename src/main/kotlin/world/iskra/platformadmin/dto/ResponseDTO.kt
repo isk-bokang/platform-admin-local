@@ -73,14 +73,14 @@ data class PlatformWalletDto(
 
 data class PlatformContractInfoDto(
     val roleId : Long? = null,
-    val role : WalletContractInfo.Role? = null,
+    val contractRoleDto : ContractRoleDto? = null,
     val deployedContractDto: DeployedContractDto? = null
 ): Serializable{
     companion object{
         fun from(walletContractInfo: WalletContractInfo): PlatformContractInfoDto {
             return PlatformContractInfoDto(
                 walletContractInfo.id,
-                walletContractInfo.role,
+                walletContractInfo.contractRole?.toDto(),
                 walletContractInfo.deployedContract?.let { DeployedContractDto.from(it) }
             )
         }

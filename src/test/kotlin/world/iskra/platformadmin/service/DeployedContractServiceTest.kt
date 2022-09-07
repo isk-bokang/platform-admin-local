@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest
 @SpringBootTest
 class DeployedContractServiceTest(
     @Autowired
-    private val contractDeployService : IDeployedContractService
+    private val contractDeployService : DeployedContractService
 ) {
 
     @Test
