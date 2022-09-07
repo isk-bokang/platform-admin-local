@@ -48,4 +48,9 @@ interface WalletContractInfoProj{
 
 }
 
-
+interface ContractRoleInfo{
+    val id : Long?
+    val name : String?
+    val onChainName : String?
+    val contractId : Long?
+}

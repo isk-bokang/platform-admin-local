@@ -92,3 +92,9 @@ data class WalletContractInfoDto(
     val platformContractInfoDtos: MutableList<PlatformContractInfoDto> = mutableListOf()
 ): Serializable
 
+data class ContractRoleDto(
+    val id : Long,
+    val name : String,
+    val onChainName : String,
+    val contractId : Long
+): Serializable

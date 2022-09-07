@@ -35,3 +35,8 @@ data class WalletRoleGrantRequestDto(
     val deployedContractId : Long,
     val role : String
 )
+
+data class ContractRoleRegisterRequestDto(
+    val onChainName : String,
+    val name : String
+)
