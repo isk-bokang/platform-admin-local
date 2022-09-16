@@ -11,4 +11,14 @@ interface ContractRepository : CrudRepository<Contract, Long> {
     fun findAllWrappedProjection() : List<ContractInfo>
 
 
+    @Query(
+        """select c from Contract c
+where upper(c.contractType.name) like upper(concat('%', ?1, '%')) and upper(c.contractType.platformName) like upper(concat('%', ?2, '%')) and upper(c.name) like upper(concat('%', ?3, '%'))"""
+    )
+    fun getContracts(
+        name: String?,
+        platformName: String?,
+        name1: String?
+    ): List<ContractInfo>
+
 }

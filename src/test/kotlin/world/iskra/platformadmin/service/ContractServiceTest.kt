@@ -13,7 +13,8 @@ class ContractServiceTest(
 ) {
     @Test
     fun registerContract001(){
-        val contract = Contract(name = "registerContractTest001", abi = listOf(mapOf(Pair("abi", "abi"))), bytecode = "0x001", contractType = Contract.ContractType.GAME_NFT)
+
+        val contract = Contract(name = "registerContractTest001", abi = listOf(mapOf(Pair("abi", "abi"))), bytecode = "0x001")
         val ret = contractService.registerContract(contract)
         Assertions.assertNotNull(ret.id)
     }

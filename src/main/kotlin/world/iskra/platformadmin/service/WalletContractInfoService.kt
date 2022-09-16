@@ -2,7 +2,7 @@ package world.iskra.platformadmin.service
 
 import lombok.RequiredArgsConstructor
 import org.springframework.stereotype.Service
-import world.iskra.platformadmin.entity.Contract
+import world.iskra.platformadmin.entity.ContractRole
 import world.iskra.platformadmin.entity.DeployedContract
 import world.iskra.platformadmin.entity.Wallet
 import world.iskra.platformadmin.entity.WalletContractInfo
@@ -13,46 +13,42 @@ import world.iskra.platformadmin.repository.WalletContractInfoRepository
 class WalletContractInfoService(
     private val walletContractInfoRepository: WalletContractInfoRepository,
 
-) {
-    fun registerWalletContractInfo(deployedContractId: Long, walletId : Long, role : WalletContractInfo.Role): WalletContractInfo {
+    ) {
+    fun registerWalletContractInfo(
+        deployedContractId: Long,
+        walletId: Long,
+        roleId: Long
+    ): WalletContractInfo {
         val deployedContract = DeployedContract(id = deployedContractId)
-        val wallet= Wallet(id = walletId)
-        return registerWalletContractInfo(deployedContract, wallet, role)
+        val wallet = Wallet(id = walletId)
+        val contractRole = ContractRole(id = roleId)
+        return registerWalletContractInfo(deployedContract, wallet, contractRole)
     }
 
-    fun registerWalletContractInfo(deployedContract: DeployedContract?, wallet : Wallet, role: WalletContractInfo.Role): WalletContractInfo {
+    fun registerWalletContractInfo(
+        deployedContract: DeployedContract?,
+        wallet: Wallet,
+        contractRole: ContractRole
+    ): WalletContractInfo {
         return walletContractInfoRepository.save(
-            WalletContractInfo(wallet = wallet, deployedContract = deployedContract, role = role)
+            WalletContractInfo(wallet = wallet, deployedContract = deployedContract, contractRole = contractRole)
         )
     }
 
-    fun getWalletRoles(): List<String> {
-        val ret: MutableList<String> = mutableListOf()
-        enumValues<WalletContractInfo.Role>().joinToString { ret.add(it.name); it.name }
-        return ret
-    }
 
-    fun grantRole(walletId : Long, deployedContractId: Long, role: WalletContractInfo.Role): WalletContractInfo {
-        if(role != WalletContractInfo.Role.NONE) {
-            val delTarget = walletContractInfoRepository.findIdByDeployedContractIdAndRole(role, deployedContractId)
-            if (delTarget != null) {
-                println("DELETE : " + delTarget)
-                walletContractInfoRepository.deleteById(delTarget)
-            }
+    fun grantRole(walletId: Long, deployedContractId: Long, roleId: Long): WalletContractInfo {
+        val delTarget = walletContractInfoRepository.findIdByDeployedContractIdAndRole(roleId, deployedContractId)
+        if (delTarget != null) {
+            println("DELETE : " + delTarget)
+            walletContractInfoRepository.deleteById(delTarget)
         }
-        return registerWalletContractInfo(deployedContractId, walletId, role)
+
+        return registerWalletContractInfo(deployedContractId, walletId, roleId)
     }
 
-    fun findTarg(contractId : Long, role: WalletContractInfo.Role): Long? {
-        return walletContractInfoRepository.findIdByDeployedContractIdAndRole(role,contractId)
+    fun findTarg(contractId: Long, roleId: Long): Long? {
+        return walletContractInfoRepository.findIdByDeployedContractIdAndRole(roleId, contractId)
     }
 
-    fun getWalletContractInfos(
-        chainSeq : Long,
-        contractType : Contract.ContractType,
-        role : WalletContractInfo.Role
-    ): List<WalletContractInfo> {
-        return walletContractInfoRepository.findByChainSeqAndContractTypeAndRole(chainSeq,contractType,role)
-    }
 
 }

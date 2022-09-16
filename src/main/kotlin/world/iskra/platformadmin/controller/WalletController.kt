@@ -24,19 +24,17 @@ class WalletController(
         return ret
     }
 
-    @GetMapping("/wallets/{role}/address")
+    @GetMapping("/wallets/{roleId}/address")
     fun getWalletByRole(
-        @PathVariable role: String,
+        @PathVariable roleId: Long,
         @RequestParam deployedContractId: Long?,
     ): List<String> {
-        val curRole : WalletContractInfo.Role= WalletContractInfo.Role.toEnum(role.uppercase(Locale.getDefault()))
-
-        return walletService.getWalletAddress(curRole, deployedContractId)
+        return walletService.getWalletAddress(roleId, deployedContractId)
     }
 
     @PostMapping("/wallets")
-    fun registerWallet(@RequestBody wallet: Wallet) {
-        return registerWallet(wallet)
+    fun registerWallet(@RequestBody wallet: Wallet): Wallet {
+        return walletService.registerWallet(wallet)
     }
 
     @PatchMapping("/wallets/{:walletId}")
@@ -49,18 +47,13 @@ class WalletController(
         walletService.deleteWallet(walletId = walletId.toLong())
     }
 
-    @GetMapping("/wallets/types")
-    fun getWalletTypes(): List<String> {
-        return walletContractInfoService.getWalletRoles()
-    }
-
     @PostMapping("/wallets/grant")
     fun grantWalletRole(@RequestBody grantRoleGrantRequestDto: WalletRoleGrantRequestDto) {
-        val curWalletRole: WalletContractInfo.Role = WalletContractInfo.Role.toEnum(grantRoleGrantRequestDto.role)
+
             walletContractInfoService.grantRole(
                 grantRoleGrantRequestDto.walletId,
                 grantRoleGrantRequestDto.deployedContractId,
-                curWalletRole
+                grantRoleGrantRequestDto.roleId
             )
     }
 }

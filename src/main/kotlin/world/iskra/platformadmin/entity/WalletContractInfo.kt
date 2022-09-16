@@ -8,7 +8,7 @@ import javax.persistence.*
     name = WalletContractInfo.TABLE_NAME,
     uniqueConstraints = [
         UniqueConstraint(
-        columnNames = ["deployed_contract_id", "role"])
+        columnNames = ["deployed_contract_id", "contract_role_id"])
     ]
 
 )
@@ -26,36 +26,16 @@ data class WalletContractInfo(
     @JoinColumn(name = "deployed_contract_id")
     var deployedContract : DeployedContract? = null,
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    var role : Role ? = null,
+    @ManyToOne()
+    @JoinColumn(name = "contract_role_id")
+    var contractRole : ContractRole ? = null,
 )
 {
     companion object{
         const val TABLE_NAME = "wallet_contract_info"
     }
 
-    //@TODO Separate into Table (per Contract Type)
-    enum class Role{
-        NONE,
-        DEPLOYER,
-        OWNER,
-        FEE_RECEIVER;
-        companion object {
-            fun toEnum(target: String?): Role {
-                var ret: Role = NONE
-                if (target != null) {
 
-                    ret = try {
-                        enumValueOf<Role>(target)
-                    } catch (e: Exception) {
-                        NONE
-                    }
-                }
-                return ret
-            }
-        }
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -69,7 +49,7 @@ data class WalletContractInfo(
 
     @Override
     override fun toString(): String {
-        return this::class.simpleName + "(id = $id , wallet = $wallet , deployedContract = $deployedContract , role = $role )"
+        return this::class.simpleName + "(id = $id , wallet = $wallet , deployedContract = $deployedContract , role = $contractRole )"
     }
 }
 
