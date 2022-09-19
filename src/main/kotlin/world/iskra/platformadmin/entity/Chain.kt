@@ -24,8 +24,9 @@ data class Chain(
 ){
     enum class ChainType{
         MAIN_CHAIN,
+        TEST_CHAIN,
         GAME_CHAIN,
-        TEST_CHAIN;
+        TEST_GAME_CHAIN;
         companion object {
             fun toEnum(target: String?) : ChainType? {
                 var ret : ChainType? = null
